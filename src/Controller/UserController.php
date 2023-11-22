@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserController
+class UserController extends AbstractController
 {
     #[Route('/user')]
     public function action(): Response
     {
-        return new Response('User Controller');
+        return $this->render('user.html.twig', [
+            'title' => 'User Controller',
+        ]);
     }
 }

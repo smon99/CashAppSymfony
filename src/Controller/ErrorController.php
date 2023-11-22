@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ErrorController
+class ErrorController extends AbstractController
 {
     #[Route('/error')]
     public function action(): Response
     {
-        return new Response('Error Controller');
+        return $this->render('error.html.twig', [
+            'title' => 'Error Controller',
+        ]);
     }
 }

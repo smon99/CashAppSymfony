@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FeatureController
+class FeatureController extends AbstractController
 {
-    #[Route('/feature/{slug}')]
-    public function action(string $slug = null): Response
+    #[Route('/feature')]
+    public function action(): Response
     {
-        return new Response('Feature Controller ' . $slug);
+        return $this->render('feature.html.twig', [
+            'title' => 'Feature Controller',
+        ]);
     }
 }
