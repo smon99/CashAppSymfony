@@ -7,3 +7,6 @@ userLog_controllers:
 userReg_controllers:
   resource: '../src/Component/UserReg/Communication/Controller'
   type: annotation
+global_controllers:
+  resource: '../src/Global/Communication/Controller'
+  type: annotation

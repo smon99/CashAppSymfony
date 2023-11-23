@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Global\Communication\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +12,7 @@ class ErrorController extends AbstractController
     public function action(): Response
     {
         return $this->render('error.html.twig', [
-            'title' => 'Unknown URL',
+            'title' => 'Error Controller',
         ]);
     }
 }
