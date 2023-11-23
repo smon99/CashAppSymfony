@@ -4,3 +4,6 @@ account_controllers:
 userLog_controllers:
   resource: '../src/Component/UserLog/Communication/Controller'
   type: annotation
+userReg_controllers:
+  resource: '../src/Component/UserReg/Communication/Controller'
+  type: annotation

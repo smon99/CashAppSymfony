@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>{{ title }}</h1>
+
+    {% if error is defined %} {{ error }} {% endif %} <br>
+
+    <form action='/registration' method='POST'>
+        Name: <input type='text' name='username' value='{{ tempUserName }}'><br>
+        Email: <input type='text' name='email' value='{{ tempMail }}'><br>
+        Passwort: <input type='text' name='password' value='{{ tempPassword }}'><br>
+        <input type='submit' value='Registrieren' name="register">
+    </form>
+
+    <br><br>
+    <a href="http://0.0.0.0:8000/deposit">
+        <button>Anmelden</button>
+    </a>
+
+{% endblock %}
