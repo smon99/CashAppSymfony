@@ -6,7 +6,7 @@
         Angemeldet als: {{ activeUser }}
     </div>
 
-    <form method="post" action="/transaction">
+    <form method="post" action="/deposit">
         <button type="submit" name="logout">Abmelden</button>
     </form>
 
@@ -29,13 +29,12 @@
     </div>
 
     <h1>
-        Geld überweisen
+        Geld hochladen
     </h1>
 
-    <form action="?page=transaction" method="POST">
-        Betrag: <input type="text" name="amount"> <br>
-        Empfänger: <input type="text" name="receiver"> <br>
-        <input type="submit" value="Überweisen" name="transfer">
+    <form action="/deposit" method="POST">
+        Betrag: <input type="text" name="amount">
+        <input type="submit" value="Hochladen">
     </form>
 
 {% endblock %}

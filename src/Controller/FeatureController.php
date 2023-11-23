@@ -11,8 +11,11 @@ class FeatureController extends AbstractController
     #[Route('/feature')]
     public function action(): Response
     {
+        $activeUser = 'WIP';
+
         return $this->render('feature.html.twig', [
             'title' => 'Feature Controller',
+            'activeUser' => $activeUser,
         ]);
     }
 }
