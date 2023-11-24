@@ -7,6 +7,14 @@ use App\DTO\UserDTO;
 
 class AccountFacade
 {
+    public function __construct(
+        private InputTransformer $inputTransformer,
+        private SetupDeposit     $setupDeposit,
+        private SetupTransaction $setupTransaction,
+    )
+    {
+    }
+
     public function getLoginStatus(): bool
     {
         return true;
@@ -102,7 +110,7 @@ class AccountFacade
 
     public function transformInput(string $input): float
     {
-        return 1.0;
+        return $this->inputTransformer->transformInput($input);
     }
 
     public function redirect(string $url): void
@@ -112,38 +120,11 @@ class AccountFacade
 
     public function prepareTransaction(float $value, UserDTO $userDTO, UserDTO $receiverDTO): array
     {
-        $sender = new AccountDTO();
-        $receiver = new AccountDTO();
-
-        $sender->userID = 1;
-        $sender->purpose = 'Geldtransfer an' . $receiverDTO->username;
-        $sender->transactionTime = "";
-        $sender->transactionDate = "";
-        $sender->value = $value * (-1);
-
-        $receiver->userID = 2;
-        $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
-        $receiver->transactionTime = "";
-        $receiver->transactionDate = "";
-        $receiver->value = $value;
-
-        return [
-            "sender" => $sender,
-            "receiver" => $receiver,
-        ];
+        return $this->setupTransaction->prepareTransaction($value, $userDTO, $receiverDTO);
     }
 
     public function prepareDeposit(float $value, int $userID): AccountDTO
     {
-        $accountDTO = new AccountDTO();
-
-        $accountDTO->transactionID = 4;
-        $accountDTO->userID = 1;
-        $accountDTO->transactionDate = "";
-        $accountDTO->transactionTime = "";
-        $accountDTO->value = 1.0;
-        $accountDTO->purpose = "deposit";
-
-        return $accountDTO;
+        return $this->setupDeposit->prepareDeposit($value, $userID);
     }
 }
