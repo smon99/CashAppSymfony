@@ -24,10 +24,7 @@ class Transaction
     private ?float $value = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $transactionDate = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $transactionTime = null;
+    private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(length: 100)]
     private ?string $purpose = null;
@@ -73,26 +70,14 @@ class Transaction
         return $this;
     }
 
-    public function getTransactionDate(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->transactionDate;
+        return $this->createdAt;
     }
 
-    public function setTransactionDate(\DateTimeInterface $transactionDate): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
-        $this->transactionDate = $transactionDate;
-
-        return $this;
-    }
-
-    public function getTransactionTime(): ?\DateTimeInterface
-    {
-        return $this->transactionTime;
-    }
-
-    public function setTransactionTime(\DateTimeInterface $transactionTime): static
-    {
-        $this->transactionTime = $transactionTime;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

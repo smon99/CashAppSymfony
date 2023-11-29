@@ -2,15 +2,18 @@
 
 namespace App\Component\Account\Business;
 
+use App\Component\Account\Persistence\TransactionRepository;
 use App\DTO\AccountDTO;
 use App\DTO\UserDTO;
 
 class AccountFacade
 {
     public function __construct(
-        private InputTransformer $inputTransformer,
-        private SetupDeposit     $setupDeposit,
-        private SetupTransaction $setupTransaction,
+        private InputTransformer      $inputTransformer,
+        private SetupDeposit          $setupDeposit,
+        private SetupTransaction      $setupTransaction,
+        private Balance               $balance,
+        private TransactionRepository $transactionRepository,
     )
     {
     }
@@ -35,43 +38,14 @@ class AccountFacade
         //do nothing yet lol
     }
 
-    public function calculateBalance(): float
+    public function calculateBalance(int $userID): float
     {
-        return 45.00;
+        return $this->balance->calculateBalance($userID);
     }
 
-    public function transactionsPerUserID(int $userID): array
+    public function transactionsPerUserID(int $userID): ?array
     {
-        $transaction1 = new AccountDTO();
-        $transaction2 = new AccountDTO();
-        $transaction3 = new AccountDTO();
-
-        $transaction1->transactionID = 1;
-        $transaction1->userID = 1;
-        $transaction1->transactionDate = "vorgestern du hunt";
-        $transaction1->transactionTime = "04:20";
-        $transaction1->value = 10.0;
-        $transaction1->purpose = "deposit";
-
-        $transaction2->transactionID = 2;
-        $transaction2->userID = 1;
-        $transaction2->transactionDate = "gestern blyat";
-        $transaction2->transactionTime = "69:00";
-        $transaction2->value = 15.0;
-        $transaction2->purpose = "deposit";
-
-        $transaction3->transactionID = 3;
-        $transaction3->userID = 1;
-        $transaction3->transactionDate = "heute";
-        $transaction3->transactionTime = "16:20";
-        $transaction3->value = 20.0;
-        $transaction3->purpose = "deposit";
-
-        return [
-            $transaction1,
-            $transaction2,
-            $transaction3,
-        ];
+        return $this->transactionRepository->transactionByUserID($userID);
     }
 
     public function findByMail(string $email): ?UserDTO

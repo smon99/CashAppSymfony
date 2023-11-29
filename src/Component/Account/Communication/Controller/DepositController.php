@@ -46,7 +46,7 @@ class DepositController extends AbstractController
 
         if ($this->accountFacade->getLoginStatus()) {
             $activeUser = $this->accountFacade->getSessionUsername();
-            $balance = $this->accountFacade->calculateBalance();
+            $balance = $this->accountFacade->calculateBalance($this->accountFacade->getSessionUserID());
         }
 
         return $this->render('deposit.html.twig', [

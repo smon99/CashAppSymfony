@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TransactionController extends AbstractController
 {
-    public function __construct(private AccountFacade $accountFacade)
+    public function __construct(private readonly AccountFacade $accountFacade)
     {
     }
 
@@ -33,7 +33,7 @@ class TransactionController extends AbstractController
         if (isset($_POST["transfer"])) {
             $receiver = $this->accountFacade->findByMail($_POST["receiver"]);
             $validateThis = $this->accountFacade->transformInput($_POST["amount"]);
-            $balance = $this->accountFacade->calculateBalance();
+            $balance = $this->accountFacade->calculateBalance($this->accountFacade->getSessionUserID());
 
             $this->accountFacade->validate($validateThis, $this->accountFacade->getSessionUserID());
 
@@ -59,7 +59,7 @@ class TransactionController extends AbstractController
 
         if ($this->accountFacade->getLoginStatus()) {
             $activeUser = $this->accountFacade->getSessionUsername();
-            $balance = $this->accountFacade->calculateBalance();
+            $balance = $this->accountFacade->calculateBalance($this->accountFacade->getSessionUserID());
         }
 
         return $this->render('transaction.html.twig', [

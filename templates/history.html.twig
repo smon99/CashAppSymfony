@@ -20,8 +20,8 @@
         <tbody>
         {% for transaction in transactions %}
             <tr>
-                <td>{{ transaction.transactionDate }}</td>
-                <td>{{ transaction.transactionTime }}</td>
+                <td>{{ transaction.createdAt|date("d.m.Y") }}</td>
+                <td>{{ transaction.createdAt|date("H:i:s") }}</td>
                 <td>{{ transaction.purpose }}</td>
                 <td>{{ transaction.value }}</td>
             </tr>
