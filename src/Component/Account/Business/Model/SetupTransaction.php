@@ -2,15 +2,15 @@
 
 namespace App\Component\Account\Business\Model;
 
-use App\DTO\AccountDTO;
+use App\DTO\TransactionDTO;
 use App\DTO\UserDTO;
 
 class SetupTransaction
 {
     public function prepareTransaction(float $value, UserDTO $userDTO, UserDTO $receiverDTO): array
     {
-        $sender = new AccountDTO();
-        $receiver = new AccountDTO();
+        $sender = new TransactionDTO();
+        $receiver = new TransactionDTO();
 
         $sender->userID = $userDTO->userID;
         $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;

@@ -3,7 +3,7 @@
 namespace App\Component\Account\Persistence;
 
 use App\Component\Account\Persistence\Mapper\TransactionMapper;
-use App\DTO\AccountDTO;
+use App\DTO\TransactionDTO;
 use Doctrine\ORM\EntityManagerInterface;
 
 class TransactionEntityManager
@@ -16,7 +16,7 @@ class TransactionEntityManager
     {
     }
 
-    public function create(AccountDTO $accountDTO): void
+    public function create(TransactionDTO $accountDTO): void
     {
         $transaction = $this->transactionMapper->dtoToEntity($accountDTO);
         $this->entityManager->persist($transaction);

@@ -9,7 +9,7 @@ use App\Component\Account\Business\Model\SetupTransaction;
 use App\Component\Account\Persistence\Mapper\TransactionMapper;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
-use App\DTO\AccountDTO;
+use App\DTO\TransactionDTO;
 use App\DTO\UserDTO;
 
 class AccountBusinessFacade
@@ -79,7 +79,7 @@ class AccountBusinessFacade
         return $userDTO;
     }
 
-    public function saveDeposit(AccountDTO $accountDTO): void
+    public function saveDeposit(TransactionDTO $accountDTO): void
     {
         $this->transactionEntityManager->create($accountDTO);
     }
@@ -104,7 +104,7 @@ class AccountBusinessFacade
         return $this->setupTransaction->prepareTransaction($value, $userDTO, $receiverDTO);
     }
 
-    public function prepareDeposit(float $value, int $userID): AccountDTO
+    public function prepareDeposit(float $value, int $userID): TransactionDTO
     {
         return $this->setupDeposit->prepareDeposit($value, $userID);
     }

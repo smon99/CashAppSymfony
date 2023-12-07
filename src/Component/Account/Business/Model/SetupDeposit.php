@@ -2,13 +2,13 @@
 
 namespace App\Component\Account\Business\Model;
 
-use App\DTO\AccountDTO;
+use App\DTO\TransactionDTO;
 
 class SetupDeposit
 {
-    public function prepareDeposit(float $value, int $userID): AccountDTO
+    public function prepareDeposit(float $value, int $userID): TransactionDTO
     {
-        $accountDTO = new AccountDTO();
+        $accountDTO = new TransactionDTO();
         $accountDTO->userID = $userID;
         $accountDTO->purpose = "deposit";
         $accountDTO->createdAt = new \DateTime();

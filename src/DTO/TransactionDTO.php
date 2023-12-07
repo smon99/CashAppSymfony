@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-class AccountDTO
+class TransactionDTO
 {
     public int $transactionID = 0;
     public float $value = 0.00;

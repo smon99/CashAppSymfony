@@ -2,14 +2,14 @@
 
 namespace App\Component\Account\Persistence\Mapper;
 
-use App\DTO\AccountDTO;
+use App\DTO\TransactionDTO;
 use App\Entity\Transaction;
 
 class TransactionMapper
 {
-    public function entityToDto(Transaction $transaction): AccountDTO
+    public function entityToDto(Transaction $transaction): TransactionDTO
     {
-        $accountDTO = new AccountDTO();
+        $accountDTO = new TransactionDTO();
         $accountDTO->transactionID = $transaction->getId();
         $accountDTO->value = $transaction->getValue();
         $accountDTO->userID = $transaction->getUserID();
@@ -19,7 +19,7 @@ class TransactionMapper
         return $accountDTO;
     }
 
-    public function dtoToEntity(AccountDTO $accountDTO): Transaction
+    public function dtoToEntity(TransactionDTO $accountDTO): Transaction
     {
         $transaction = new Transaction();
         $transaction->setValue($accountDTO->value);

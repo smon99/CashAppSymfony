@@ -4,7 +4,7 @@ namespace App\Tests\src\Component\Account\Business\Model;
 
 use App\Component\Account\Business\Model\Balance;
 use App\Component\Account\Persistence\TransactionRepository;
-use App\DTO\AccountDTO;
+use App\DTO\TransactionDTO;
 use PHPUnit\Framework\TestCase;
 
 class BalanceTest extends TestCase
@@ -20,8 +20,8 @@ class BalanceTest extends TestCase
 
     public function testCalculateBalance(): void
     {
-        $transaction1 = new AccountDTO();
-        $transaction2 = new AccountDTO();
+        $transaction1 = new TransactionDTO();
+        $transaction2 = new TransactionDTO();
 
         $transaction1->transactionID = 1;
         $transaction1->userID = 1;
@@ -48,8 +48,8 @@ class BalanceTest extends TestCase
 
     public function testCalculateBalancePerHour(): void
     {
-        $transaction1 = new AccountDTO();
-        $transaction2 = new AccountDTO();
+        $transaction1 = new TransactionDTO();
+        $transaction2 = new TransactionDTO();
 
         $transaction1->transactionID = 1;
         $transaction1->userID = 1;

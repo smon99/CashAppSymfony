@@ -9,7 +9,7 @@ use App\Component\Account\Business\Model\SetupDeposit;
 use App\Component\Account\Business\Model\SetupTransaction;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
-use App\DTO\AccountDTO;
+use App\DTO\TransactionDTO;
 use App\DTO\UserDTO;
 use PHPUnit\Framework\TestCase;
 
@@ -73,8 +73,8 @@ class AccountBusinessFacadeTest extends TestCase
 
     public function testTransactionsPerUserID(): void
     {
-        $transaction1 = new AccountDTO();
-        $transaction2 = new AccountDTO();
+        $transaction1 = new TransactionDTO();
+        $transaction2 = new TransactionDTO();
 
         $transaction1->transactionID = 1;
         $transaction1->userID = 1;
@@ -111,7 +111,7 @@ class AccountBusinessFacadeTest extends TestCase
 
     public function testSaveDeposit(): void
     {
-        $transaction1 = new AccountDTO();
+        $transaction1 = new TransactionDTO();
 
         $transaction1->transactionID = 1;
         $transaction1->userID = 1;
