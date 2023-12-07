@@ -2,13 +2,25 @@
 
 namespace App\Component\UserReg\Business;
 
+use App\Component\UserReg\Business\Model\SetupUser;
 use App\DTO\UserDTO;
 
 class UserRegFacade
 {
-    public function validate(UserDTO $userDTO): void
+    public function __construct(
+        private readonly SetupUser $setupUser,
+    )
     {
-        // do nothing yet lol
+    }
+
+    public function validate(UserDTO $userDTO): bool
+    {
+        return true;
+    }
+
+    public function prepareUser(string $username, string $email, string $password): UserDTO
+    {
+        return $this->setupUser->prepareUser($username, $email, $password);
     }
 
     public function saveUser(UserDTO $userDTO): void

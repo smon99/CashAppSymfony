@@ -18,38 +18,24 @@ class RegistrationController extends AbstractController
     public function action(): Response
     {
         $errors = null;
-        $userCheck = '';
-        $mailCheck = '';
-        $passwordCheck = '';
+        $validatorDTO = new UserDTO();
 
         if (isset($_POST['register'])) {
-            $userCheck = $_POST['username'];
-            $mailCheck = $_POST['email'];
-            $passwordCheck = $_POST['password'];
+            $validatorDTO = $this->userRegFacade->prepareUser($_POST['username'], $_POST['email'], $_POST['password']);
 
-            $validatorDTO = new UserDTO();
-            $validatorDTO->username = $userCheck;
-            $validatorDTO->email = $mailCheck;
-            $validatorDTO->password = $passwordCheck;
-
-            $this->userRegFacade->validate($validatorDTO);
-
-            $password = password_hash($passwordCheck, PASSWORD_DEFAULT);
-
-            $userDTO = new UserDTO();
-            $userDTO->username = $userCheck;
-            $userDTO->email = $mailCheck;
-            $userDTO->password = $password;
-
-            $this->userRegFacade->saveUser($userDTO);
-            $this->userRegFacade->redirect('/login');
+            if ($this->userRegFacade->validate($validatorDTO)) {
+                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $userDTO = $this->userRegFacade->prepareUser($validatorDTO->username, $validatorDTO->email, $password);
+                $this->userRegFacade->saveUser($userDTO);
+                $this->userRegFacade->redirect('/login');
+            }
         }
 
         return $this->render('registration.html.twig', [
             'title' => 'Registration Controller',
-            'tempUserName' => $userCheck,
-            'tempMail' => $mailCheck,
-            'tempPassword' => $passwordCheck,
+            'tempUserName' => $validatorDTO->username,
+            'tempMail' => $validatorDTO->email,
+            'tempPassword' => $validatorDTO->password,
             'error' => $errors,
         ]);
     }
