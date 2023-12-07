@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Account\Business;
+namespace App\Component\Account\Business\Model;
 
 use App\DTO\AccountDTO;
 
@@ -11,8 +11,7 @@ class SetupDeposit
         $accountDTO = new AccountDTO();
         $accountDTO->userID = $userID;
         $accountDTO->purpose = "deposit";
-        $accountDTO->transactionTime = date('H:i:s');
-        $accountDTO->transactionDate = date('Y-m-d');
+        $accountDTO->createdAt = new \DateTime();
         $accountDTO->value = $value;
 
         return $accountDTO;

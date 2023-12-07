@@ -2,7 +2,7 @@
 
 namespace App\Tests\src\Component\Account\Business;
 
-use App\Component\Account\Business\InputTransformer;
+use App\Component\Account\Business\Model\InputTransformer;
 use PHPUnit\Framework\TestCase;
 
 class InputTransformerTest extends TestCase

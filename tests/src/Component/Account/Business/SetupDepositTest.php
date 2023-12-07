@@ -2,8 +2,7 @@
 
 namespace App\Tests\src\Component\Account\Business;
 
-use App\Component\Account\Business\SetupDeposit;
-use App\DTO\AccountDTO;
+use App\Component\Account\Business\Model\SetupDeposit;
 use PHPUnit\Framework\TestCase;
 
 class SetupDepositTest extends TestCase

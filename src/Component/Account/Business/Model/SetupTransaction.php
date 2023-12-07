@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Account\Business;
+namespace App\Component\Account\Business\Model;
 
-use App\DTO\UserDTO;
 use App\DTO\AccountDTO;
+use App\DTO\UserDTO;
 
 class SetupTransaction
 {
@@ -14,14 +14,12 @@ class SetupTransaction
 
         $sender->userID = $userDTO->userID;
         $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;
-        $sender->transactionTime = date('H:i:s');
-        $sender->transactionDate = date('Y-m-d');
+        $sender->createdAt = new \DateTime();
         $sender->value = $value * (-1);
 
         $receiver->userID = $receiverDTO->userID;
         $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
-        $receiver->transactionTime = date('H:i:s');
-        $receiver->transactionDate = date('Y-m-d');
+        $receiver->createdAt = new \DateTime();
         $receiver->value = $value;
 
         return [

@@ -2,18 +2,25 @@
 
 namespace App\Component\Account\Business;
 
+use App\Component\Account\Business\Model\Balance;
+use App\Component\Account\Business\Model\InputTransformer;
+use App\Component\Account\Business\Model\SetupDeposit;
+use App\Component\Account\Business\Model\SetupTransaction;
+use App\Component\Account\Persistence\Mapper\TransactionMapper;
+use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
 use App\DTO\AccountDTO;
 use App\DTO\UserDTO;
 
-class AccountFacade
+class AccountBusinessFacade
 {
     public function __construct(
-        private InputTransformer      $inputTransformer,
-        private SetupDeposit          $setupDeposit,
-        private SetupTransaction      $setupTransaction,
-        private Balance               $balance,
-        private TransactionRepository $transactionRepository,
+        private readonly InputTransformer         $inputTransformer,
+        private readonly SetupDeposit             $setupDeposit,
+        private readonly SetupTransaction         $setupTransaction,
+        private readonly Balance                  $balance,
+        private readonly TransactionRepository    $transactionRepository,
+        private readonly TransactionEntityManager $transactionEntityManager,
     )
     {
     }
@@ -45,7 +52,7 @@ class AccountFacade
 
     public function transactionsPerUserID(int $userID): ?array
     {
-        return $this->transactionRepository->transactionByUserID($userID);
+        return $this->transactionRepository->byUserID($userID);
     }
 
     public function findByMail(string $email): ?UserDTO
@@ -74,7 +81,7 @@ class AccountFacade
 
     public function saveDeposit(AccountDTO $accountDTO): void
     {
-        //do nothing yet lol
+        $this->transactionEntityManager->create($accountDTO);
     }
 
     public function validate(float $value, int $userID): void

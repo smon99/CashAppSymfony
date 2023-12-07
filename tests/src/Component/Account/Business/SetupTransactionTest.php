@@ -2,8 +2,7 @@
 
 namespace App\Tests\src\Component\Account\Business;
 
-use App\Component\Account\Business\SetupTransaction;
-use App\DTO\AccountDTO;
+use App\Component\Account\Business\Model\SetupTransaction;
 use App\DTO\UserDTO;
 use PHPUnit\Framework\TestCase;
 

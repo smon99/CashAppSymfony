@@ -2,15 +2,27 @@
 
 namespace App\Component\Account\Persistence;
 
+use App\Component\Account\Persistence\Mapper\TransactionMapper;
+
 class TransactionRepository
 {
-    public function __construct(private readonly \App\Repository\TransactionRepository $transactionRepository)
+    public function __construct(
+        private readonly \App\Repository\TransactionRepository $transactionRepository,
+        private readonly TransactionMapper                     $transactionMapper,
+    )
     {
     }
 
-    public function transactionByUserID(int $id): ?array
+    public function byUserID(int $id): ?array
     {
-        return $this->transactionRepository->findBy(['userID' => $id]);
+        $userTransactions = [];
+        $matches = $this->transactionRepository->findBy(['userID' => $id]);
+
+        foreach ($matches as $entry) {
+            $userTransactions[] = $this->transactionMapper->entityToDto($entry);
+        }
+
+        return $userTransactions;
     }
 
 }

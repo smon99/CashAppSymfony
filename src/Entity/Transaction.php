@@ -15,9 +15,6 @@ class Transaction
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $transactionID = null;
-
-    #[ORM\Column]
     private ?int $userID = null;
 
     #[ORM\Column]
@@ -32,18 +29,6 @@ class Transaction
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTransactionID(): ?int
-    {
-        return $this->transactionID;
-    }
-
-    public function setTransactionID(int $transactionID): static
-    {
-        $this->transactionID = $transactionID;
-
-        return $this;
     }
 
     public function getUserID(): ?int
