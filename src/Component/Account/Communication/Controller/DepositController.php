@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DepositController extends AbstractController
 {
-    public function __construct(private AccountBusinessFacade $accountFacade)
+    public function __construct(private readonly AccountBusinessFacade $accountFacade)
     {
     }
 

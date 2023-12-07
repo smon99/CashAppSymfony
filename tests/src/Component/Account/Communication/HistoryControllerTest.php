@@ -2,7 +2,15 @@
 
 namespace App\Tests\src\Component\Account\Communication;
 
-class HistoryControllerTest
-{
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+class HistoryControllerTest extends WebTestCase
+{
+    public function testAction(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/history');
+
+        self::assertStringContainsString('History Controller', $client->getResponse()->getContent());
+    }
 }
