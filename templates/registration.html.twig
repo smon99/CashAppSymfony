@@ -4,12 +4,9 @@
 
     {% if error is defined %} {{ error }} {% endif %} <br>
 
-    <form action='/registration' method='POST'>
-        Name: <input type='text' name='username' value='{{ tempUserName }}'><br>
-        Email: <input type='text' name='email' value='{{ tempMail }}'><br>
-        Passwort: <input type='text' name='password' value='{{ tempPassword }}'><br>
-        <input type='submit' value='Registrieren' name="register">
-    </form>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 
     <br><br>
     <a href="http://0.0.0.0:8000/login">

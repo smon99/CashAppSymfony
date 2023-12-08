@@ -4,7 +4,9 @@ namespace App\Component\UserReg\Communication\Controller;
 
 use App\Component\UserReg\Business\UserRegFacade;
 use App\DTO\UserDTO;
+use App\Form\UserDTOType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,28 +17,25 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/registration')]
-    public function action(): Response
+    public function action(Request $request): Response
     {
         $errors = null;
-        $validatorDTO = new UserDTO();
 
-        if (isset($_POST['register'])) {
-            $validatorDTO = $this->userRegFacade->prepareUser($_POST['username'], $_POST['email'], $_POST['password']);
+        $form = $this->createForm(UserDTOType::class);
+        $form->handleRequest($request);
 
-            if ($this->userRegFacade->validate($validatorDTO)) {
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $userDTO = $this->userRegFacade->prepareUser($validatorDTO->username, $validatorDTO->email, $password);
-                $this->userRegFacade->saveUser($userDTO);
-                $this->userRegFacade->redirect('/login');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userFormDTO = $form->getData();
+            $password = password_hash($userFormDTO->password, PASSWORD_DEFAULT);
+            $save = $this->userRegFacade->prepareUser($userFormDTO->username, $userFormDTO->email, $password);
+            $this->userRegFacade->saveUser($save);
+            $this->userRegFacade->redirect('/login');
         }
 
         return $this->render('registration.html.twig', [
             'title' => 'Registration Controller',
-            'tempUserName' => $validatorDTO->username,
-            'tempMail' => $validatorDTO->email,
-            'tempPassword' => $validatorDTO->password,
             'error' => $errors,
+            'form' => $form,
         ]);
     }
 }

@@ -6,7 +6,6 @@ use App\Component\Account\Business\Model\Balance;
 use App\Component\Account\Business\Model\InputTransformer;
 use App\Component\Account\Business\Model\SetupDeposit;
 use App\Component\Account\Business\Model\SetupTransaction;
-use App\Component\Account\Persistence\Mapper\TransactionMapper;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
 use App\DTO\TransactionDTO;

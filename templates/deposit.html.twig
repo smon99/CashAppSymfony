@@ -32,7 +32,7 @@
         Geld hochladen
     </h1>
 
-    <form action="/deposit" method="POST">
+    <form action="{{ path('deposit_amount') }}" method="POST">
         Betrag: <input type="text" name="amount">
         <input type="submit" value="Hochladen">
     </form>
