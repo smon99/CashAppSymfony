@@ -2,13 +2,15 @@
 
 namespace App\Component\UserReg\Business;
 
+use App\Component\User\Persistence\UserEntityManager;
 use App\Component\UserReg\Business\Model\SetupUser;
 use App\DTO\UserDTO;
 
 class UserRegFacade
 {
     public function __construct(
-        private readonly SetupUser $setupUser,
+        private readonly SetupUser         $setupUser,
+        private readonly UserEntityManager $userEntityManager,
     )
     {
     }
@@ -25,7 +27,7 @@ class UserRegFacade
 
     public function saveUser(UserDTO $userDTO): void
     {
-        //do nothing yet lol
+        $this->userEntityManager->create($userDTO);
     }
 
     public function redirect(string $url): void
