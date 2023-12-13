@@ -9,19 +9,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HistoryController extends AbstractController
 {
-    public function __construct(private AccountBusinessFacade $accountFacade)
+    public function __construct(private readonly AccountBusinessFacade $accountBusinessFacade)
     {
     }
 
-    #[Route('/history')]
+    #[Route('/history', name: 'history')]
     public function action(): Response
     {
         $transactions = null;
 
-        if (!$this->accountFacade->getLoginStatus()) {
-            $this->accountFacade->redirect('/login');
+        if (!$this->accountBusinessFacade->getLoginStatus()) {
+            return $this->redirectToRoute('login');
         } else {
-            $transactions = $this->accountFacade->transactionsPerUserID($this->accountFacade->getSessionUserID());
+            $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->accountBusinessFacade->getSessionUserID());
         }
 
         return $this->render('history.html.twig', [

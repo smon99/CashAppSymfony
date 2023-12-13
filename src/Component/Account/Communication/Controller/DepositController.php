@@ -44,13 +44,12 @@ class DepositController extends AbstractController
         }
 
         if (!$this->accountBusinessFacade->getLoginStatus()) {
-            $this->accountBusinessFacade->redirect('/login');
-            return $this->redirectToRoute('app_component_userlog_communication_login_action');
+            return $this->redirectToRoute('login');
         }
 
         if (isset($_POST["logout"])) {
             $this->accountBusinessFacade->performLogout();
-            $this->accountBusinessFacade->redirect('/login');
+            return $this->redirectToRoute('login');
         }
 
         $input = $_POST["amount"] ?? null;

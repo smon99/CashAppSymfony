@@ -9,15 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FeatureController extends AbstractController
 {
-    public function __construct(private GlobalFacade $globalFacade)
+    public function __construct(private readonly GlobalFacade $globalFacade)
     {
     }
 
-    #[Route('/feature')]
+    #[Route('/feature', name: 'feature')]
     public function action(): Response
     {
         if (!$this->globalFacade->getLoginStatus()) {
-            $this->globalFacade->redirect("/login");
+            return $this->redirectToRoute('login');
         }
 
         $activeUser = $this->globalFacade->getSessionUsername();

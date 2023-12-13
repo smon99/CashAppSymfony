@@ -13,7 +13,7 @@ class TransactionController extends AbstractController
     {
     }
 
-    #[Route('/transaction')]
+    #[Route('/transaction', name: 'transaction')]
     public function action(): Response
     {
         $activeUser = null;
@@ -22,12 +22,12 @@ class TransactionController extends AbstractController
         $error = null;
 
         if (!$this->accountFacade->getLoginStatus()) {
-            $this->accountFacade->redirect('/login');
+            return $this->redirectToRoute('login');
         }
 
         if (isset($_POST["logout"])) {
             $this->accountFacade->performLogout();
-            $this->accountFacade->redirect('/login');
+            return $this->redirectToRoute('login');
         }
 
         if (isset($_POST["transfer"])) {
