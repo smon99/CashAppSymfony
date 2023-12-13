@@ -3,21 +3,21 @@
 namespace App\Component\UserReg\Communication\Controller;
 
 use App\Component\UserReg\Business\UserRegFacade;
-use App\DTO\UserDTO;
 use App\Form\UserDTOType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private UserRegFacade $userRegFacade)
+    public function __construct(private readonly UserRegFacade $userRegFacade)
     {
     }
 
-    #[Route('/registration')]
-    public function action(Request $request): Response
+    #[Route('/registration', name: 'registration')]
+    public function action(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $errors = null;
 
@@ -25,11 +25,13 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userFormDTO = $form->getData();
-            $password = password_hash($userFormDTO->password, PASSWORD_DEFAULT);
-            $save = $this->userRegFacade->prepareUser($userFormDTO->username, $userFormDTO->email, $password);
+            $userFormData = $form->getData();
+            $plainPassword = $this->userRegFacade->toEntity($userFormData);
+            $password = $passwordHasher->hashPassword($plainPassword, $plainPassword->getPassword());
+            $save = $this->userRegFacade->prepareUser($userFormData->username, $userFormData->email, $password);
             $this->userRegFacade->saveUser($save);
-            $this->userRegFacade->redirect('/login');
+
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('registration.html.twig', [

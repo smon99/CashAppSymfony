@@ -2,15 +2,18 @@
 
 namespace App\Component\UserReg\Business;
 
+use App\Component\User\Persistence\Mapper\UserMapper;
 use App\Component\User\Persistence\UserEntityManager;
 use App\Component\UserReg\Business\Model\SetupUser;
 use App\DTO\UserDTO;
+use App\Entity\User;
 
 class UserRegFacade
 {
     public function __construct(
         private readonly SetupUser         $setupUser,
         private readonly UserEntityManager $userEntityManager,
+        private readonly UserMapper        $userMapper,
     )
     {
     }
@@ -30,8 +33,8 @@ class UserRegFacade
         $this->userEntityManager->create($userDTO);
     }
 
-    public function redirect(string $url): void
+    public function toEntity(UserDTO $userDTO): User
     {
-        //do nothing yet lol
+        return $this->userMapper->dtoToEntity($userDTO);
     }
 }

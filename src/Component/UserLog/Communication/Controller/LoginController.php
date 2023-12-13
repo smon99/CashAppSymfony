@@ -13,7 +13,7 @@ class LoginController extends AbstractController
     {
     }
 
-    #[Route('/login')]
+    #[Route('/login', name: 'login')]
     public function action(): Response
     {
         $credentials = null;
