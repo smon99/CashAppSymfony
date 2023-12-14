@@ -40,4 +40,9 @@ class UserDTO
     {
         $this->username = $username;
     }
+
+    public function getUserID(): int
+    {
+        return $this->userID;
+    }
 }

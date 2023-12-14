@@ -8,6 +8,7 @@ use App\Component\Account\Business\Model\SetupDeposit;
 use App\Component\Account\Business\Model\SetupTransaction;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
+use App\Component\User\Business\Model\UserInformation;
 use App\DTO\TransactionDTO;
 use App\DTO\UserDTO;
 
@@ -20,23 +21,24 @@ class AccountBusinessFacade
         private readonly Balance                  $balance,
         private readonly TransactionRepository    $transactionRepository,
         private readonly TransactionEntityManager $transactionEntityManager,
+        private readonly UserInformation          $userInformation,
     )
     {
     }
 
     public function getLoginStatus(): bool
     {
-        return true;
+        return $this->userInformation->loginStatus();
     }
 
     public function getSessionUsername(): string
     {
-        return 'Simon';
+        return $this->userInformation->sessionUsername();
     }
 
     public function getSessionUserID(): int
     {
-        return 1;
+        return $this->userInformation->sessionUserID();
     }
 
     public function calculateBalance(int $userID): float
@@ -51,26 +53,12 @@ class AccountBusinessFacade
 
     public function findByMail(string $email): ?UserDTO
     {
-        $userDTO = new UserDTO();
-
-        $userDTO->userID = 2;
-        $userDTO->username = "Nico";
-        $userDTO->password = "geheim123!";
-        $userDTO->email = "Nico@Nico.de";
-
-        return $userDTO;
+        return $this->userInformation->userByMail($email);
     }
 
     public function findByUsername(string $username): ?UserDTO
     {
-        $userDTO = new UserDTO();
-
-        $userDTO->userID = 2;
-        $userDTO->username = "Nico";
-        $userDTO->password = "geheim123!";
-        $userDTO->email = "Nico@Nico.de";
-
-        return $userDTO;
+        return $this->userInformation->userByUsername($username);
     }
 
     public function saveDeposit(TransactionDTO $accountDTO): void

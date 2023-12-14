@@ -2,10 +2,18 @@
 
 namespace App\Component\Home\Business;
 
+use App\Component\User\Business\Model\UserInformation;
+
 class HomeBusinessFacade
 {
+    public function __construct(
+        private readonly UserInformation $userInformation,
+    )
+    {
+    }
+
     public function getSessionUsername(): string
     {
-        return 'WIP';
+        return $this->userInformation->sessionUsername();
     }
 }
