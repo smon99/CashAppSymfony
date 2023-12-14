@@ -2,6 +2,7 @@
 
 namespace App\Tests\src\Component\UserReg\Business;
 
+use App\Component\User\Persistence\Mapper\UserMapper;
 use App\Component\User\Persistence\UserEntityManager;
 use App\Component\UserReg\Business\Model\SetupUser;
 use App\Component\UserReg\Business\UserRegFacade;
@@ -13,6 +14,7 @@ class UserRegFacadeTest extends TestCase
     private SetupUser $setupUser;
     private UserEntityManager $userEntityManager;
     private UserRegFacade $userRegFacade;
+    private UserMapper $userMapper;
 
     protected function setUp(): void
     {
@@ -21,11 +23,13 @@ class UserRegFacadeTest extends TestCase
 
         //Dependency
         $this->setupUser = new SetupUser();
+        $this->userMapper = new UserMapper();
 
         //Main testing-subject
         $this->userRegFacade = new UserRegFacade(
             $this->setupUser,
             $this->userEntityManager,
+            $this->userMapper,
         );
     }
 

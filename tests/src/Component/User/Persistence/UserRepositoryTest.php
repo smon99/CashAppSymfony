@@ -2,7 +2,6 @@
 
 namespace App\Tests\src\Component\User\Persistence;
 
-class UserEntityManagerTest
+class UserRepositoryTest
 {
-
 }

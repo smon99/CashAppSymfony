@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginController extends AbstractController
 {
-    public function __construct(private UserLogFacade $userLogFacade)
+    public function __construct(private readonly UserLogFacade $userLogFacade)
     {
     }
 
@@ -27,7 +27,7 @@ class LoginController extends AbstractController
 
             if ($userDTO !== null) {
                 $this->userLogFacade->login($userDTO, $credentials["password"]);
-                $this->userLogFacade->redirect("/feature");
+                return $this->redirectToRoute('feature');
             }
         }
 

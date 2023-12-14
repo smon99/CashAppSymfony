@@ -2,7 +2,7 @@
 {% block body %}
     <h1>{{ title }}</h1>
 
-    <form action='?page=login' method='POST'>
+    <form action='{{ path('login') }}' method='POST'>
         E-Mail: <input type='text' name='mail'> <br>
         Passwort: <input type='password' name='password'> <br>
         <input type='submit' value='Einloggen' name="login">
