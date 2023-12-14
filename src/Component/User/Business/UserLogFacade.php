@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\UserLog\Business;
+namespace App\Component\User\Business;
 
 use App\Component\User\Persistence\UserRepository;
 use App\DTO\UserDTO;

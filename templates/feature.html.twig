@@ -40,28 +40,28 @@
 
         <span style="font-weight: bold; font-size: 1.5em; margin-bottom: 20px;">Angemeldet als: {{ activeUser }}</span>
 
-        <form method="post" action="/login" style="margin-bottom: 20px;">
+        <form method="post" action="{{ path('app_logout') }}" style="margin-bottom: 20px;">
             <button type="submit" name="logout" class="btn-logout"
                     style="background-color: #007BFF; border: none; border-radius: 4px; color: #fff; padding: 10px 20px; cursor: pointer; font-weight: bold;">
                 Abmelden
             </button>
         </form>
 
-        <a href="http://0.0.0.0:8000/deposit" style="text-decoration: none; width: 100%;">
+        <a href="{{ path('deposit') }}" style="text-decoration: none; width: 100%;">
             <button class="btn-account"
                     style="width: 100%; background-color: #5e51d8; border: none; border-radius: 4px; color: #fff; padding: 12px 0; margin-bottom: 10px; cursor: pointer;">
                 Guthaben einzahlen
             </button>
         </a>
 
-        <a href="http://0.0.0.0:8000/transaction" style="text-decoration: none; width: 100%;">
+        <a href="{{ path('transaction') }}" style="text-decoration: none; width: 100%;">
             <button class="btn-transaction"
                     style="width: 100%; background-color: #5e51d8; border: none; border-radius: 4px; color: #fff; padding: 12px 0; margin-bottom: 10px; cursor: pointer;">
                 Guthaben versenden
             </button>
         </a>
 
-        <a href="http://0.0.0.0:8000/history" style="text-decoration: none; width: 100%;">
+        <a href="{{ path('history') }}" style="text-decoration: none; width: 100%;">
             <button class="btn-history"
                     style="width: 100%; background-color: #5e51d8; border: none; border-radius: 4px; color: #fff; padding: 12px 0; cursor: pointer;">
                 Transaktionen einsehen

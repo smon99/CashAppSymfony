@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\UserReg\Communication\Controller;
+namespace App\Component\User\Communication\Controller;
 
-use App\Component\UserReg\Business\UserRegFacade;
+use App\Component\User\Business\UserRegFacade;
 use App\Form\UserDTOType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
@@ -31,7 +31,7 @@ class RegistrationController extends AbstractController
             $save = $this->userRegFacade->prepareUser($userFormData->username, $userFormData->email, $password);
             $this->userRegFacade->saveUser($save);
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration.html.twig', [

@@ -16,13 +16,7 @@ class HistoryController extends AbstractController
     #[Route('/history', name: 'history')]
     public function action(): Response
     {
-        $transactions = null;
-
-        if (!$this->accountBusinessFacade->getLoginStatus()) {
-            return $this->redirectToRoute('login');
-        } else {
-            $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->accountBusinessFacade->getSessionUserID());
-        }
+        $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->accountBusinessFacade->getSessionUserID());
 
         return $this->render('history.html.twig', [
             'title' => 'History Controller',

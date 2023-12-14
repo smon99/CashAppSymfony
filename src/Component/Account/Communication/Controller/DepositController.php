@@ -43,13 +43,8 @@ class DepositController extends AbstractController
             $success = "Die Transaction wurde erfolgreich gespeichert!";
         }
 
-        if (!$this->accountBusinessFacade->getLoginStatus()) {
-            return $this->redirectToRoute('login');
-        }
-
         if (isset($_POST["logout"])) {
-            $this->accountBusinessFacade->performLogout();
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_logout');
         }
 
         $input = $_POST["amount"] ?? null;
@@ -66,10 +61,8 @@ class DepositController extends AbstractController
             $success = "Die Transaction wurde erfolgreich gespeichert!";
         }
 
-        if ($this->accountBusinessFacade->getLoginStatus()) {
-            $activeUser = $this->accountBusinessFacade->getSessionUsername();
-            $balance = $this->accountBusinessFacade->calculateBalance($this->accountBusinessFacade->getSessionUserID());
-        }
+        $activeUser = $this->accountBusinessFacade->getSessionUsername();
+        $balance = $this->accountBusinessFacade->calculateBalance($this->accountBusinessFacade->getSessionUserID());
 
         return $this->render('deposit.html.twig', [
             'title' => 'Deposit Controller',

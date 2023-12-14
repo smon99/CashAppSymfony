@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\UserReg\Business;
+namespace App\Component\User\Business;
 
+use App\Component\User\Business\Model\SetupUser;
 use App\Component\User\Persistence\Mapper\UserMapper;
 use App\Component\User\Persistence\UserEntityManager;
-use App\Component\UserReg\Business\Model\SetupUser;
 use App\DTO\UserDTO;
 use App\Entity\User;
 

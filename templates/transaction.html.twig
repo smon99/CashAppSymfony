@@ -6,11 +6,11 @@
         Angemeldet als: {{ activeUser }}
     </div>
 
-    <form method="post" action="/transaction">
+    <form method="post" action="{{ path('app_logout') }}">
         <button type="submit" name="logout">Abmelden</button>
     </form>
 
-    <a href="http://0.0.0.0:8000/feature">
+    <a href="{{ path('app_home') }}">
         <button>features</button>
     </a>
 

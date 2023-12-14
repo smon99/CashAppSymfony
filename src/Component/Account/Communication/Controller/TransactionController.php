@@ -16,18 +16,11 @@ class TransactionController extends AbstractController
     #[Route('/transaction', name: 'transaction')]
     public function action(): Response
     {
-        $activeUser = null;
-        $balance = null;
         $success = null;
         $error = null;
 
-        if (!$this->accountFacade->getLoginStatus()) {
-            return $this->redirectToRoute('login');
-        }
-
         if (isset($_POST["logout"])) {
-            $this->accountFacade->performLogout();
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_logout');
         }
 
         if (isset($_POST["transfer"])) {
@@ -57,10 +50,8 @@ class TransactionController extends AbstractController
             }
         }
 
-        if ($this->accountFacade->getLoginStatus()) {
-            $activeUser = $this->accountFacade->getSessionUsername();
-            $balance = $this->accountFacade->calculateBalance($this->accountFacade->getSessionUserID());
-        }
+        $activeUser = $this->accountFacade->getSessionUsername();
+        $balance = $this->accountFacade->calculateBalance($this->accountFacade->getSessionUserID());
 
         return $this->render('transaction.html.twig', [
             'title' => 'Transaction Controller',

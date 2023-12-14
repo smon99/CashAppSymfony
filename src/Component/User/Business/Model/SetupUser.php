@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\UserReg\Business\Model;
+namespace App\Component\User\Business\Model;
 
 use App\DTO\UserDTO;
 

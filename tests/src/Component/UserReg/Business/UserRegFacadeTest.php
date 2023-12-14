@@ -2,10 +2,10 @@
 
 namespace App\Tests\src\Component\UserReg\Business;
 
+use App\Component\User\Business\Model\SetupUser;
+use App\Component\User\Business\UserRegFacade;
 use App\Component\User\Persistence\Mapper\UserMapper;
 use App\Component\User\Persistence\UserEntityManager;
-use App\Component\UserReg\Business\Model\SetupUser;
-use App\Component\UserReg\Business\UserRegFacade;
 use App\DTO\UserDTO;
 use PHPUnit\Framework\TestCase;
 

@@ -39,11 +39,6 @@ class AccountBusinessFacade
         return 1;
     }
 
-    public function performLogout(): void
-    {
-        //do nothing yet lol
-    }
-
     public function calculateBalance(int $userID): float
     {
         return $this->balance->calculateBalance($userID);
@@ -91,11 +86,6 @@ class AccountBusinessFacade
     public function transformInput(string $input): float
     {
         return $this->inputTransformer->transformInput($input);
-    }
-
-    public function redirect(string $url): void
-    {
-        //do nothing yet lol
     }
 
     public function prepareTransaction(float $value, UserDTO $userDTO, UserDTO $receiverDTO): array
