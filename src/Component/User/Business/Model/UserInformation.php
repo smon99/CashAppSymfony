@@ -17,8 +17,8 @@ class UserInformation
 
     public function findAndMap(): ?UserDTO
     {
-        $name = $this->security->getUser()->getUserIdentifier();
-        return $this->userRepository->byEmail($name);
+        $email = $this->security->getUser()->getUserIdentifier();
+        return $this->userRepository->byEmail($email);
     }
 
     public function sessionUsername(): string
