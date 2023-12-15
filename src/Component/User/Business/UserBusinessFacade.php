@@ -8,7 +8,7 @@ use App\Component\User\Persistence\UserEntityManager;
 use App\DTO\UserDTO;
 use App\Entity\User;
 
-class UserRegFacade
+class UserBusinessFacade
 {
     public function __construct(
         private readonly SetupUser         $setupUser,
@@ -18,7 +18,7 @@ class UserRegFacade
     {
     }
 
-    public function validate(UserDTO $userDTO): bool
+    public function validate(): bool
     {
         return true;
     }

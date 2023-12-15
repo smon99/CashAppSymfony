@@ -2,6 +2,7 @@
 
 namespace App\Component\User\Communication\Controller;
 
+use App\Component\User\Business\UserBusinessFacade;
 use App\Component\User\Business\UserRegFacade;
 use App\Form\UserDTOType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private readonly UserRegFacade $userRegFacade)
+    public function __construct(private readonly UserBusinessFacade $userBusinessFacade)
     {
     }
 
@@ -26,10 +27,10 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userFormData = $form->getData();
-            $plainPassword = $this->userRegFacade->toEntity($userFormData);
+            $plainPassword = $this->userBusinessFacade->toEntity($userFormData);
             $password = $passwordHasher->hashPassword($plainPassword, $plainPassword->getPassword());
-            $save = $this->userRegFacade->prepareUser($userFormData->username, $userFormData->email, $password);
-            $this->userRegFacade->saveUser($save);
+            $save = $this->userBusinessFacade->prepareUser($userFormData->username, $userFormData->email, $password);
+            $this->userBusinessFacade->saveUser($save);
 
             return $this->redirectToRoute('app_login');
         }

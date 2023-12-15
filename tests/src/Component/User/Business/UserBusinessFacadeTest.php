@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\src\Component\UserReg\Business;
+namespace App\Tests\src\Component\User\Business;
 
 use App\Component\User\Business\Model\SetupUser;
-use App\Component\User\Business\UserRegFacade;
+use App\Component\User\Business\UserBusinessFacade;
 use App\Component\User\Persistence\Mapper\UserMapper;
 use App\Component\User\Persistence\UserEntityManager;
 use App\DTO\UserDTO;
 use PHPUnit\Framework\TestCase;
 
-class UserRegFacadeTest extends TestCase
+class UserBusinessFacadeTest extends TestCase
 {
     private SetupUser $setupUser;
     private UserEntityManager $userEntityManager;
-    private UserRegFacade $userRegFacade;
+    private UserBusinessFacade $userBusinessFacade;
     private UserMapper $userMapper;
 
     protected function setUp(): void
@@ -26,7 +26,7 @@ class UserRegFacadeTest extends TestCase
         $this->userMapper = new UserMapper();
 
         //Main testing-subject
-        $this->userRegFacade = new UserRegFacade(
+        $this->userBusinessFacade = new UserBusinessFacade(
             $this->setupUser,
             $this->userEntityManager,
             $this->userMapper,
@@ -36,7 +36,7 @@ class UserRegFacadeTest extends TestCase
     public function testValidate(): void
     {
         $userDTO = new UserDTO();
-        self::assertTrue($this->userRegFacade->validate($userDTO));
+        self::assertTrue($this->userBusinessFacade->validate($userDTO));
     }
 
     public function testPrepareUser(): void
@@ -45,7 +45,7 @@ class UserRegFacadeTest extends TestCase
         $email = 'Tester@Tester.de';
         $password = 'Tester123#';
 
-        self::assertSame('Tester', $this->userRegFacade->prepareUser($username, $email, $password)->username);
+        self::assertSame('Tester', $this->userBusinessFacade->prepareUser($username, $email, $password)->username);
     }
 
     public function testSaveUser(): void
@@ -59,6 +59,6 @@ class UserRegFacadeTest extends TestCase
             ->expects(self::once())
             ->method('create');
 
-        $this->userRegFacade->saveUser($newUser);
+        $this->userBusinessFacade->saveUser($newUser);
     }
 }

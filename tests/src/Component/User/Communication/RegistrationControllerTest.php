@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\src\Component\UserReg\Communication;
+namespace App\Tests\src\Component\User\Communication;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
