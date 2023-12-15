@@ -1,40 +1,153 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-    <h1>{{ title }}</h1>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-    <div>
-        Angemeldet als: {{ activeUser }}
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            width: 100%;
+        }
+
+        .button {
+            background-color: #5e51d8;
+            color: white;
+            border: none;
+            padding: 8px 0;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background-color: #7c6bd7;
+        }
+
+        .input-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 8px;
+            margin: 0 5px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            color: #333;
+            margin: 5px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            color: green;
+            margin-bottom: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .user-info div,
+        .user-info form,
+        .user-info a {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info button {
+            padding: 8px 16px;
+            margin-right: 0;
+        }
+
+        .button-inline {
+            display: inline-block;
+            width: auto;
+            margin: 0;
+        }
+    </style>
+
+    <div class="container">
+        <div class="user-info">
+            <div>
+                Angemeldet als: {{ activeUser }}
+            </div>
+            <form method="post" action="{{ path('deposit') }}" style="margin-left: 10px;">
+                <button type="submit" name="logout" class="button button-inline">Abmelden</button>
+            </form>
+            <a href="{{ path('app_home') }}" style="text-decoration: none; margin-left: 10px;">
+                <button class="button button-inline">features</button>
+            </a>
+        </div>
+
+        <h1>{{ title }}</h1>
+
+        {% if success is defined %}
+            <div class="success-message">{{ success }}</div>
+        {% endif %}
+        {% if error is defined and error is not empty %}
+            <div class="error-message">{{ error }} Fehler! Die Transaktion wurde nicht gespeichert!</div>
+        {% endif %}
+
+        <div class="message">
+            Kontostand: {{ balance }} €
+        </div>
+
+        <h1>
+            Geld hochladen
+        </h1>
+
+        <form action="{{ path('deposit_amount') }}" method="POST" class="input-field">
+            <label for="amount" class="input-label">Betrag:</label>
+            <input type="text" id="amount" name="amount" class="input-field">
+            <button type="submit" class="button">Hochladen</button>
+        </form>
     </div>
-
-    <form method="post" action="{{ path('deposit') }}">
-        <button type="submit" name="logout">Abmelden</button>
-    </form>
-
-    <a href="{{ path('app_home') }}">
-        <button>features</button>
-    </a>
-
-    <br><br>
-    {% if success is defined %}
-        {{ success }}
-    {% endif %}
-    {% if error is defined and error is not empty %}
-        <br>{{ error }}
-        Fehler! Die Transaktion wurde nicht gespeichert!<br>
-    {% endif %}
-    <br>
-
-    <div>
-        Kontostand: {{ balance }} €
-    </div>
-
-    <h1>
-        Geld hochladen
-    </h1>
-
-    <form action="{{ path('deposit_amount') }}" method="POST">
-        Betrag: <input type="text" name="amount">
-        <input type="submit" value="Hochladen">
-    </form>
 
 {% endblock %}

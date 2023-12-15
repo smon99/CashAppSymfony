@@ -1,26 +1,101 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button {
+            background-color: #5e51d8;
+            color: white;
+            border: none;
+            padding: 12px 0;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background-color: #7c6bd7;
+        }
+
+        .input-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 8px;
+            margin: 0 5px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-label {
+            min-width: 80px;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
+
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <a href="{{ path('registration') }}">
-        <button>
-            Registrieren
-        </button>
-    </a>
-    <br><br>
+    <div class="container">
+        <a href="{{ path('registration') }}" style="text-decoration: none; width: 56%;">
+            <button class="button">
+                Registrieren
+            </button>
+        </a>
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
-        <br>
+        <form action="{{ path('app_login') }}" method="post">
+            <div class="input-field">
+                <label for="username" class="input-label">Email:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}">
+            </div>
 
-        <label for="password">Passwort:</label>
-        <input type="password" id="password" name="_password">
-        <br>
+            <div class="input-field">
+                <label for="password" class="input-label">Passwort:</label>
+                <input type="password" id="password" name="_password">
+            </div>
 
-        <button type="submit">Anmelden</button>
-    </form>
+            <button type="submit" class="button">Anmelden</button>
+        </form>
+    </div>
 {% endblock %}
