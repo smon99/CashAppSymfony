@@ -2,16 +2,20 @@
 
 namespace App\Tests\src\Component\Account\Communication;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TransactionControllerTest extends WebTestCase
 {
     public function testAction(): void
     {
-        $_POST["receiver"] = "hi";
-        $_POST["amount"] = "1";
-        $_POST["transfer"] = true;
         $client = static::createClient();
+
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('test@email.com');
+
+        $client->loginUser($testUser);
+
         $client->request('GET', '/transaction');
 
         self::assertStringContainsString('Transaction Controller', $client->getResponse()->getContent());

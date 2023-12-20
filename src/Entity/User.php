@@ -29,6 +29,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

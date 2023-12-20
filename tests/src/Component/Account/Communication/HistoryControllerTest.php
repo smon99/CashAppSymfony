@@ -2,41 +2,24 @@
 
 namespace App\Tests\src\Component\Account\Communication;
 
-use App\DataFixtures\UserFixture;
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class HistoryControllerTest extends WebTestCase
 {
-    private EntityManagerInterface $entityManager;
-    private KernelBrowser $client;
-
-    private UserPasswordHasherInterface $userPasswordHasher;
-
-    public function setUp(): void
-    {
-        $this->client = static::createClient();
-        $container = $this->client->getContainer();
-
-        $this->userPasswordHasher = $container->get(UserPasswordHasherInterface::class);
-        $this->entityManager = $container->get(EntityManagerInterface::class);
-    }
-
     public function testAction(): void
     {
+        $client = static::createClient();
 
-        (new UserFixture($this->userPasswordHasher))->load($this->entityManager);
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('test@email.com');
 
-        $user = new User();
-        $user->setEmail('test@email.com')->setPassword('password');
+        $client->loginUser($testUser);
 
-        $this->client->loginUser($user);
+        $client->request('GET', '/history');
 
-        $this->client->request('GET', '/history');
-
-        self::assertStringContainsString('History Controller', $this->client->getResponse()->getContent());
+        self::assertStringContainsString('History Controller', $client->getResponse()->getContent());
     }
 }
