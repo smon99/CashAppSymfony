@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
 
     <div>
-        Angemeldet als: {{ activeUser }}
+        Angemeldet als: {{ app.user.username }}
     </div>
 
     <form method="post" action="{{ path('app_logout') }}">

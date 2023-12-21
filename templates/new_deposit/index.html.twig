@@ -1,3 +1,5 @@
+{# templates/new_deposit/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -58,7 +60,8 @@
             width: 100%;
         }
 
-        .input-field input {
+        .input-field input,
+        .input-field .form-control {
             width: 100%;
             padding: 8px;
             margin: 0 5px;
@@ -88,7 +91,7 @@
         .user-info {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             width: 100%;
             margin-bottom: 5px;
         }
@@ -118,15 +121,18 @@
             <div>
                 Angemeldet als: {{ app.user.username }}
             </div>
-            <form method="post" action="{{ path('deposit') }}" style="margin-left: 10px;">
-                <button type="submit" name="logout" class="button button-inline">Abmelden</button>
-            </form>
-            <a href="{{ path('app_home') }}" style="text-decoration: none; margin-left: 10px;">
-                <button class="button button-inline">features</button>
-            </a>
+            <div>
+                <form method="post" action="{{ path('app_logout') }}" class="button-inline">
+                    <button type="submit" name="logout" class="button">Abmelden</button>
+                </form>
+                <a href="{{ path('app_home') }}" class="button-inline"
+                   style="text-decoration: none; margin-left: 10px;">
+                    <button class="button">Features</button>
+                </a>
+            </div>
         </div>
 
-        <h1>{{ title }}</h1>
+        <h1>{{ controller_name }}</h1>
 
         {% if success is defined %}
             <div class="success-message">{{ success }}</div>
@@ -143,11 +149,11 @@
             Geld hochladen
         </h1>
 
-        <form action="{{ path('deposit_amount') }}" method="POST" class="input-field">
-            <label for="amount" class="input-label">Betrag:</label>
-            <input type="text" id="amount" name="amount" class="input-field">
-            <button type="submit" class="button">Hochladen</button>
-        </form>
+        {{ form_start(form, {'attr': {'class': 'input-field'}}) }}
+        {{ form_label(form.value, 'Betrag:', {'label_attr': {'class': 'input-label'}}) }}
+        {{ form_widget(form.value, {'attr': {'class': 'input-field form-control'}}) }}
+        <button type="submit" class="button">Hochladen</button>
+        {{ form_end(form, {'render_rest': false}) }}
     </div>
 
 {% endblock %}

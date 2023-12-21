@@ -3,7 +3,7 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,6 +16,7 @@ class TransactionController extends AbstractController
     #[Route('/transaction', name: 'transaction')]
     public function action(): Response
     {
+        $balance = $this->accountFacade->calculateBalance($this->getLoggedInUser()->getId());
         $success = null;
         $error = null;
 
@@ -26,9 +27,9 @@ class TransactionController extends AbstractController
         if (isset($_POST["transfer"])) {
             $receiver = $this->accountFacade->findByMail($_POST["receiver"]);
             $validateThis = $this->accountFacade->transformInput($_POST["amount"]);
-            $balance = $this->accountFacade->calculateBalance($this->accountFacade->getSessionUserID());
+            $balance = $this->accountFacade->calculateBalance($this->getLoggedInUser()->getId());
 
-            $this->accountFacade->validate($validateThis, $this->accountFacade->getSessionUserID());
+            $this->accountFacade->validate($validateThis, $this->getLoggedInUser()->getId());
 
             if ($receiver === null) {
                 $error = "Empfänger existiert nicht! ";
@@ -50,14 +51,10 @@ class TransactionController extends AbstractController
             }
         }
 
-        $activeUser = $this->accountFacade->getSessionUsername();
-        $balance = $this->accountFacade->calculateBalance($this->accountFacade->getSessionUserID());
-
         return $this->render('transaction.html.twig', [
             'title' => 'Transaction Controller',
             'balance' => $balance,
             'loginStatus' => $this->accountFacade->getLoginStatus(),
-            'activeUser' => $activeUser,
             'success' => $success,
             'error' => $error,
         ]);

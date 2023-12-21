@@ -3,7 +3,7 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,7 +16,7 @@ class HistoryController extends AbstractController
     #[Route('/history', name: 'history')]
     public function action(): Response
     {
-        $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->accountBusinessFacade->getSessionUserID());
+        $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->getLoggedInUser()->getId());
 
         return $this->render('history.html.twig', [
             'title' => 'History Controller',

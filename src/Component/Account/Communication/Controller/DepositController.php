@@ -3,7 +3,7 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +22,10 @@ class DepositController extends AbstractController
 
         $validateThis = $this->accountBusinessFacade->transformInput($input);
 
-        $this->accountBusinessFacade->validate($validateThis, $this->accountBusinessFacade->getSessionUserID());
+        $this->accountBusinessFacade->validate($validateThis, $this->getLoggedInUser()->getId());
         $amount = $validateThis;
 
-        $save = $this->accountBusinessFacade->prepareDeposit($amount, $this->accountBusinessFacade->getSessionUserID());
+        $save = $this->accountBusinessFacade->prepareDeposit($amount, $this->getLoggedInUser()->getId());
         $this->accountBusinessFacade->saveDeposit($save);
 
         return new RedirectResponse('/deposit?success=amount');
@@ -34,7 +34,6 @@ class DepositController extends AbstractController
     #[Route('/deposit', name: 'deposit')]
     public function action(Request $request): Response
     {
-        $activeUser = null;
         $balance = null;
         $error = null;
 
@@ -52,23 +51,21 @@ class DepositController extends AbstractController
         if ($input !== null) {
             $validateThis = $this->accountBusinessFacade->transformInput($input);
 
-            $this->accountBusinessFacade->validate($validateThis, $this->accountBusinessFacade->getSessionUserID());
+            $this->accountBusinessFacade->validate($validateThis, $this->getLoggedInUser()->getId());
             $amount = $validateThis;
 
-            $save = $this->accountBusinessFacade->prepareDeposit($amount, $this->accountBusinessFacade->getSessionUserID());
+            $save = $this->accountBusinessFacade->prepareDeposit($amount, $this->getLoggedInUser()->getId());
             $this->accountBusinessFacade->saveDeposit($save);
 
             $success = "Die Transaction wurde erfolgreich gespeichert!";
         }
 
-        $activeUser = $this->accountBusinessFacade->getSessionUsername();
-        $balance = $this->accountBusinessFacade->calculateBalance($this->accountBusinessFacade->getSessionUserID());
+        $balance = $this->accountBusinessFacade->calculateBalance($this->getLoggedInUser()->getId());
 
         return $this->render('deposit.html.twig', [
             'title' => 'Deposit Controller',
             'balance' => $balance,
             'loginStatus' => $this->accountBusinessFacade->getLoginStatus(),
-            'activeUser' => $activeUser,
             'success' => $success,
             'error' => $error,
         ]);
