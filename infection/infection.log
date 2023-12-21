@@ -1,0 +1,491 @@
+Escaped mutants:
+================
+
+1) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/Balance.php:33    [M] GreaterThan
+
+--- Original
++++ New
+@@ @@
+         $currentTime = new \DateTime();
+         $oneHourAgo = $currentTime->sub(new \DateInterval('PT1H'));
+         foreach ($transactions as $transaction) {
+-            if ($transaction->createdAt > $oneHourAgo) {
++            if ($transaction->createdAt >= $oneHourAgo) {
+                 $balance += $transaction->value;
+             }
+         }
+
+
+2) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] Concat
+
+--- Original
++++ New
+@@ @@
+         $sender = new TransactionDTO();
+         $receiver = new TransactionDTO();
+         $sender->userID = $userDTO->userID;
+-        $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;
++        $sender->purpose = $receiverDTO->username . 'Geldtransfer an ';
+         $sender->createdAt = new \DateTime();
+         $sender->value = $value * -1;
+         $receiver->userID = $receiverDTO->userID;
+
+
+3) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] ConcatOperandRemoval
+
+--- Original
++++ New
+@@ @@
+         $sender = new TransactionDTO();
+         $receiver = new TransactionDTO();
+         $sender->userID = $userDTO->userID;
+-        $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;
++        $sender->purpose = $receiverDTO->username;
+         $sender->createdAt = new \DateTime();
+         $sender->value = $value * -1;
+         $receiver->userID = $receiverDTO->userID;
+
+
+4) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] ConcatOperandRemoval
+
+--- Original
++++ New
+@@ @@
+         $sender = new TransactionDTO();
+         $receiver = new TransactionDTO();
+         $sender->userID = $userDTO->userID;
+-        $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;
++        $sender->purpose = 'Geldtransfer an ';
+         $sender->createdAt = new \DateTime();
+         $sender->value = $value * -1;
+         $receiver->userID = $receiverDTO->userID;
+
+
+5) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:18    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $sender->userID = $userDTO->userID;
+         $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;
+         $sender->createdAt = new \DateTime();
+-        $sender->value = $value * -1;
++        $sender->value = $value * -2;
+         $receiver->userID = $receiverDTO->userID;
+         $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
+         $receiver->createdAt = new \DateTime();
+
+
+6) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:18    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $sender->userID = $userDTO->userID;
+         $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;
+         $sender->createdAt = new \DateTime();
+-        $sender->value = $value * -1;
++        $sender->value = $value * -0;
+         $receiver->userID = $receiverDTO->userID;
+         $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
+         $receiver->createdAt = new \DateTime();
+
+
+7) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] Concat
+
+--- Original
++++ New
+@@ @@
+         $sender->createdAt = new \DateTime();
+         $sender->value = $value * -1;
+         $receiver->userID = $receiverDTO->userID;
+-        $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
++        $receiver->purpose = $userDTO->username . 'Zahlung erhalten von ';
+         $receiver->createdAt = new \DateTime();
+         $receiver->value = $value;
+         return ["sender" => $sender, "receiver" => $receiver];
+     }
+ }
+
+
+8) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] ConcatOperandRemoval
+
+--- Original
++++ New
+@@ @@
+         $sender->createdAt = new \DateTime();
+         $sender->value = $value * -1;
+         $receiver->userID = $receiverDTO->userID;
+-        $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
++        $receiver->purpose = $userDTO->username;
+         $receiver->createdAt = new \DateTime();
+         $receiver->value = $value;
+         return ["sender" => $sender, "receiver" => $receiver];
+     }
+ }
+
+
+9) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] ConcatOperandRemoval
+
+--- Original
++++ New
+@@ @@
+         $sender->createdAt = new \DateTime();
+         $sender->value = $value * -1;
+         $receiver->userID = $receiverDTO->userID;
+-        $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
++        $receiver->purpose = 'Zahlung erhalten von ';
+         $receiver->createdAt = new \DateTime();
+         $receiver->value = $value;
+         return ["sender" => $sender, "receiver" => $receiver];
+     }
+ }
+
+
+10) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:25    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
+         $receiver->createdAt = new \DateTime();
+         $receiver->value = $value;
+-        return ["sender" => $sender, "receiver" => $receiver];
++        return ["receiver" => $receiver];
+     }
+ }
+
+
+11) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/RegistrationController.php:26    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $errors = null;
+         $form = $this->createForm(UserDTOType::class);
+-        $form->handleRequest($request);
++        
+         if ($form->isSubmitted() && $form->isValid()) {
+             $userFormData = $form->getData();
+             $plainPassword = $this->userBusinessFacade->toEntity($userFormData);
+
+
+12) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/RegistrationController.php:28    [M] LogicalAndSingleSubExprNegation
+
+--- Original
++++ New
+@@ @@
+         $errors = null;
+         $form = $this->createForm(UserDTOType::class);
+         $form->handleRequest($request);
+-        if ($form->isSubmitted() && $form->isValid()) {
++        if ($form->isSubmitted() && !$form->isValid()) {
+             $userFormData = $form->getData();
+             $plainPassword = $this->userBusinessFacade->toEntity($userFormData);
+             $password = $passwordHasher->hashPassword($plainPassword, $plainPassword->getPassword());
+
+
+13) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:21    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+14) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:22    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, [])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+15) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:23    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+16) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:24    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank([]), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+17) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:27    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+18) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:28    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 2, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+19) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:28    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 4, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+20) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:30    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 29, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+21) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:30    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 31, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+22) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:35    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, [])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+23) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:36    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+24) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:37    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank([]), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+25) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:40    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email([])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+26) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:45    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, [])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+27) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:46    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+28) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:47    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank([]), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+29) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:51    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 5, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+30) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:51    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 6, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
++        $builder->add('username', TextType::class, ['constraints' => [new NotBlank(['message' => 'Bitte einen Benutzernamen auswählen!']), new Length(['min' => 3, 'minMessage' => 'Benutzername sollte mindestens 3 Zeichen lang sein!', 'max' => 30, 'maxMessage' => 'Benutzername sollte maximal 30 Zeichen lang sein!'])]])->add('email', EmailType::class, ['constraints' => [new NotBlank(['message' => 'Bitte eine Email-Adresse eingeben!']), new Email(['message' => 'Ungültige Email-Adresse!'])]])->add('password', PasswordType::class, ['constraints' => [new NotBlank(['message' => 'Bitte ein Passwort eingeben!']), new Length(['min' => 7, 'minMessage' => 'Bitte ein Passwort mit mindestens 6 Zeichen auswählen!'])]])->add('submit', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+31) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:61    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+-        $resolver->setDefaults(['data_class' => UserDTO::class]);
++        $resolver->setDefaults([]);
+     }
+ }
+
+
+32) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:61    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+-        $resolver->setDefaults(['data_class' => UserDTO::class]);
++        
+     }
+ }
+
+
+Timed Out mutants:
+==================
+
+Skipped mutants:
+================
