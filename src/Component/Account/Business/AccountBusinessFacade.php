@@ -6,6 +6,7 @@ use App\Component\Account\Business\Model\Balance;
 use App\Component\Account\Business\Model\InputTransformer;
 use App\Component\Account\Business\Model\SetupDeposit;
 use App\Component\Account\Business\Model\SetupTransaction;
+use App\Component\Account\Business\Validation\AccountValidation;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
 use App\Component\User\Business\Model\UserInformation;
@@ -22,6 +23,7 @@ class AccountBusinessFacade
         private readonly TransactionRepository    $transactionRepository,
         private readonly TransactionEntityManager $transactionEntityManager,
         private readonly UserInformation          $userInformation,
+        private readonly AccountValidation        $accountValidation,
     )
     {
     }
@@ -68,7 +70,7 @@ class AccountBusinessFacade
 
     public function validate(float $value, int $userID): void
     {
-        //do nothing yet lol
+        $this->accountValidation->collectErrors($value, $userID);
     }
 
     public function transformInput(string $input): float

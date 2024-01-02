@@ -19,4 +19,9 @@ class TransactionDTO
     {
         $this->value = $value;
     }
+
+    public function getUserID(): int
+    {
+        return $this->userID;
+    }
 }

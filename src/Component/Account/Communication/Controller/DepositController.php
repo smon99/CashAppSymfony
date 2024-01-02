@@ -34,7 +34,6 @@ class DepositController extends AbstractController
     #[Route('/deposit', name: 'deposit')]
     public function action(Request $request): Response
     {
-        $balance = null;
         $error = null;
 
         $success = $request->get('success');
@@ -56,8 +55,6 @@ class DepositController extends AbstractController
 
             $save = $this->accountBusinessFacade->prepareDeposit($amount, $this->getLoggedInUser()->getId());
             $this->accountBusinessFacade->saveDeposit($save);
-
-            $success = "Die Transaction wurde erfolgreich gespeichert!";
         }
 
         $balance = $this->accountBusinessFacade->calculateBalance($this->getLoggedInUser()->getId());

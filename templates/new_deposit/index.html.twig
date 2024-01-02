@@ -138,7 +138,7 @@
             <div class="success-message">{{ success }}</div>
         {% endif %}
         {% if error is defined and error is not empty %}
-            <div class="error-message">{{ error }} Fehler! Die Transaktion wurde nicht gespeichert!</div>
+            <div class="error-message">{{ error }}</div>
         {% endif %}
 
         <div class="message">
@@ -149,7 +149,7 @@
             Geld hochladen
         </h1>
 
-        {{ form_start(form, {'attr': {'class': 'input-field'}}) }}
+        {{ form_start(form, {'action': path('depositnew_submit'), 'attr': {'class': 'input-field'}}) }}
         {{ form_label(form.value, 'Betrag:', {'label_attr': {'class': 'input-label'}}) }}
         {{ form_widget(form.value, {'attr': {'class': 'input-field form-control'}}) }}
         {{ form_end(form, {'render_rest': true}) }}

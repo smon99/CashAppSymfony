@@ -36,4 +36,20 @@ class Balance
         }
         return $balance;
     }
+
+    public function calculateBalancePerDay(int $userID): float
+    {
+        $balance = 0.0;
+        $transactions = $this->transactionRepository->byUserID($userID);
+
+        $currentTime = new \DateTime();
+        $oneDayAgo = $currentTime->sub(new \DateInterval('PT24H'));
+
+        foreach ($transactions as $transaction) {
+            if ($transaction->createdAt > $oneDayAgo) {
+                $balance += $transaction->value;
+            }
+        }
+        return $balance;
+    }
 }

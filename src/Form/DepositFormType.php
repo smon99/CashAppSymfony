@@ -27,7 +27,11 @@ class DepositFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('Hochladen', SubmitType::class);
+            ->add('Hochladen', SubmitType::class, [
+                'attr' => [
+                    'class' => 'button',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

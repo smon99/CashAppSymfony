@@ -7,6 +7,7 @@ use App\Component\Account\Business\Model\Balance;
 use App\Component\Account\Business\Model\InputTransformer;
 use App\Component\Account\Business\Model\SetupDeposit;
 use App\Component\Account\Business\Model\SetupTransaction;
+use App\Component\Account\Business\Validation\AccountValidation;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
 use App\Component\User\Business\Model\UserInformation;
@@ -24,6 +25,7 @@ class AccountBusinessFacadeTest extends TestCase
     private TransactionRepository $transactionRepository;
     private TransactionEntityManager $transactionEntityManager;
     private UserInformation $userInformation;
+    private AccountValidation $accountValidation;
     private UserDTO $userDTO;
 
     protected function setUp(): void
@@ -33,6 +35,7 @@ class AccountBusinessFacadeTest extends TestCase
         $this->transactionEntityManager = $this->createMock(TransactionEntityManager::class);
         $this->balance = $this->createMock(Balance::class);
         $this->userInformation = $this->createMock(UserInformation::class);
+        $this->accountValidation = $this->createMock(AccountValidation::class);
 
         //Dependency
         $this->inputTransformer = new InputTransformer();
@@ -48,6 +51,7 @@ class AccountBusinessFacadeTest extends TestCase
             $this->transactionRepository,
             $this->transactionEntityManager,
             $this->userInformation,
+            $this->accountValidation
         );
 
         //DTO and Entity
