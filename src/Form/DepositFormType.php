@@ -2,16 +2,15 @@
 
 namespace App\Form;
 
-use App\DTO\TransactionDTO;
+use App\Entity\DepositValue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
-
-class TransactionDTOType extends AbstractType
+class DepositFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -34,7 +33,7 @@ class TransactionDTOType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => TransactionDTO::class,
+            'data_class' => DepositValue::class,
         ]);
     }
 }

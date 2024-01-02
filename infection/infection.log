@@ -489,3 +489,1082 @@ Timed Out mutants:
 
 Skipped mutants:
 ================
+
+Not Covered mutants:
+====================
+
+1) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/DepositController.php:18    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+     }
+     #[Route('/deposit/amount', name: 'deposit_amount', methods: ['POST'])]
+-    public function amount(Request $request) : RedirectResponse
++    protected function amount(Request $request) : RedirectResponse
+     {
+         $input = $request->get('amount');
+         $validateThis = $this->accountBusinessFacade->transformInput($input);
+
+
+2) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/DepositController.php:25    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $input = $request->get('amount');
+         $validateThis = $this->accountBusinessFacade->transformInput($input);
+-        $this->accountBusinessFacade->validate($validateThis, $this->getLoggedInUser()->getId());
++        
+         $amount = $validateThis;
+         $save = $this->accountBusinessFacade->prepareDeposit($amount, $this->getLoggedInUser()->getId());
+         $this->accountBusinessFacade->saveDeposit($save);
+
+
+3) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/DepositController.php:29    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $this->accountBusinessFacade->validate($validateThis, $this->getLoggedInUser()->getId());
+         $amount = $validateThis;
+         $save = $this->accountBusinessFacade->prepareDeposit($amount, $this->getLoggedInUser()->getId());
+-        $this->accountBusinessFacade->saveDeposit($save);
++        
+         return new RedirectResponse('/deposit?success=amount');
+     }
+     #[Route('/deposit', name: 'deposit')]
+
+
+4) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:19    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+     }
+     #[Route('/depositNew', name: 'depositnew')]
+-    public function action(Request $request) : Response
++    protected function action(Request $request) : Response
+     {
+         $balance = $this->accountBusinessFacade->calculateBalance($this->getLoggedInUser()->getId());
+         $error = null;
+
+
+5) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:33    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         }
+         $transaction = new TransactionDTO();
+         $form = $this->createForm(TransactionDTOType::class, $transaction);
+-        $form->handleRequest($request);
++        
+         if ($form->isSubmitted() && $form->isValid()) {
+             $value = $transaction->getValue();
+             $activeUserID = $this->getLoggedInUser()->getId();
+
+
+6) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:35    [M] LogicalAnd
+
+--- Original
++++ New
+@@ @@
+         $transaction = new TransactionDTO();
+         $form = $this->createForm(TransactionDTOType::class, $transaction);
+         $form->handleRequest($request);
+-        if ($form->isSubmitted() && $form->isValid()) {
++        if ($form->isSubmitted() || $form->isValid()) {
+             $value = $transaction->getValue();
+             $activeUserID = $this->getLoggedInUser()->getId();
+             $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
+
+
+7) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:35    [M] LogicalAndAllSubExprNegation
+
+--- Original
++++ New
+@@ @@
+         $transaction = new TransactionDTO();
+         $form = $this->createForm(TransactionDTOType::class, $transaction);
+         $form->handleRequest($request);
+-        if ($form->isSubmitted() && $form->isValid()) {
++        if (!$form->isSubmitted() && !$form->isValid()) {
+             $value = $transaction->getValue();
+             $activeUserID = $this->getLoggedInUser()->getId();
+             $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
+
+
+8) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:35    [M] LogicalAndNegation
+
+--- Original
++++ New
+@@ @@
+         $transaction = new TransactionDTO();
+         $form = $this->createForm(TransactionDTOType::class, $transaction);
+         $form->handleRequest($request);
+-        if ($form->isSubmitted() && $form->isValid()) {
++        if (!($form->isSubmitted() && $form->isValid())) {
+             $value = $transaction->getValue();
+             $activeUserID = $this->getLoggedInUser()->getId();
+             $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
+
+
+9) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:35    [M] LogicalAndSingleSubExprNegation
+
+--- Original
++++ New
+@@ @@
+         $transaction = new TransactionDTO();
+         $form = $this->createForm(TransactionDTOType::class, $transaction);
+         $form->handleRequest($request);
+-        if ($form->isSubmitted() && $form->isValid()) {
++        if (!$form->isSubmitted() && $form->isValid()) {
+             $value = $transaction->getValue();
+             $activeUserID = $this->getLoggedInUser()->getId();
+             $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
+
+
+10) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:35    [M] LogicalAndSingleSubExprNegation
+
+--- Original
++++ New
+@@ @@
+         $transaction = new TransactionDTO();
+         $form = $this->createForm(TransactionDTOType::class, $transaction);
+         $form->handleRequest($request);
+-        if ($form->isSubmitted() && $form->isValid()) {
++        if ($form->isSubmitted() && !$form->isValid()) {
+             $value = $transaction->getValue();
+             $activeUserID = $this->getLoggedInUser()->getId();
+             $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
+
+
+11) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:40    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+             $value = $transaction->getValue();
+             $activeUserID = $this->getLoggedInUser()->getId();
+             $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
+-            $this->accountBusinessFacade->saveDeposit($saveData);
++            
+             $success = 'Die Transaktion wurde erfolgreich gespeichert!';
+         }
+         return $this->render('new_deposit/index.html.twig', ['controller_name' => 'Deposit Controller temp', 'balance' => $balance, 'error' => $error, 'success' => $success, 'form' => $form->createView(), 'loginStatus' => $loginStatus]);
+     }
+ }
+
+
+12) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:45    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+             $this->accountBusinessFacade->saveDeposit($saveData);
+             $success = 'Die Transaktion wurde erfolgreich gespeichert!';
+         }
+-        return $this->render('new_deposit/index.html.twig', ['controller_name' => 'Deposit Controller temp', 'balance' => $balance, 'error' => $error, 'success' => $success, 'form' => $form->createView(), 'loginStatus' => $loginStatus]);
++        return $this->render('new_deposit/index.html.twig', ['balance' => $balance, 'error' => $error, 'success' => $success, 'form' => $form->createView(), 'loginStatus' => $loginStatus]);
+     }
+ }
+
+
+13) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/NewDepositController.php:50    [M] ArrayItem
+
+--- Original
++++ New
+@@ @@
+             $this->accountBusinessFacade->saveDeposit($saveData);
+             $success = 'Die Transaktion wurde erfolgreich gespeichert!';
+         }
+-        return $this->render('new_deposit/index.html.twig', ['controller_name' => 'Deposit Controller temp', 'balance' => $balance, 'error' => $error, 'success' => $success, 'form' => $form->createView(), 'loginStatus' => $loginStatus]);
++        return $this->render('new_deposit/index.html.twig', ['controller_name' => 'Deposit Controller temp', 'balance' => $balance, 'error' => $error, 'success' => $success, 'form' > $form->createView(), 'loginStatus' => $loginStatus]);
+     }
+ }
+
+
+14) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/TransactionController.php:32    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+             $receiver = $this->accountFacade->findByMail($_POST["receiver"]);
+             $validateThis = $this->accountFacade->transformInput($_POST["amount"]);
+             $balance = $this->accountFacade->calculateBalance($this->getLoggedInUser()->getId());
+-            $this->accountFacade->validate($validateThis, $this->getLoggedInUser()->getId());
++            
+             if ($receiver === null) {
+                 $error = "Empfänger existiert nicht! ";
+             }
+
+
+15) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/TransactionController.php:34    [M] Identical
+
+--- Original
++++ New
+@@ @@
+             $validateThis = $this->accountFacade->transformInput($_POST["amount"]);
+             $balance = $this->accountFacade->calculateBalance($this->getLoggedInUser()->getId());
+             $this->accountFacade->validate($validateThis, $this->getLoggedInUser()->getId());
+-            if ($receiver === null) {
++            if ($receiver !== null) {
+                 $error = "Empfänger existiert nicht! ";
+             }
+             if ($validateThis > $balance) {
+
+
+16) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/TransactionController.php:38    [M] GreaterThan
+
+--- Original
++++ New
+@@ @@
+             if ($receiver === null) {
+                 $error = "Empfänger existiert nicht! ";
+             }
+-            if ($validateThis > $balance) {
++            if ($validateThis >= $balance) {
+                 $error = "Guthaben zu gering! ";
+             }
+             if ($error === null) {
+
+
+17) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/TransactionController.php:38    [M] GreaterThanNegotiation
+
+--- Original
++++ New
+@@ @@
+             if ($receiver === null) {
+                 $error = "Empfänger existiert nicht! ";
+             }
+-            if ($validateThis > $balance) {
++            if ($validateThis <= $balance) {
+                 $error = "Guthaben zu gering! ";
+             }
+             if ($error === null) {
+
+
+18) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/TransactionController.php:42    [M] Identical
+
+--- Original
++++ New
+@@ @@
+             if ($validateThis > $balance) {
+                 $error = "Guthaben zu gering! ";
+             }
+-            if ($error === null) {
++            if ($error !== null) {
+                 $senderDTO = $this->accountFacade->findByUsername($this->accountFacade->getSessionUsername());
+                 $receiverDTO = $receiver;
+                 $transaction = $this->accountFacade->prepareTransaction($validateThis, $senderDTO, $receiverDTO);
+
+
+19) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/TransactionController.php:47    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+                 $senderDTO = $this->accountFacade->findByUsername($this->accountFacade->getSessionUsername());
+                 $receiverDTO = $receiver;
+                 $transaction = $this->accountFacade->prepareTransaction($validateThis, $senderDTO, $receiverDTO);
+-                $this->accountFacade->saveDeposit($transaction["sender"]);
++                
+                 $this->accountFacade->saveDeposit($transaction["receiver"]);
+                 $success = "Die Transaction wurde erfolgreich durchgeführt!";
+             }
+
+
+20) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Communication/Controller/TransactionController.php:48    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+                 $receiverDTO = $receiver;
+                 $transaction = $this->accountFacade->prepareTransaction($validateThis, $senderDTO, $receiverDTO);
+                 $this->accountFacade->saveDeposit($transaction["sender"]);
+-                $this->accountFacade->saveDeposit($transaction["receiver"]);
++                
+                 $success = "Die Transaction wurde erfolgreich durchgeführt!";
+             }
+         }
+
+
+21) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Home/Business/HomeBusinessFacade.php:15    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     public function __construct(private readonly UserInformation $userInformation)
+     {
+     }
+-    public function getSessionUsername() : string
++    protected function getSessionUsername() : string
+     {
+         return $this->userInformation->sessionUsername();
+     }
+ }
+
+
+22) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Home/Communication/Controller/ErrorController.php:11    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+ class ErrorController extends AbstractController
+ {
+     #[Route('/error', name: 'error')]
+-    public function action() : Response
++    protected function action() : Response
+     {
+         return $this->render('error.html.twig', ['title' => 'Error Controller']);
+     }
+ }
+
+
+23) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Home/Communication/Controller/ErrorController.php:14    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     #[Route('/error', name: 'error')]
+     public function action() : Response
+     {
+-        return $this->render('error.html.twig', ['title' => 'Error Controller']);
++        return $this->render('error.html.twig', []);
+     }
+ }
+
+
+24) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Home/Communication/Controller/HomeController.php:16    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+     }
+     #[Route('/', name: 'app_home')]
+-    public function index() : Response
++    protected function index() : Response
+     {
+         $activeUser = $this->homeBusinessFacade->getSessionUsername();
+         return $this->render('feature.html.twig', ['activeUser' => $activeUser]);
+     }
+ }
+
+
+25) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Home/Communication/Controller/HomeController.php:20    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     public function index() : Response
+     {
+         $activeUser = $this->homeBusinessFacade->getSessionUsername();
+-        return $this->render('feature.html.twig', ['activeUser' => $activeUser]);
++        return $this->render('feature.html.twig', []);
+     }
+ }
+
+
+26) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Business/Model/UserInformation.php:24    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $email = $this->security->getUser()->getUserIdentifier();
+         return $this->userRepository->byEmail($email);
+     }
+-    public function sessionUsername() : string
++    protected function sessionUsername() : string
+     {
+         return $this->findAndMap()->getUsername();
+     }
+
+
+27) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Business/Model/UserInformation.php:29    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->findAndMap()->getUsername();
+     }
+-    public function sessionUserID() : int
++    protected function sessionUserID() : int
+     {
+         return $this->findAndMap()->getUserID();
+     }
+
+
+28) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Business/Model/UserInformation.php:39    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->findAndMap() !== null;
+     }
+-    public function userByMail(string $email) : ?UserDTO
++    protected function userByMail(string $email) : ?UserDTO
+     {
+         return $this->userRepository->byEmail($email);
+     }
+
+
+29) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Business/Model/UserInformation.php:44    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->userRepository->byEmail($email);
+     }
+-    public function userByUsername(string $username) : ?UserDTO
++    protected function userByUsername(string $username) : ?UserDTO
+     {
+         return $this->userRepository->byUsername($username);
+     }
+ }
+
+
+30) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Business/UserBusinessFacade.php:36    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         $this->userEntityManager->create($userDTO);
+     }
+-    public function toEntity(UserDTO $userDTO) : User
++    protected function toEntity(UserDTO $userDTO) : User
+     {
+         return $this->userMapper->dtoToEntity($userDTO);
+     }
+ }
+
+
+31) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/LoginController.php:12    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+ class LoginController extends AbstractController
+ {
+     #[Route('/login', name: 'app_login')]
+-    public function index(AuthenticationUtils $authenticationUtils) : Response
++    protected function index(AuthenticationUtils $authenticationUtils) : Response
+     {
+         // get the login error if there is one
+         $error = $authenticationUtils->getLastAuthenticationError();
+
+
+32) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/LoginController.php:21    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $error = $authenticationUtils->getLastAuthenticationError();
+         // last username entered by the user
+         $lastUsername = $authenticationUtils->getLastUsername();
+-        return $this->render('login/index.html.twig', ['controller_name' => 'LoginController', 'last_username' => $lastUsername, 'error' => $error]);
++        return $this->render('login/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+     }
+     #[Route('/logout', name: 'app_logout')]
+     public function logout(AuthenticationUtils $authenticationUtils) : void
+
+
+33) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/LoginController.php:28    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         return $this->render('login/index.html.twig', ['controller_name' => 'LoginController', 'last_username' => $lastUsername, 'error' => $error]);
+     }
+     #[Route('/logout', name: 'app_logout')]
+-    public function logout(AuthenticationUtils $authenticationUtils) : void
++    protected function logout(AuthenticationUtils $authenticationUtils) : void
+     {
+     }
+ }
+
+
+34) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/RegistrationController.php:33    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+             $plainPassword = $this->userBusinessFacade->toEntity($userFormData);
+             $password = $passwordHasher->hashPassword($plainPassword, $plainPassword->getPassword());
+             $save = $this->userBusinessFacade->prepareUser($userFormData->username, $userFormData->email, $password);
+-            $this->userBusinessFacade->saveUser($save);
++            
+             return $this->redirectToRoute('app_login');
+         }
+         return $this->render('registration.html.twig', ['title' => 'Registration Controller', 'error' => $errors, 'form' => $form]);
+     }
+ }
+
+
+35) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/Mapper/UserMapper.php:21    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $userDTO->password = $user->getPassword();
+         return $userDTO;
+     }
+-    public function dtoToEntity(UserDTO $userDTO) : User
++    protected function dtoToEntity(UserDTO $userDTO) : User
+     {
+         $user = new User();
+         $user->setUsername($userDTO->username);
+
+
+36) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/Mapper/UserMapper.php:24    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function dtoToEntity(UserDTO $userDTO) : User
+     {
+         $user = new User();
+-        $user->setUsername($userDTO->username);
++        
+         $user->setEmail($userDTO->email);
+         $user->setPassword($userDTO->password);
+         return $user;
+     }
+ }
+
+
+37) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/Mapper/UserMapper.php:25    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $user = new User();
+         $user->setUsername($userDTO->username);
+-        $user->setEmail($userDTO->email);
++        
+         $user->setPassword($userDTO->password);
+         return $user;
+     }
+ }
+
+
+38) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/Mapper/UserMapper.php:26    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $user = new User();
+         $user->setUsername($userDTO->username);
+         $user->setEmail($userDTO->email);
+-        $user->setPassword($userDTO->password);
++        
+         return $user;
+     }
+ }
+
+
+39) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/UserEntityManager.php:18    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     public function __construct(private readonly EntityManagerInterface $entityManager, private readonly UserMapper $userMapper)
+     {
+     }
+-    public function create(UserDTO $userDTO) : void
++    protected function create(UserDTO $userDTO) : void
+     {
+         $user = $this->userMapper->dtoToEntity($userDTO);
+         $this->entityManager->persist($user);
+
+
+40) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/UserEntityManager.php:21    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function create(UserDTO $userDTO) : void
+     {
+         $user = $this->userMapper->dtoToEntity($userDTO);
+-        $this->entityManager->persist($user);
++        
+         $this->entityManager->flush();
+     }
+ }
+
+
+41) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/UserEntityManager.php:22    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $user = $this->userMapper->dtoToEntity($userDTO);
+         $this->entityManager->persist($user);
+-        $this->entityManager->flush();
++        
+     }
+ }
+
+
+42) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/UserRepository.php:17    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     public function __construct(private readonly \App\Repository\UserRepository $userRepository, private readonly UserMapper $userMapper)
+     {
+     }
+-    public function byUsername(string $username) : UserDTO
++    protected function byUsername(string $username) : UserDTO
+     {
+         $match = $this->userRepository->findBy(['username' => $username]);
+         return $this->userMapper->entityToDto($match[0]);
+
+
+43) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/UserRepository.php:19    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function byUsername(string $username) : UserDTO
+     {
+-        $match = $this->userRepository->findBy(['username' => $username]);
++        $match = $this->userRepository->findBy([]);
+         return $this->userMapper->entityToDto($match[0]);
+     }
+     public function byEmail(string $email) : UserDTO
+
+
+44) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Persistence/UserRepository.php:20    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     public function byUsername(string $username) : UserDTO
+     {
+         $match = $this->userRepository->findBy(['username' => $username]);
+-        return $this->userMapper->entityToDto($match[0]);
++        return $this->userMapper->entityToDto($match[1]);
+     }
+     public function byEmail(string $email) : UserDTO
+     {
+
+
+45) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/DepositFormDTO.php:10    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+ {
+     //Properties
+     public ?string $value = null;
+-    public function getValue() : ?string
++    protected function getValue() : ?string
+     {
+         return $this->value;
+     }
+
+
+46) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/DepositFormDTO.php:15    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->value;
+     }
+-    public function setValue(?string $value) : void
++    protected function setValue(?string $value) : void
+     {
+         $this->value = $value;
+     }
+ }
+
+
+47) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/TransactionDTO.php:13    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     public int $userID = 0;
+     public string $purpose = '';
+     public ?\DateTime $createdAt;
+-    public function getValue() : float
++    protected function getValue() : float
+     {
+         return $this->value;
+     }
+
+
+48) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/TransactionDTO.php:18    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->value;
+     }
+-    public function setValue(float $value) : void
++    protected function setValue(float $value) : void
+     {
+         $this->value = $value;
+     }
+ }
+
+
+49) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/UserDTO.php:14    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     public string $email = '';
+     public string $password = '';
+     //Getters Setters
+-    public function getPassword() : ?string
++    protected function getPassword() : ?string
+     {
+         return $this->password;
+     }
+
+
+50) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/UserDTO.php:24    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         $this->password = $password;
+     }
+-    public function getEmail() : ?string
++    protected function getEmail() : ?string
+     {
+         return $this->email;
+     }
+
+
+51) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/UserDTO.php:34    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         $this->email = $email;
+     }
+-    public function getUsername() : string
++    protected function getUsername() : string
+     {
+         return $this->username;
+     }
+
+
+52) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DTO/UserDTO.php:44    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         $this->username = $username;
+     }
+-    public function getUserID() : int
++    protected function getUserID() : int
+     {
+         return $this->userID;
+     }
+ }
+
+
+53) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DataFixtures/UserFixture.php:21    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function load(ObjectManager $manager) : void
+     {
+         $user = new User();
+-        $user->setEmail('test@email.com');
++        
+         $user->setUsername('testUser');
+         $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
+         $manager->persist($user);
+
+
+54) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DataFixtures/UserFixture.php:22    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $user = new User();
+         $user->setEmail('test@email.com');
+-        $user->setUsername('testUser');
++        
+         $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
+         $manager->persist($user);
+         $manager->flush();
+     }
+ }
+
+
+55) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DataFixtures/UserFixture.php:23    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $user = new User();
+         $user->setEmail('test@email.com');
+         $user->setUsername('testUser');
+-        $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
++        
+         $manager->persist($user);
+         $manager->flush();
+     }
+ }
+
+
+56) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DataFixtures/UserFixture.php:25    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $user->setEmail('test@email.com');
+         $user->setUsername('testUser');
+         $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
+-        $manager->persist($user);
++        
+         $manager->flush();
+     }
+ }
+
+
+57) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/DataFixtures/UserFixture.php:27    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $user->setUsername('testUser');
+         $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
+         $manager->persist($user);
+-        $manager->flush();
++        
+     }
+ }
+
+
+58) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Entity/User.php:32    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     private ?string $password = null;
+     #[ORM\Column]
+     private array $roles = [];
+-    public function setRoles(array $roles) : void
++    protected function setRoles(array $roles) : void
+     {
+         $this->roles = $roles;
+     }
+
+
+59) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Entity/User.php:47    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->username;
+     }
+-    public function setUsername(string $username) : static
++    protected function setUsername(string $username) : static
+     {
+         $this->username = $username;
+         return $this;
+
+
+60) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Entity/User.php:59    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->email;
+     }
+-    public function setEmail(string $email) : static
++    protected function setEmail(string $email) : static
+     {
+         $this->email = $email;
+         return $this;
+
+
+61) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Entity/User.php:71    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->password;
+     }
+-    public function setPassword(string $password) : static
++    protected function setPassword(string $password) : static
+     {
+         $this->password = $password;
+         return $this;
+
+
+62) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:18    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
++        
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+63) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:19    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
++        $builder->add('value', null, [])->add('Hochladen', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+64) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:20    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
++        $builder->add('value', null, ['constraints' => [new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+65) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:21    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
++        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+66) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:25    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
++        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+67) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:26    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
++        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 49, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+68) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:26    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+ {
+     public function buildForm(FormBuilderInterface $builder, array $options) : void
+     {
+-        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 50, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
++        $builder->add('value', null, ['constraints' => [new GreaterThanOrEqual(['value' => 0.1, 'message' => 'Bitte mindestens 0.10€ einzahlen!']), new LessThanOrEqual(['value' => 51, 'message' => 'Bitte maximal 50€ einzahlen! '])]])->add('Hochladen', SubmitType::class);
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+
+
+69) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:36    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+-        $resolver->setDefaults(['data_class' => TransactionDTO::class]);
++        $resolver->setDefaults([]);
+     }
+ }
+
+
+70) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/TransactionDTOType.php:36    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function configureOptions(OptionsResolver $resolver) : void
+     {
+-        $resolver->setDefaults(['data_class' => TransactionDTO::class]);
++        
+     }
+ }
+
+
+71) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Symfony/AbstractController.php:15    [M] Throw_
+
+--- Original
++++ New
+@@ @@
+     {
+         $user = $this->getUser();
+         if (!$user instanceof User) {
+-            throw new \RuntimeException('user not logged in');
++            new \RuntimeException('user not logged in');
+         }
+         return $user;
+     }
+ }

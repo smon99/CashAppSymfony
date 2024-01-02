@@ -3,6 +3,8 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
+use App\Entity\DepositValue;
+use App\Form\DepositFormType;
 use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +30,12 @@ class NewDepositController extends AbstractController
             return $this->redirectToRoute('app_logout');
         }
 
-        $transaction = new TransactionDTO();
-        $form = $this->createForm(TransactionDTOType::class, $transaction);
+        $depositValue = new DepositValue();
+        $form = $this->createForm(DepositFormType::class, $depositValue);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $value = $transaction->getValue();
+            $value = $this->accountBusinessFacade->transformInput($depositValue->getValue());
             $activeUserID = $this->getLoggedInUser()->getId();
 
             $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);

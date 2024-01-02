@@ -40,7 +40,7 @@ class TransactionController extends AbstractController
             }
 
             if ($error === null) {
-                $senderDTO = $this->accountFacade->findByUsername($this->accountFacade->getSessionUsername());
+                $senderDTO = $this->accountFacade->findByUsername($this->getLoggedInUser()->getUsername());
                 $receiverDTO = $receiver;
                 $transaction = $this->accountFacade->prepareTransaction($validateThis, $senderDTO, $receiverDTO);
 

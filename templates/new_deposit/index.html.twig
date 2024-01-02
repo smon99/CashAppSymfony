@@ -152,8 +152,7 @@
         {{ form_start(form, {'attr': {'class': 'input-field'}}) }}
         {{ form_label(form.value, 'Betrag:', {'label_attr': {'class': 'input-label'}}) }}
         {{ form_widget(form.value, {'attr': {'class': 'input-field form-control'}}) }}
-        <button type="submit" class="button">Hochladen</button>
-        {{ form_end(form, {'render_rest': false}) }}
+        {{ form_end(form, {'render_rest': true}) }}
     </div>
 
 {% endblock %}
