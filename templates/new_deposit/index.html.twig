@@ -149,7 +149,7 @@
             Geld hochladen
         </h1>
 
-        {{ form_start(form, {'action': path('depositnew_submit'), 'attr': {'class': 'input-field'}}) }}
+        {{ form_start(form, {'action': path('deposit_submit'), 'attr': {'class': 'input-field'}}) }}
         {{ form_label(form.value, 'Betrag:', {'label_attr': {'class': 'input-label'}}) }}
         {{ form_widget(form.value, {'attr': {'class': 'input-field form-control'}}) }}
         {{ form_end(form, {'render_rest': true}) }}

@@ -7,26 +7,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
-use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class DepositFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('value', null, [
-                'constraints' => [
-                    new GreaterThanOrEqual([
-                        'value' => 0.10,
-                        'message' => 'Bitte mindestens 0.10€ einzahlen!',
-                    ]),
-                    new LessThanOrEqual([
-                        'value' => 50,
-                        'message' => 'Bitte maximal 50€ einzahlen! ',
-                    ]),
-                ],
-            ])
+            ->add('value', null)
             ->add('Hochladen', SubmitType::class, [
                 'attr' => [
                     'class' => 'button',
