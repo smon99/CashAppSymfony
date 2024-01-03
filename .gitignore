@@ -20,5 +20,6 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
+/infection
 /coverage
 .idea
