@@ -8,6 +8,7 @@ use App\Component\Account\Business\Model\InputTransformer;
 use App\Component\Account\Business\Model\SetupDeposit;
 use App\Component\Account\Business\Model\SetupTransaction;
 use App\Component\Account\Business\Validation\AccountValidation;
+use App\Component\Account\Business\Validation\AccountValidationException;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
 use App\Component\User\Business\Model\UserInformation;
@@ -193,5 +194,14 @@ class AccountBusinessFacadeTest extends TestCase
         $userID = 1;
 
         self::assertSame(10.0, $this->accountBusinessFacade->prepareDeposit($value, $userID)->value);
+    }
+
+    public function testValidate(): void
+    {
+        $this->accountValidation
+            ->expects(self::once())
+            ->method('collectErrors');
+
+        $this->accountBusinessFacade->validate(55.0, 1);
     }
 }

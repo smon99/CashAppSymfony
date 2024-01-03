@@ -16,7 +16,22 @@ Escaped mutants:
          }
 
 
-2) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] Concat
+2) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/Balance.php:49    [M] GreaterThan
+
+--- Original
++++ New
+@@ @@
+         $currentTime = new \DateTime();
+         $oneDayAgo = $currentTime->sub(new \DateInterval('PT24H'));
+         foreach ($transactions as $transaction) {
+-            if ($transaction->createdAt > $oneDayAgo) {
++            if ($transaction->createdAt >= $oneDayAgo) {
+                 $balance += $transaction->value;
+             }
+         }
+
+
+3) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] Concat
 
 --- Original
 +++ New
@@ -31,7 +46,7 @@ Escaped mutants:
          $receiver->userID = $receiverDTO->userID;
 
 
-3) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] ConcatOperandRemoval
+4) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] ConcatOperandRemoval
 
 --- Original
 +++ New
@@ -46,7 +61,7 @@ Escaped mutants:
          $receiver->userID = $receiverDTO->userID;
 
 
-4) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] ConcatOperandRemoval
+5) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:16    [M] ConcatOperandRemoval
 
 --- Original
 +++ New
@@ -61,7 +76,7 @@ Escaped mutants:
          $receiver->userID = $receiverDTO->userID;
 
 
-5) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:18    [M] DecrementInteger
+6) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:18    [M] DecrementInteger
 
 --- Original
 +++ New
@@ -76,7 +91,7 @@ Escaped mutants:
          $receiver->createdAt = new \DateTime();
 
 
-6) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:18    [M] IncrementInteger
+7) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:18    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -91,7 +106,7 @@ Escaped mutants:
          $receiver->createdAt = new \DateTime();
 
 
-7) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] Concat
+8) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] Concat
 
 --- Original
 +++ New
@@ -108,7 +123,7 @@ Escaped mutants:
  }
 
 
-8) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] ConcatOperandRemoval
+9) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] ConcatOperandRemoval
 
 --- Original
 +++ New
@@ -125,7 +140,7 @@ Escaped mutants:
  }
 
 
-9) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] ConcatOperandRemoval
+10) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:21    [M] ConcatOperandRemoval
 
 --- Original
 +++ New
@@ -142,7 +157,7 @@ Escaped mutants:
  }
 
 
-10) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:25    [M] ArrayItemRemoval
+11) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Model/SetupTransaction.php:25    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -156,7 +171,228 @@ Escaped mutants:
  }
 
 
-11) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/RegistrationController.php:26    [M] MethodCallRemoval
+12) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/DayValidator.php:16    [M] Plus
+
+--- Original
++++ New
+@@ @@
+     public function validate(float $amount, int $userID) : void
+     {
+         $dayBalance = $this->balance->calculateBalancePerDay($userID);
+-        $limit = $dayBalance + $amount;
++        $limit = $dayBalance - $amount;
+         if ($limit > 500.0) {
+             throw new AccountValidationException('Tägliches Einzahlungslimit von 500€ überschritten!');
+         }
+     }
+ }
+
+
+13) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/DayValidator.php:18    [M] GreaterThan
+
+--- Original
++++ New
+@@ @@
+     {
+         $dayBalance = $this->balance->calculateBalancePerDay($userID);
+         $limit = $dayBalance + $amount;
+-        if ($limit > 500.0) {
++        if ($limit >= 500.0) {
+             throw new AccountValidationException('Tägliches Einzahlungslimit von 500€ überschritten!');
+         }
+     }
+ }
+
+
+14) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/DayValidator.php:18    [M] GreaterThanNegotiation
+
+--- Original
++++ New
+@@ @@
+     {
+         $dayBalance = $this->balance->calculateBalancePerDay($userID);
+         $limit = $dayBalance + $amount;
+-        if ($limit > 500.0) {
++        if ($limit <= 500.0) {
+             throw new AccountValidationException('Tägliches Einzahlungslimit von 500€ überschritten!');
+         }
+     }
+ }
+
+
+15) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/DayValidator.php:19    [M] Throw_
+
+--- Original
++++ New
+@@ @@
+         $dayBalance = $this->balance->calculateBalancePerDay($userID);
+         $limit = $dayBalance + $amount;
+         if ($limit > 500.0) {
+-            throw new AccountValidationException('Tägliches Einzahlungslimit von 500€ überschritten!');
++            new AccountValidationException('Tägliches Einzahlungslimit von 500€ überschritten!');
+         }
+     }
+ }
+
+
+16) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/HourValidator.php:16    [M] Plus
+
+--- Original
++++ New
+@@ @@
+     public function validate(float $amount, int $userID) : void
+     {
+         $hourBalance = $this->balance->calculateBalancePerHour($userID);
+-        $limit = $hourBalance + $amount;
++        $limit = $hourBalance - $amount;
+         if ($limit > 100.0) {
+             throw new AccountValidationException('Stündliches Einzahlungslimit von 100€ überschritten!');
+         }
+     }
+ }
+
+
+17) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/HourValidator.php:18    [M] GreaterThan
+
+--- Original
++++ New
+@@ @@
+     {
+         $hourBalance = $this->balance->calculateBalancePerHour($userID);
+         $limit = $hourBalance + $amount;
+-        if ($limit > 100.0) {
++        if ($limit >= 100.0) {
+             throw new AccountValidationException('Stündliches Einzahlungslimit von 100€ überschritten!');
+         }
+     }
+ }
+
+
+18) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/HourValidator.php:18    [M] GreaterThanNegotiation
+
+--- Original
++++ New
+@@ @@
+     {
+         $hourBalance = $this->balance->calculateBalancePerHour($userID);
+         $limit = $hourBalance + $amount;
+-        if ($limit > 100.0) {
++        if ($limit <= 100.0) {
+             throw new AccountValidationException('Stündliches Einzahlungslimit von 100€ überschritten!');
+         }
+     }
+ }
+
+
+19) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/HourValidator.php:19    [M] Throw_
+
+--- Original
++++ New
+@@ @@
+         $hourBalance = $this->balance->calculateBalancePerHour($userID);
+         $limit = $hourBalance + $amount;
+         if ($limit > 100.0) {
+-            throw new AccountValidationException('Stündliches Einzahlungslimit von 100€ überschritten!');
++            new AccountValidationException('Stündliches Einzahlungslimit von 100€ überschritten!');
+         }
+     }
+ }
+
+
+20) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/SingleValidator.php:9    [M] LessThan
+
+--- Original
++++ New
+@@ @@
+ {
+     public function validate(float $amount, int $userID) : void
+     {
+-        if ($amount < 0.01 || $amount > 50) {
++        if ($amount <= 0.01 || $amount > 50) {
+             throw new AccountValidationException('Bitte einen Betrag von mindestens 0.01€ und maximal 50€ eingeben!');
+         }
+     }
+ }
+
+
+21) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/SingleValidator.php:9    [M] LessThanNegotiation
+
+--- Original
++++ New
+@@ @@
+ {
+     public function validate(float $amount, int $userID) : void
+     {
+-        if ($amount < 0.01 || $amount > 50) {
++        if ($amount >= 0.01 || $amount > 50) {
+             throw new AccountValidationException('Bitte einen Betrag von mindestens 0.01€ und maximal 50€ eingeben!');
+         }
+     }
+ }
+
+
+22) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/SingleValidator.php:9    [M] GreaterThan
+
+--- Original
++++ New
+@@ @@
+ {
+     public function validate(float $amount, int $userID) : void
+     {
+-        if ($amount < 0.01 || $amount > 50) {
++        if ($amount < 0.01 || $amount >= 50) {
+             throw new AccountValidationException('Bitte einen Betrag von mindestens 0.01€ und maximal 50€ eingeben!');
+         }
+     }
+ }
+
+
+23) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Business/Validation/SingleValidator.php:9    [M] LogicalOrAllSubExprNegation
+
+--- Original
++++ New
+@@ @@
+ {
+     public function validate(float $amount, int $userID) : void
+     {
+-        if ($amount < 0.01 || $amount > 50) {
++        if (!($amount < 0.01) || !($amount > 50)) {
+             throw new AccountValidationException('Bitte einen Betrag von mindestens 0.01€ und maximal 50€ eingeben!');
+         }
+     }
+ }
+
+
+24) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Persistence/TransactionEntityManager.php:22    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function create(TransactionDTO $accountDTO) : void
+     {
+         $transaction = $this->transactionMapper->dtoToEntity($accountDTO);
+-        $this->entityManager->persist($transaction);
++        
+         $this->entityManager->flush();
+     }
+ }
+
+
+25) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/Account/Persistence/TransactionEntityManager.php:23    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $transaction = $this->transactionMapper->dtoToEntity($accountDTO);
+         $this->entityManager->persist($transaction);
+-        $this->entityManager->flush();
++        
+     }
+ }
+
+
+26) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/RegistrationController.php:26    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -171,7 +407,7 @@ Escaped mutants:
              $plainPassword = $this->userBusinessFacade->toEntity($userFormData);
 
 
-12) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/RegistrationController.php:28    [M] LogicalAndSingleSubExprNegation
+27) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Component/User/Communication/Controller/RegistrationController.php:28    [M] LogicalAndSingleSubExprNegation
 
 --- Original
 +++ New
@@ -186,7 +422,7 @@ Escaped mutants:
              $password = $passwordHasher->hashPassword($plainPassword, $plainPassword->getPassword());
 
 
-13) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:21    [M] MethodCallRemoval
+28) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:21    [M] MethodCallRemoval
 
 --- Original
 +++ New
@@ -201,7 +437,7 @@ Escaped mutants:
      {
 
 
-14) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:22    [M] ArrayItemRemoval
+29) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:22    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -216,7 +452,7 @@ Escaped mutants:
      {
 
 
-15) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:23    [M] ArrayItemRemoval
+30) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:23    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -231,7 +467,7 @@ Escaped mutants:
      {
 
 
-16) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:24    [M] ArrayItemRemoval
+31) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:24    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -246,7 +482,7 @@ Escaped mutants:
      {
 
 
-17) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:27    [M] ArrayItemRemoval
+32) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:27    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -261,7 +497,7 @@ Escaped mutants:
      {
 
 
-18) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:28    [M] DecrementInteger
+33) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:28    [M] DecrementInteger
 
 --- Original
 +++ New
@@ -276,7 +512,7 @@ Escaped mutants:
      {
 
 
-19) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:28    [M] IncrementInteger
+34) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:28    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -291,7 +527,7 @@ Escaped mutants:
      {
 
 
-20) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:30    [M] DecrementInteger
+35) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:30    [M] DecrementInteger
 
 --- Original
 +++ New
@@ -306,7 +542,7 @@ Escaped mutants:
      {
 
 
-21) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:30    [M] IncrementInteger
+36) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:30    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -321,7 +557,7 @@ Escaped mutants:
      {
 
 
-22) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:35    [M] ArrayItemRemoval
+37) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:35    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -336,7 +572,7 @@ Escaped mutants:
      {
 
 
-23) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:36    [M] ArrayItemRemoval
+38) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:36    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -351,7 +587,7 @@ Escaped mutants:
      {
 
 
-24) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:37    [M] ArrayItemRemoval
+39) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:37    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -366,7 +602,7 @@ Escaped mutants:
      {
 
 
-25) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:40    [M] ArrayItemRemoval
+40) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:40    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -381,7 +617,7 @@ Escaped mutants:
      {
 
 
-26) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:45    [M] ArrayItemRemoval
+41) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:45    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -396,7 +632,7 @@ Escaped mutants:
      {
 
 
-27) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:46    [M] ArrayItemRemoval
+42) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:46    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -411,7 +647,7 @@ Escaped mutants:
      {
 
 
-28) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:47    [M] ArrayItemRemoval
+43) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:47    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -426,7 +662,7 @@ Escaped mutants:
      {
 
 
-29) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:51    [M] DecrementInteger
+44) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:51    [M] DecrementInteger
 
 --- Original
 +++ New
@@ -441,7 +677,7 @@ Escaped mutants:
      {
 
 
-30) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:51    [M] IncrementInteger
+45) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:51    [M] IncrementInteger
 
 --- Original
 +++ New
@@ -456,7 +692,7 @@ Escaped mutants:
      {
 
 
-31) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:61    [M] ArrayItemRemoval
+46) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:61    [M] ArrayItemRemoval
 
 --- Original
 +++ New
@@ -470,7 +706,7 @@ Escaped mutants:
  }
 
 
-32) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:61    [M] MethodCallRemoval
+47) /home/simondewendt/PhpstormProjects/CashAppSymfony/src/Form/UserDTOType.php:61    [M] MethodCallRemoval
 
 --- Original
 +++ New

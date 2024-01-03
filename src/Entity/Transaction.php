@@ -31,6 +31,11 @@ class Transaction
         return $this->id;
     }
 
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
     public function getUserID(): ?int
     {
         return $this->userID;
