@@ -3,9 +3,14 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
+use App\Entity\TransactionReceiverValue;
+use App\Form\TransactionFormType;
 use App\Symfony\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Component\Account\Business\Validation\AccountValidationException;
 
 class TransactionController extends AbstractController
 {
@@ -14,22 +19,24 @@ class TransactionController extends AbstractController
     }
 
     #[Route('/transaction', name: 'transaction')]
-    public function action(): Response
+    public function action(Request $request): Response
     {
         $balance = $this->accountFacade->calculateBalance($this->getLoggedInUser()->getId());
-        $success = null;
-        $error = null;
+        $transactionValue = new TransactionReceiverValue();
+        $form = $this->createForm(TransactionFormType::class, $transactionValue);
+        $form->handleRequest($request);
 
-        if (isset($_POST["logout"])) {
-            return $this->redirectToRoute('app_logout');
-        }
-
-        if (isset($_POST["transfer"])) {
-            $receiver = $this->accountFacade->findByMail($_POST["receiver"]);
-            $validateThis = $this->accountFacade->transformInput($_POST["amount"]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $receiver = $this->accountFacade->findByMail($transactionValue->getReceiver());
+            $validateThis = $this->accountFacade->transformInput((string)$transactionValue->getValue());
             $balance = $this->accountFacade->calculateBalance($this->getLoggedInUser()->getId());
+            $error = null;
 
-            $this->accountFacade->validate($validateThis, $this->getLoggedInUser()->getId());
+            try {
+                $this->accountFacade->validate($validateThis, $this->getLoggedInUser()->getId());
+            } catch (AccountValidationException $e) {
+                $error = $e->getMessage();
+            }
 
             if ($receiver === null) {
                 $error = "Empfänger existiert nicht! ";
@@ -47,7 +54,11 @@ class TransactionController extends AbstractController
                 $this->accountFacade->saveDeposit($transaction["sender"]);
                 $this->accountFacade->saveDeposit($transaction["receiver"]);
 
-                $success = "Die Transaction wurde erfolgreich durchgeführt!";
+                return $this->redirectToRoute('transaction', ['success' => "Die Transaction wurde erfolgreich durchgeführt!"]);
+            }
+
+            if ($error) {
+                return $this->redirectToRoute('transaction', ['error' => $error]);
             }
         }
 
@@ -55,8 +66,7 @@ class TransactionController extends AbstractController
             'title' => 'Transaction Controller',
             'balance' => $balance,
             'loginStatus' => $this->accountFacade->getLoginStatus(),
-            'success' => $success,
-            'error' => $error,
+            'form' => $form->createView(),
         ]);
     }
 }

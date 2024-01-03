@@ -14,7 +14,7 @@ class TransactionReceiverValue
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $value = null;
+    private ?string $value = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $receiver = null;
@@ -24,12 +24,12 @@ class TransactionReceiverValue
         return $this->id;
     }
 
-    public function getValue(): ?float
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(?float $value): static
+    public function setValue(?string $value): static
     {
         $this->value = $value;
 

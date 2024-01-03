@@ -15,7 +15,11 @@ class TransactionFormType extends AbstractType
         $builder
             ->add('value')
             ->add('receiver')
-            ->add('Hochladen', SubmitType::class);
+            ->add('Versenden', SubmitType::class, [
+                'attr' => [
+                    'class' => 'button',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
