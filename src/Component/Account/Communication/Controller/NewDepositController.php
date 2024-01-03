@@ -60,15 +60,11 @@ class NewDepositController extends AbstractController
                 $error = $e->getMessage();
                 return $this->redirectToRoute('deposit', ['error' => $error]);
             }
-
-            $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
-            $this->accountBusinessFacade->saveDeposit($saveData);
-
-            $success = 'Die Transaktion wurde erfolgreich gespeichert!';
-            return $this->redirectToRoute('deposit', ['success' => $success]);
         }
+        $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
+        $this->accountBusinessFacade->saveDeposit($saveData);
 
-        $error = 'Fehler! Die Transaktion wurde nicht gespeichert!';
-        return $this->redirectToRoute('deposit', ['error' => $error]);
+        $success = 'Die Transaktion wurde erfolgreich gespeichert!';
+        return $this->redirectToRoute('deposit', ['success' => $success]);
     }
 }

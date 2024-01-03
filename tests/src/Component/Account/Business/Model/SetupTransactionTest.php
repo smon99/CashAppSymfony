@@ -21,8 +21,14 @@ class SetupTransactionTest extends TestCase
         $sender = new UserDTO();
         $receiver = new UserDTO();
 
+        $sender->username = 'Tester';
+        $receiver->username = 'Tester';
+
         $preparedTransactionDTOs = $this->setupTransaction->prepareTransaction($value, $sender, $receiver);
 
+        self::assertStringContainsString('Geldtransfer an ' . $receiver->username, $preparedTransactionDTOs["sender"]->purpose);
+        self::assertStringContainsString('Zahlung erhalten von ' . $sender->username, $preparedTransactionDTOs["receiver"]->purpose);
+        self::assertSame(-1.0, $preparedTransactionDTOs["sender"]->value);
         self::assertSame(1.0, $preparedTransactionDTOs["receiver"]->value);
     }
 }
