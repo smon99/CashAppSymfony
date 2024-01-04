@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .main {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-section, .actions-section {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .actions-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #5e51d8;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background-color: #7c6bd7;
+        }
+
+        .logout-button {
+            background-color: transparent;
+            color: #333;
+            border: 2px solid #333;
+        }
+
+        .logout-button:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        .balance {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-info span {
+            display: block;
+        }
+
+        .user-info .username {
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="header">
+        <span class="balance">Kontostand: €{{ balance }}</span>
+        <div class="user-info">
+            <span class="username">{{ app.user.username }}</span>
+            <a href="{{ path('app_logout') }}" class="button logout-button">logout</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="info-section">
+            <a href="{{ path('transaction') }}" class="button">transaktionen preview</a>
+            <a href="{{ path('transaction') }}" class="button">transaktionen einsehen</a>
+            <a href="{{ path('error') }}" class="button">kontakte</a>
+        </div>
+
+        <div class="actions-section">
+            <a href="{{ path('error') }}" class="button">preview</a>
+            <a href="{{ path('error') }}" class="button">weitere</a>
+            <a href="{{ path('transaction') }}" class="button">versenden</a>
+            <a href="{{ path('deposit') }}" class="button">einzahlen</a>
+        </div>
+    </div>
+
+{% endblock %}

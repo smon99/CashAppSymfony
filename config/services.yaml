@@ -22,8 +22,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Component\Account\Business\Validation\AccountValidation:
-        arguments:
-            - '@App\Component\Account\Business\Validation\SingleValidator'
-            - '@App\Component\Account\Business\Validation\HourValidator'
-            - '@App\Component\Account\Business\Validation\DayValidator'

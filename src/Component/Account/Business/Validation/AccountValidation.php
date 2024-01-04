@@ -3,20 +3,23 @@
 namespace App\Component\Account\Business\Validation;
 
 
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+
 class AccountValidation
 {
-    private array $validationCollection;
 
-    public function __construct(AccountValidationInterface ...$validations)
+    public function __construct(
+        #[TaggedIterator('account_validation')]
+        private readonly iterable $validators,
+    )
     {
-        $this->validationCollection = $validations;
     }
 
     public function collectErrors(float $amount, int $userID): void
     {
         $firstError = null;
 
-        foreach ($this->validationCollection as $validator) {
+        foreach ($this->validators as $validator) {
             try {
                 $validator->validate($amount, $userID);
             } catch (AccountValidationException $e) {

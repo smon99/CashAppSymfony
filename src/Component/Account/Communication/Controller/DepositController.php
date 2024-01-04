@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class NewDepositController extends AbstractController
+class DepositController extends AbstractController
 {
     public function __construct(
         private readonly AccountBusinessFacade $accountBusinessFacade
