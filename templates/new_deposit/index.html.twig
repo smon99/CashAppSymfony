@@ -122,9 +122,10 @@
                 Angemeldet als: {{ app.user.username }}
             </div>
             <div>
-                <form method="post" action="{{ path('app_logout') }}" class="button-inline">
-                    <button type="submit" name="logout" class="button">Abmelden</button>
-                </form>
+                <a href="{{ path('app_logout') }}" class="button-inline"
+                   style="text-decoration: none; margin-left: 10px;">
+                    <button class="button">Abmelden</button>
+                </a>
                 <a href="{{ path('app_home') }}" class="button-inline"
                    style="text-decoration: none; margin-left: 10px;">
                     <button class="button">Features</button>

@@ -27,10 +27,6 @@ class DepositController extends AbstractController
         $error = $request->query->get('error');
         $success = $request->query->get('success');
 
-        if (isset($_POST["logout"])) {
-            return $this->redirectToRoute('app_logout');
-        }
-
         $depositValue = new DepositValue();
         $form = $this->createForm(DepositFormType::class, $depositValue);
 
