@@ -6,6 +6,7 @@ use App\Component\User\Persistence\UserRepository;
 use App\Entity\Transaction;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class TransactionFixture extends Fixture
 {
