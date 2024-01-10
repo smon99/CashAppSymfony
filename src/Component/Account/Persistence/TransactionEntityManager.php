@@ -6,9 +6,8 @@ use App\Component\Account\Persistence\Mapper\TransactionMapper;
 use App\DTO\TransactionDTO;
 use Doctrine\ORM\EntityManagerInterface;
 
-class TransactionEntityManager
+class TransactionEntityManager implements TransactionEntityManagerInterface
 {
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly TransactionMapper      $transactionMapper,

@@ -3,13 +3,13 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
-use App\Component\Account\Business\Validation\AccountValidationException;
+use App\Component\Account\Business\Validation\Collection\AccountValidationException;
 use App\Entity\DepositValue;
 use App\Form\DepositFormType;
 use App\Symfony\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DepositController extends AbstractController
@@ -46,7 +46,7 @@ class DepositController extends AbstractController
         $form = $this->createForm(DepositFormType::class, $depositValue);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             $value = $this->accountBusinessFacade->transformInput($depositValue->getValue());
             $activeUserID = $this->getLoggedInUser()->getId();
 

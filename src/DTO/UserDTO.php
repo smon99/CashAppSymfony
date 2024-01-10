@@ -4,13 +4,11 @@ namespace App\DTO;
 
 class UserDTO
 {
-    //Properties
-    public int $userID = 1;
+    public int $id = 1;
     public string $username = '';
     public string $email = '';
     public string $password = '';
 
-    //Getters Setters
     public function getPassword(): ?string
     {
         return $this->password;
@@ -41,8 +39,8 @@ class UserDTO
         $this->username = $username;
     }
 
-    public function getUserID(): int
+    public function getId(): int
     {
-        return $this->userID;
+        return $this->id;
     }
 }

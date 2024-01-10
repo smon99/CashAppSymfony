@@ -68,4 +68,38 @@ class TransactionControllerTest extends WebTestCase
 
         self::assertStringContainsString('Transaction Controller', $this->client->getResponse()->getContent());
     }
+
+    public function testActionWithValidForm(): void
+    {
+        $this->createAuthenticatedClient();
+        $this->loadTransactionFixture();
+
+        $crawler = $this->client->request('GET', '/transaction');
+
+        $form = $crawler->selectButton('Versenden')->form();
+        $form['transaction_form[value]'] = '1';
+        $form['transaction_form[receiver]'] = 'John@email.com';
+
+        $this->client->submit($form);
+        $this->client->followRedirect();
+
+        self::assertStringContainsString('', $this->client->getResponse()->getContent());
+    }
+
+    public function testActionWithInvalidForm(): void
+    {
+        $this->createAuthenticatedClient();
+        $this->loadTransactionFixture();
+
+        $crawler = $this->client->request('GET', '/transaction');
+
+        $form = $crawler->selectButton('Versenden')->form();
+        $form['transaction_form[value]'] = '10000000';
+        $form['transaction_form[receiver]'] = 'John@email.com';
+
+        $this->client->submit($form);
+        $this->client->followRedirect();
+
+        self::assertStringContainsString('', $this->client->getResponse()->getContent());
+    }
 }

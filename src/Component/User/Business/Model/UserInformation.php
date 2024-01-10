@@ -28,7 +28,7 @@ class UserInformation
 
     public function sessionUserID(): int
     {
-        return $this->findAndMap()->getUserID();
+        return $this->findAndMap()->getId();
     }
 
     public function loginStatus(): bool

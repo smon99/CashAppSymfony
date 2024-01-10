@@ -4,7 +4,7 @@ namespace App\Component\Account\Business\Model;
 
 use App\Component\Account\Persistence\TransactionRepository;
 
-class Balance
+class Balance implements BalanceInterface
 {
     public function __construct(private readonly TransactionRepository $transactionRepository)
     {

@@ -10,7 +10,7 @@ class UserMapper
     public function entityToDto(User $user): UserDTO
     {
         $userDTO = new UserDTO();
-        $userDTO->userID = $user->getId();
+        $userDTO->id = $user->getId();
         $userDTO->username = $user->getUsername();
         $userDTO->email = $user->getEmail();
         $userDTO->password = $user->getPassword();

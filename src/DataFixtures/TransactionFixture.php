@@ -3,34 +3,80 @@
 namespace App\DataFixtures;
 
 use App\Entity\Transaction;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ObjectManager;
 
 
-class TransactionFixture extends Fixture
+class TransactionFixture extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        //timestamps created in normal php code are accurate. however the timestamps created by phpunit are delayed one hour
-        //therefore the timestamps below are also delayed one our so i can test exceptions referring to timestamps
-        $halfHourAgo = (new \DateTime())->sub(new \DateInterval('PT30M'));
-        $twoHoursAgo = (new \DateTime())->sub(new \DateInterval('PT3H'));
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $manager->getRepository(User::class);
+        $users = $userRepository->findAll();
 
         $transaction = new Transaction();
+
         $transaction->setPurpose('exception testing');
         $transaction->setValue(399.0);
-        $transaction->setUserID(1);
+        $transaction->setUserID($users[0]->getId());
+        $twoHoursAgo = (new \DateTime())->sub(new \DateInterval('PT3H'));
         $transaction->setCreatedAt($twoHoursAgo);
 
-        $transaction1 = new Transaction();
-        $transaction1->setPurpose('exception testing');
-        $transaction1->setValue(99.0);
-        $transaction1->setUserID(1);
-        $transaction1->setCreatedAt($halfHourAgo);
+        $manager->persist($transaction);
 
-        $manager->persist($transaction1);
+        $transaction = new Transaction();
+
+        $transaction->setPurpose('exception testing');
+        $transaction->setValue(99.0);
+        $transaction->setUserID($users[0]->getId());
+        $halfHourAgo = (new \DateTime())->sub(new \DateInterval('PT30M'));
+        $transaction->setCreatedAt($halfHourAgo);
+
+        $manager->persist($transaction);
+
+        $transaction = new Transaction();
+
+        $transaction->setPurpose('exception testing');
+        $transaction->setValue(399.0);
+        $transaction->setUserID($users[1]->getId());
+        $twoHoursAgo = (new \DateTime())->sub(new \DateInterval('PT3H'));
+        $transaction->setCreatedAt($twoHoursAgo);
+
+        $manager->persist($transaction);
+
+        $transaction = new Transaction();
+
+        $transaction->setPurpose('exception testing');
+        $transaction->setValue(29.99);
+        $transaction->setUserID($users[1]->getId());
+        $halfHourAgo = (new \DateTime())->sub(new \DateInterval('PT30M'));
+        $transaction->setCreatedAt($halfHourAgo);
+
         $manager->persist($transaction);
 
         $manager->flush();
     }
+
+    public function truncate(EntityManager $manager): void
+    {
+        $transactionRepository = $manager->getRepository(Transaction::class);
+
+        $transactions = $transactionRepository->findAll();
+        foreach ($transactions as $transation) {
+            $manager->remove($transation);
+        }
+        $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [UserFixture::class];
+    }
+
 }

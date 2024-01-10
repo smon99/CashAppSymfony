@@ -9,7 +9,6 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class DepositControllerTest extends WebTestCase
 {
@@ -84,7 +83,6 @@ class DepositControllerTest extends WebTestCase
 
         self::assertStringContainsString('Die Transaktion wurde erfolgreich gespeichert!', $this->client->getResponse()->getContent());
     }
-
 
     public function testSubmitSingleException(): void
     {

@@ -3,9 +3,10 @@
 namespace App\Component\Account\Business\Validation;
 
 
+use App\Component\Account\Business\Validation\Collection\AccountValidationException;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
-class AccountValidation
+class AccountValidation implements AccountValidationInterface
 {
 
     public function __construct(

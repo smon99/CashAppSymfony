@@ -8,7 +8,6 @@ use App\Component\Account\Business\Model\InputTransformer;
 use App\Component\Account\Business\Model\SetupDeposit;
 use App\Component\Account\Business\Model\SetupTransaction;
 use App\Component\Account\Business\Validation\AccountValidation;
-use App\Component\Account\Business\Validation\AccountValidationException;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
 use App\Component\User\Business\Model\UserInformation;
@@ -60,7 +59,7 @@ class AccountBusinessFacadeTest extends TestCase
         $this->userDTO->setUsername('Tester');
         $this->userDTO->setEmail('Tester@Tester.de');
         $this->userDTO->setPassword('Tester123#');
-        $this->userDTO->userID = 1;
+        $this->userDTO->id = 1;
     }
 
     public function testGetLoginStatus(): void
@@ -138,7 +137,7 @@ class AccountBusinessFacadeTest extends TestCase
             ->method('userByMail')
             ->willReturn($this->userDTO);
 
-        self::assertSame(1, $this->accountBusinessFacade->findByMail('Tester@Tester.de')->userID);
+        self::assertSame(1, $this->accountBusinessFacade->findByMail('Tester@Tester.de')->id);
     }
 
     public function testFindByUsername(): void
@@ -148,7 +147,7 @@ class AccountBusinessFacadeTest extends TestCase
             ->method('userByUsername')
             ->willReturn($this->userDTO);
 
-        self::assertSame(1, $this->accountBusinessFacade->findByUsername('Tester')->userID);
+        self::assertSame(1, $this->accountBusinessFacade->findByUsername('Tester')->id);
     }
 
     public function testSaveDeposit(): void
@@ -179,10 +178,10 @@ class AccountBusinessFacadeTest extends TestCase
         $userDTO = new UserDTO();
         $receiverDTO = new UserDTO();
 
-        $userDTO->userID = 1;
+        $userDTO->id = 1;
         $userDTO->username = 'testUser';
 
-        $receiverDTO->userID = 2;
+        $receiverDTO->id = 2;
         $receiverDTO->username = 'testReceiver';
 
         self::assertSame(5.0, $this->accountBusinessFacade->prepareTransaction($value, $userDTO, $receiverDTO)["receiver"]->value);

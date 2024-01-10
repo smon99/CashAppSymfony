@@ -4,6 +4,7 @@ namespace App\Component\User\Persistence;
 
 use App\Component\User\Persistence\Mapper\UserMapper;
 use App\DTO\UserDTO;
+use App\Entity\User;
 
 class UserRepository
 {
@@ -20,9 +21,14 @@ class UserRepository
         return $this->userMapper->entityToDto($match[0]);
     }
 
-    public function byEmail(string $email): UserDTO
+    public function byEmail(string $email): ?UserDTO
     {
-        $match = $this->userRepository->findBy(['email' => $email]);
-        return $this->userMapper->entityToDto($match[0]);
+        $match = $this->userRepository->findOneBy(['email' => $email]);
+
+        if($match instanceof User) {
+            return $this->userMapper->entityToDto($match);
+        }
+
+        return null;
     }
 }

@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Account\Business\Validation;
+namespace App\Component\Account\Business\Validation\Collection;
 
 use App\Component\Account\Business\Model\Balance;
 
-class DayValidator implements AccountValidationInterface
+class DayValidator implements AccountCollectionValidationInterface
 {
     public function __construct(private readonly Balance $balance)
     {

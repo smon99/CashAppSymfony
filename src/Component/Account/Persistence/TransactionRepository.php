@@ -3,6 +3,7 @@
 namespace App\Component\Account\Persistence;
 
 use App\Component\Account\Persistence\Mapper\TransactionMapper;
+use App\DTO\TransactionDTO;
 
 class TransactionRepository
 {
@@ -13,7 +14,11 @@ class TransactionRepository
     {
     }
 
-    public function byUserID(int $id): ?array
+    /**
+     * @param int $id
+     * @return TransactionDTO[]
+     */
+    public function byUserID(int $id): array
     {
         $userTransactions = [];
         $matches = $this->transactionRepository->findBy(['userID' => $id]);

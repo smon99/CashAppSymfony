@@ -4,8 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixture extends Fixture
 {
@@ -18,6 +18,18 @@ class UserFixture extends Fixture
 
         $manager->persist($user);
 
+        $user = new User();
+        $user->setEmail('john@email.com');
+        $user->setUsername('john');
+        $user->setPassword('Oaschloch');
+
+        $manager->persist($user);
+
         $manager->flush();
+    }
+
+    public function truncate(EntityManager $manager): void
+    {
+        $manager->getConnection()->executeStatement('TRUNCATE TABLE user;');
     }
 }

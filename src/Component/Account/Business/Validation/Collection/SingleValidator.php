@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Account\Business\Validation;
+namespace App\Component\Account\Business\Validation\Collection;
 
-class SingleValidator implements AccountValidationInterface
+class SingleValidator implements AccountCollectionValidationInterface
 {
     public function validate(float $amount, int $userID): void
     {
