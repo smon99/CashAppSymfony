@@ -9,7 +9,7 @@ class SetupDeposit
     public function prepareDeposit(float $value, int $userID): TransactionDTO
     {
         $accountDTO = new TransactionDTO();
-        $accountDTO->userID = $userID;
+        $accountDTO->userId = $userID;
         $accountDTO->purpose = "deposit";
         $accountDTO->createdAt = new \DateTime();
         $accountDTO->value = $value;

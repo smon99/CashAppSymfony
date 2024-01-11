@@ -22,14 +22,14 @@ class BalanceTest extends TestCase
     {
         $transaction1 = new TransactionDTO();
         $transaction1->transactionID = 1;
-        $transaction1->userID = 1;
+        $transaction1->userId = 1;
         $transaction1->value = 4.0;
         $transaction1->createdAt = new \DateTime();
         $transaction1->purpose = 'testing';
 
         $transaction2 = new TransactionDTO();
         $transaction2->transactionID = 2;
-        $transaction2->userID = 1;
+        $transaction2->userId = 1;
         $transaction2->value = 6.0;
         $transaction2->createdAt = new \DateTime();
         $transaction2->purpose = 'testing';
@@ -51,13 +51,13 @@ class BalanceTest extends TestCase
         $transaction2 = new TransactionDTO();
 
         $transaction1->transactionID = 1;
-        $transaction1->userID = 1;
+        $transaction1->userId = 1;
         $transaction1->value = 4.0;
         $transaction1->createdAt = new \DateTime();
         $transaction1->purpose = 'testing';
 
         $transaction2->transactionID = 2;
-        $transaction2->userID = 1;
+        $transaction2->userId = 1;
         $transaction2->value = 6.0;
         $transaction2->createdAt = new \DateTime();
         $transaction2->purpose = 'testing';
@@ -79,13 +79,13 @@ class BalanceTest extends TestCase
         $transaction2 = new TransactionDTO();
 
         $transaction1->transactionID = 1;
-        $transaction1->userID = 1;
+        $transaction1->userId = 1;
         $transaction1->value = 4.0;
         $transaction1->createdAt = new \DateTime();
         $transaction1->purpose = 'testing';
 
         $transaction2->transactionID = 2;
-        $transaction2->userID = 1;
+        $transaction2->userId = 1;
         $transaction2->value = 6.0;
         $transaction2->createdAt = new \DateTime();
         $transaction2->purpose = 'testing';

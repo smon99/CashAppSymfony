@@ -12,12 +12,12 @@ class SetupTransaction
         $sender = new TransactionDTO();
         $receiver = new TransactionDTO();
 
-        $sender->userID = $userDTO->id;
+        $sender->userId = $userDTO->id;
         $sender->purpose = 'Geldtransfer an ' . $receiverDTO->username;
         $sender->createdAt = new \DateTime();
         $sender->value = $value * (-1);
 
-        $receiver->userID = $receiverDTO->id;
+        $receiver->userId = $receiverDTO->id;
         $receiver->purpose = 'Zahlung erhalten von ' . $userDTO->username;
         $receiver->createdAt = new \DateTime();
         $receiver->value = $value;

@@ -14,7 +14,6 @@ class TransactionControllerTest extends WebTestCase
 {
     private ?KernelBrowser $client;
     private User $user;
-
     private EntityManagerInterface $entityManager;
 
     public function createAuthenticatedClient(): void
@@ -83,7 +82,7 @@ class TransactionControllerTest extends WebTestCase
         $this->client->submit($form);
         $this->client->followRedirect();
 
-        self::assertStringContainsString('', $this->client->getResponse()->getContent());
+        self::assertStringContainsString('Die Transaction wurde erfolgreich durchgeführt!', $this->client->getResponse()->getContent());
     }
 
     public function testActionWithInvalidForm(): void
@@ -100,6 +99,6 @@ class TransactionControllerTest extends WebTestCase
         $this->client->submit($form);
         $this->client->followRedirect();
 
-        self::assertStringContainsString('', $this->client->getResponse()->getContent());
+        self::assertStringContainsString('Guthaben zu gering!', $this->client->getResponse()->getContent());
     }
 }

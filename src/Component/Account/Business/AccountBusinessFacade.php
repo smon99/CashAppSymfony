@@ -9,8 +9,8 @@ use App\Component\Account\Business\Model\SetupTransaction;
 use App\Component\Account\Business\Validation\AccountValidation;
 use App\Component\Account\Persistence\TransactionEntityManager;
 use App\Component\Account\Persistence\TransactionRepository;
-use App\Component\User\Business\Model\UserInformation;
 use App\DTO\TransactionDTO;
+use App\DTO\TransactionValueObject;
 use App\DTO\UserDTO;
 
 class AccountBusinessFacade
@@ -22,25 +22,9 @@ class AccountBusinessFacade
         private readonly Balance                  $balance,
         private readonly TransactionRepository    $transactionRepository,
         private readonly TransactionEntityManager $transactionEntityManager,
-        private readonly UserInformation          $userInformation,
         private readonly AccountValidation        $accountValidation,
     )
     {
-    }
-
-    public function getLoginStatus(): bool
-    {
-        return $this->userInformation->loginStatus();
-    }
-
-    public function getSessionUsername(): string
-    {
-        return $this->userInformation->sessionUsername();
-    }
-
-    public function getSessionUserID(): int
-    {
-        return $this->userInformation->sessionUserID();
     }
 
     public function calculateBalance(int $userID): float
@@ -53,17 +37,7 @@ class AccountBusinessFacade
         return $this->transactionRepository->byUserID($userID);
     }
 
-    public function findByMail(string $email): ?UserDTO
-    {
-        return $this->userInformation->userByMail($email);
-    }
-
-    public function findByUsername(string $username): ?UserDTO
-    {
-        return $this->userInformation->userByUsername($username);
-    }
-
-    public function saveDeposit(TransactionDTO $accountDTO): void
+    public function saveDeposit(TransactionDTO|TransactionValueObject $accountDTO): void
     {
         $this->transactionEntityManager->create($accountDTO);
     }

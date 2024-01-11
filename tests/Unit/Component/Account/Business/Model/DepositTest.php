@@ -8,6 +8,7 @@ use App\Component\Account\Business\Validation\AccountValidationInterface;
 use App\Component\Account\Persistence\TransactionEntityManagerInterface;
 use App\Component\User\Business\UserBusinessFacadeInterface;
 use App\DTO\TransactionDTO;
+use App\DTO\TransactionValueObject;
 use App\DTO\UserDTO;
 use App\Entity\TransactionReceiverValue;
 use App\Entity\User;
@@ -19,11 +20,11 @@ class DepositTest extends TestCase
     {
         $transactionEntityManagerStub = new class implements TransactionEntityManagerInterface {
             /**
-             * @var TransactionDTO[]
+             * @var TransactionDTO[]|TransactionValueObject[]
              */
             public array $transactionDto = [];
 
-            public function create(TransactionDTO $accountDTO): void
+            public function create(TransactionDTO|TransactionValueObject $accountDTO): void
             {
                 $this->transactionDto[] = $accountDTO;
             }
@@ -45,12 +46,12 @@ class DepositTest extends TestCase
         self::assertCount(2, $transactionDto);
 
         self::assertSame(-1213.46, $transactionDto[0]->value);
-        self::assertSame($userEntity->getId(), $transactionDto[0]->userID);
+        self::assertSame($userEntity->getId(), $transactionDto[0]->userId);
         self::assertSame($receiverUserDto->getUsername(), $transactionDto[0]->purpose);
         self::assertLessThanOrEqual((new \DateTime())->getTimestamp(), $transactionDto[0]->createdAt->getTimestamp());
 
         self::assertSame(1213.46, $transactionDto[1]->value);
-        self::assertSame($receiverUserDto->getId(), $transactionDto[1]->userID);
+        self::assertSame($receiverUserDto->getId(), $transactionDto[1]->userId);
         self::assertSame($userEntity->getUsername(), $transactionDto[1]->purpose);
     }
 

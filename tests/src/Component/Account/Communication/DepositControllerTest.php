@@ -14,7 +14,6 @@ class DepositControllerTest extends WebTestCase
 {
     private ?KernelBrowser $client;
     private User $user;
-
     private EntityManagerInterface $entityManager;
 
     public function createAuthenticatedClient(): void

@@ -6,6 +6,7 @@ use App\Component\Account\Business\Validation\AccountValidationInterface;
 use App\Component\Account\Persistence\TransactionEntityManagerInterface;
 use App\Component\User\Business\UserBusinessFacadeInterface;
 use App\DTO\TransactionDTO;
+use App\DTO\TransactionValueObject;
 use App\DTO\UserDTO;
 use App\Entity\TransactionReceiverValue;
 use App\Entity\User;
@@ -37,12 +38,12 @@ class Deposit
 
         $this->accountValidation->collectErrors($value, $userEntity->getId());
 
-        $transactionDtoForSender = $this->createTransactionDto($value * (-1), $userEntity->getId(), $receiverUserDto->getUsername());
-        $this->transactionEntityManager->create($transactionDtoForSender);
 
-        $transactionDtoForReceiver = $this->createTransactionDto($value, $receiverUserDto->id, $userEntity->getUsername());
-        $this->transactionEntityManager->create($transactionDtoForReceiver);
+        $transactionValueObjectForSender = new TransactionValueObject(value: $value * (-1), userId: $userEntity->getId(), purpose:  $receiverUserDto->getUsername() );
+        $this->transactionEntityManager->create($transactionValueObjectForSender);
 
+        $transactionValueObjectForReceiver = new TransactionValueObject(value: $value, userId: $receiverUserDto->id, purpose:  $userEntity->getUsername() );
+        $this->transactionEntityManager->create($transactionValueObjectForReceiver);
     }
 
     private function toFloat(string $input): float
@@ -50,16 +51,4 @@ class Deposit
         $amount = str_replace(['.', ','], ['', '.'], $input);
         return (float)$amount;
     }
-
-    private function createTransactionDto(float $value, int $userId, string $userName): TransactionDTO
-    {
-        $receiver = new TransactionDTO();
-        $receiver->userID = $userId;
-        $receiver->purpose = $userName;
-        $receiver->createdAt = new \DateTime();
-        $receiver->value = $value;
-
-        return $receiver;
-    }
-
 }

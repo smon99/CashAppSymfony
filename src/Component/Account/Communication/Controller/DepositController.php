@@ -4,6 +4,7 @@ namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
 use App\Component\Account\Business\Validation\Collection\AccountValidationException;
+use App\DTO\TransactionValueObject;
 use App\Entity\DepositValue;
 use App\Form\DepositFormType;
 use App\Symfony\AbstractController;
@@ -57,8 +58,11 @@ class DepositController extends AbstractController
                 return $this->redirectToRoute('deposit', ['error' => $error]);
             }
         }
-        $saveData = $this->accountBusinessFacade->prepareDeposit($value, $activeUserID);
-        $this->accountBusinessFacade->saveDeposit($saveData);
+
+        $transactionValueObject = new TransactionValueObject(
+            value: $value, userId: $activeUserID
+        );
+        $this->accountBusinessFacade->saveDeposit($transactionValueObject);
 
         $success = 'Die Transaktion wurde erfolgreich gespeichert!';
         return $this->redirectToRoute('deposit', ['success' => $success]);

@@ -11,8 +11,6 @@ interface UserBusinessFacadeInterface
 
     public function findByEmail(string $email): ?UserDTO;
 
-    public function findByUsername(string $username): ?UserDTO;
-
     public function prepareUser(string $username, string $email, string $password): UserDTO;
 
     public function saveUser(UserDTO $userDTO): void;

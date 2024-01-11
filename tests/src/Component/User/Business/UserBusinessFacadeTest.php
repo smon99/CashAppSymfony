@@ -8,6 +8,7 @@ use App\Component\User\Persistence\Mapper\UserMapper;
 use App\Component\User\Persistence\UserEntityManager;
 use App\Component\User\Persistence\UserRepository;
 use App\DTO\UserDTO;
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserBusinessFacadeTest extends TestCase
@@ -64,5 +65,20 @@ class UserBusinessFacadeTest extends TestCase
             ->method('create');
 
         $this->userBusinessFacade->saveUser($newUser);
+    }
+
+    public function testToEntity(): void
+    {
+        $newUser = new UserDTO();
+        $newUser->username = 'Tester';
+        $newUser->email = 'Tester@Tester.de';
+        $newUser->password = 'Tester123#';
+
+        $userEntity = new User();
+        $userEntity->setUsername('Tester');
+        $userEntity->setEmail('Tester@Tester.de');
+        $userEntity->setPassword('Tester123#');
+
+        self::assertSame($userEntity->getUsername(), $this->userBusinessFacade->toEntity($newUser)->getUsername());
     }
 }

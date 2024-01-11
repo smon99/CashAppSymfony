@@ -23,6 +23,9 @@ class TransactionController extends AbstractController
     #[Route('/transaction', name: 'transaction')]
     public function action(Request $request): Response
     {
+        $error = $request->query->get('error');
+        $success = $request->query->get('success');
+
         $balance = $this->accountFacade->calculateBalance($this->getLoggedInUser()->getId());
         $transactionValue = new TransactionReceiverValue();
         $form = $this->createForm(TransactionFormType::class, $transactionValue);
@@ -41,8 +44,9 @@ class TransactionController extends AbstractController
         return $this->render('transaction.html.twig', [
             'title' => 'Transaction Controller',
             'balance' => $balance,
-            'loginStatus' => $this->accountFacade->getLoginStatus(),
             'form' => $form->createView(),
+            'error' => $error,
+            'success' => $success,
         ]);
     }
 }

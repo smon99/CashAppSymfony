@@ -23,27 +23,21 @@ class Balance implements BalanceInterface
 
     public function calculateBalancePerHour(int $userID): float
     {
-        $balance = 0.0;
-        $transactions = $this->transactionRepository->byUserID($userID);
-
-        $currentTime = new \DateTime();
-        $oneHourAgo = $currentTime->sub(new \DateInterval('PT1H'));
-
-        foreach ($transactions as $transaction) {
-            if ($transaction->createdAt > $oneHourAgo) {
-                $balance += $transaction->value;
-            }
-        }
-        return $balance;
+        return $this->calculateBalancePerHTime($userID, 'PT1H');
     }
 
     public function calculateBalancePerDay(int $userID): float
     {
+        return $this->calculateBalancePerHTime($userID, 'PT24H');
+    }
+
+    private function calculateBalancePerHTime(int $userId, string $time): float
+    {
         $balance = 0.0;
-        $transactions = $this->transactionRepository->byUserID($userID);
+        $transactions = $this->transactionRepository->byUserID($userId);
 
         $currentTime = new \DateTime();
-        $oneDayAgo = $currentTime->sub(new \DateInterval('PT24H'));
+        $oneDayAgo = $currentTime->sub(new \DateInterval($time));
 
         foreach ($transactions as $transaction) {
             if ($transaction->createdAt > $oneDayAgo) {

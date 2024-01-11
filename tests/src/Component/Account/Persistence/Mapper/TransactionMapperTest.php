@@ -30,7 +30,7 @@ class TransactionMapperTest extends TestCase
         $this->transactionDTO = new TransactionDTO();
         $this->transactionDTO->transactionID = 1;
         $this->transactionDTO->value = 1.0;
-        $this->transactionDTO->userID = 1;
+        $this->transactionDTO->userId = 1;
         $this->transactionDTO->createdAt = new \DateTime();
         $this->transactionDTO->purpose = 'testing';
     }

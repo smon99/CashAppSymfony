@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\src\Component\User\Persistence;
+namespace App\Tests\Unit\Component\User\Persistence;
 
 class UserEntityManagerTest
 {

@@ -21,6 +21,6 @@ class SetupDepositTest extends TestCase
 
         $preparedAccountDTO = $this->setupDeposit->prepareDeposit($value, $userID);
 
-        self::assertSame(1, $preparedAccountDTO->userID);
+        self::assertSame(1, $preparedAccountDTO->userId);
     }
 }

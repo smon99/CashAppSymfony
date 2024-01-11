@@ -18,10 +18,8 @@ class DepositTest extends KernelTestCase
 {
     private Deposit|null $deposit;
     private TransactionRepository|null $transactionRepository;
-
     private User $userOne;
     private User $userTwo;
-
     private EntityManagerInterface $entityManager;
 
 
@@ -53,7 +51,6 @@ class DepositTest extends KernelTestCase
 
         $transactionFixture = new TransactionFixture();
         $transactionFixture->truncate($entityManager);
-        $transactionFixture->load($entityManager);
 
         $entityManager = null;
 
@@ -91,10 +88,10 @@ class DepositTest extends KernelTestCase
         self::assertLessThanOrEqual((new \DateTime())->getTimestamp(), $lastTransaction->createdAt->getTimestamp());
     }
 
-    public function testCreatDepositWithExceptionWhenDailyLimitExceeded(): void
+    public function testCreatDepositWithExceptionWhenSingleLimitExceeded(): void
     {
         $this->expectException(AccountValidationException::class);
-        $this->expectExceptionMessage('Tägliches Einzahlungslimit von 500€ überschritten!');
+        $this->expectExceptionMessage('Bitte einen Betrag von mindestens 0.01€ und maximal 50€ eingeben!');
 
         $transactionReceiverValue = new TransactionReceiverValue();
         $transactionReceiverValue->setReceiver($this->userOne->getEmail());

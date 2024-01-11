@@ -6,7 +6,7 @@ class TransactionDTO
 {
     public int $transactionID = 0;
     public ?float $value = null;
-    public int $userID = 0;
+    public int $userId = 0;
     public string $purpose = '';
     public ?\DateTime $createdAt;
 
@@ -20,8 +20,8 @@ class TransactionDTO
         $this->value = $value;
     }
 
-    public function getUserID(): int
+    public function getUserId(): int
     {
-        return $this->userID;
+        return $this->userId;
     }
 }

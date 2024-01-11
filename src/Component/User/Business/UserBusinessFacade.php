@@ -30,11 +30,6 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
         return $this->userRepository->byEmail($email);
     }
 
-    public function findByUsername(string $username): ?UserDTO
-    {
-        return $this->userRepository->byUsername($username);
-    }
-
     public function prepareUser(string $username, string $email, string $password): UserDTO
     {
         return $this->setupUser->prepareUser($username, $email, $password);
