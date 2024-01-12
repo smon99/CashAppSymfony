@@ -2,9 +2,9 @@
 
 namespace App\Component\User\Communication\Controller;
 
+use App\Component\User\Business\Form\UserDTOType;
 use App\Component\User\Business\UserBusinessFacade;
 use App\DTO\UserDTO;
-use App\Form\UserDTOType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

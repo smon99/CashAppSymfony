@@ -3,10 +3,10 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
+use App\Component\Account\Business\Form\DepositFormType;
 use App\Component\Account\Business\Validation\Collection\AccountValidationException;
 use App\DTO\TransactionValueObject;
 use App\Entity\DepositValue;
-use App\Form\DepositFormType;
 use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

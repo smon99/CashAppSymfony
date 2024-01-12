@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Component\User\Business\Form;
 
 use App\DTO\UserDTO;
 use Symfony\Component\Form\AbstractType;

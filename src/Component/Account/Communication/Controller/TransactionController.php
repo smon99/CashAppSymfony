@@ -3,9 +3,9 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
+use App\Component\Account\Business\Form\TransactionFormType;
 use App\Component\Account\Business\Model\Deposit;
 use App\Entity\TransactionReceiverValue;
-use App\Form\TransactionFormType;
 use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
