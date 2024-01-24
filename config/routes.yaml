@@ -7,3 +7,6 @@ user_controllers:
 home_controllers:
   resource: '../src/Component/Home/Communication/Controller'
   type: annotation
+paypal_controllers:
+  resource: '../src/Component/Paypal/Communication/Controller'
+  type: annotation

@@ -4,7 +4,6 @@ namespace App\DTO;
 
 class DepositFormDTO
 {
-    //Properties
     public ?string $value = null;
 
     public function getValue(): ?string
