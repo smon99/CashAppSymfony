@@ -16,7 +16,7 @@ class Paypal
             'refund' => 'https://api-m.sandbox.paypal.com/v2/payments/captures/',
         ],
         false => [
-            'auth' => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
+            'auth' => 'https://api-m.sandbox.paypal.com/v2',
             'order' => 'https://api-m.sandbox.paypal.com/v2/checkout/orders/',
             'refund' => 'https://api-m.sandbox.paypal.com/v2/payments/captures/',
         ],
@@ -25,13 +25,14 @@ class Paypal
     private array $currentUrls;
 
     public function __construct(
-        private PaypalCredentials   $credentials,
-        private HttpClientInterface $client,
+        private PaypalCredentials     $credentials,
+        private HttpClientInterface   $client,
         private ParameterBagInterface $parameterBag
     )
     {
         $this->currentUrls = $this->urls[$this->credentials->paypalTest];
-        $this->parameterBag->get('paypal_secret');
+        $this->credentials->paypalClientId = $this->parameterBag->get('paypal_clientID');
+        $this->credentials->paypalSecret = $this->parameterBag->get('paypal_secret');
     }
 
     /**
@@ -40,16 +41,21 @@ class Paypal
     public function auth(): void
     {
         $response = $this->client->request('POST', $this->currentUrls['auth'], [
-            'auth' => [
+            'headers' => [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ],
+            'auth_basic' => [
                 $this->credentials->paypalClientId,
                 $this->credentials->paypalSecret,
             ],
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'body' => 'grant_type=client_credentials',
+            'body' => [
+                'grant_type' => 'client_credentials',
+            ],
         ]);
 
-        $content = $response->getContent();
-        $responseBodyArray = json_decode($content, true);
+        $responseBody = $response->getContent();
+        $responseBodyArray = json_decode($responseBody, true);
         $this->credentials->paypalAuthToken = $responseBodyArray['access_token'];
+        dd($responseBodyArray);
     }
 }
