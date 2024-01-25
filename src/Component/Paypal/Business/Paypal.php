@@ -58,12 +58,52 @@ class Paypal
         $this->credentials->paypalAuthToken = $responseBodyArray['access_token'];
     }
 
-    public function createOrder(): void
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function createOrder(): string
     {
         if ($this->credentials->paypalAuthToken === '') {
             $this->auth();
         }
 
         $this->credentials->paypalRequestId = uniqid(time() . 'Paypal', true);
+
+        $response = $this->client->request('POST', $this->currentUrls['order'], [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer ' . $this->credentials->paypalAuthToken,
+                'PayPal-Request-Id' => $this->credentials->paypalRequestId,
+            ],
+            'json' => [
+                'purchase_units' => [
+                    [
+                        'amount' => [
+                            'currency_code' => 'EUR',
+                            'value' => '10',
+                        ],
+                    ],
+                ],
+                'intent' => 'CAPTURE',
+                'payment_source' => [
+                    'paypal' => [
+                        'experience_context' => [
+                            'brand_name' => 'CashApp',
+                            'shipping_preference' => 'NO_SHIPPING',
+                            'landing_page' => 'LOGIN',
+                            'user_action' => 'PAY_NOW',
+                            'payment_method_preference' => 'IMMEDIATE_PAYMENT_REQUIRED',
+                            'locale' => 'de-DE',
+                            'return_url' => $this->credentials->returnUrl,
+                            'cancel_url' => $this->credentials->cancelUrl,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $responseBody = $response->getContent();
+        $responseBodyArray = json_decode($responseBody, true);
+        return $responseBodyArray['links'][1]['href'];
     }
 }

@@ -18,6 +18,8 @@ class PaypalController extends AbstractController
     #[Route('/paypal', name: 'app_paypal')]
     public function index(): Response
     {
+        $this->paypal->createOrder();
+
         return $this->render('paypal_test/index.html.twig', [
             'controller_name' => 'Paypal Controller',
         ]);
