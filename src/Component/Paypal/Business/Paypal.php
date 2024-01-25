@@ -16,7 +16,7 @@ class Paypal
             'refund' => 'https://api-m.sandbox.paypal.com/v2/payments/captures/',
         ],
         false => [
-            'auth' => 'https://api-m.sandbox.paypal.com/v2',
+            'auth' => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
             'order' => 'https://api-m.sandbox.paypal.com/v2/checkout/orders/',
             'refund' => 'https://api-m.sandbox.paypal.com/v2/payments/captures/',
         ],
@@ -56,6 +56,14 @@ class Paypal
         $responseBody = $response->getContent();
         $responseBodyArray = json_decode($responseBody, true);
         $this->credentials->paypalAuthToken = $responseBodyArray['access_token'];
-        dd($responseBodyArray);
+    }
+
+    public function createOrder(): void
+    {
+        if ($this->credentials->paypalAuthToken === '') {
+            $this->auth();
+        }
+
+        $this->credentials->paypalRequestId = uniqid(time() . 'Paypal', true);
     }
 }

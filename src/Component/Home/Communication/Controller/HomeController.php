@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        $activeUser = $this->getUser()->getUserIdentifier();
+        $activeUser = $this->getUser()?->getUserIdentifier();
         return $this->render('feature.html.twig', []);
     }
 }

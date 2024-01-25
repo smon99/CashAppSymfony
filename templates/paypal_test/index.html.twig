@@ -1,20 +1,134 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaypalTestController!{% endblock %}
+{% block title %}Paypal Controller{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/simondewendt/PhpstormProjects/CashAppSymfony/src/Controller/PaypalTestController.php'|file_link(0) }}">src/Controller/PaypalTestController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/simondewendt/PhpstormProjects/CashAppSymfony/templates/paypal_test/index.html.twig'|file_link(0) }}">templates/paypal_test/index.html.twig</a></code></li>
-    </ul>
-</div>
+        h1 {
+            color: #333;
+            text-align: center;
+            width: 100%;
+        }
+
+        .button {
+            background-color: #5e51d8;
+            color: white;
+            border: none;
+            padding: 8px 0;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background-color: #7c6bd7;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .user-info div,
+        .user-info form,
+        .user-info a {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info button {
+            padding: 8px 16px;
+            margin-right: 0;
+        }
+
+        .button-inline {
+            display: inline-block;
+            width: auto;
+            margin: 0;
+        }
+
+        .payment-section {
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .payment-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+    </style>
+
+    <div class="container">
+        <div class="user-info">
+            <div>
+                Angemeldet als: {{ app.user.username }}
+            </div>
+            <div>
+                <a href="{{ path('app_logout') }}" class="button-inline"
+                   style="text-decoration: none; margin-left: 10px;">
+                    <button class="button">Abmelden</button>
+                </a>
+                <a href="{{ path('app_home') }}" class="button-inline"
+                   style="text-decoration: none; margin-left: 10px;">
+                    <button class="button">Features</button>
+                </a>
+            </div>
+        </div>
+
+        <h1>{{ controller_name }}</h1>
+
+        <div class="payment-section" style="margin-bottom: 15px;">
+            Charge your balance via PayPal:
+        </div>
+
+        <div class="payment-buttons">
+            <button class="button">
+                10€
+            </button>
+
+            <button class="button">
+                25€
+            </button>
+
+            <button class="button">
+                50€
+            </button>
+        </div>
+    </div>
 {% endblock %}
