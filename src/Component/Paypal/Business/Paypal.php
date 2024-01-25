@@ -2,6 +2,7 @@
 
 namespace App\Component\Paypal\Business;
 
+use App\Component\Paypal\Business\Model\PaypalCredentials;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

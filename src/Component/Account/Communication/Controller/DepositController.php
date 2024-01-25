@@ -31,7 +31,7 @@ class DepositController extends AbstractController
         $depositValue = new DepositValue();
         $form = $this->createForm(DepositFormType::class, $depositValue);
 
-        return $this->render('new_deposit/index.html.twig', [
+        return $this->render('deposit/index.html.twig', [
             'controller_name' => 'Deposit Controller',
             'balance' => $balance,
             'error' => $error,
@@ -47,7 +47,7 @@ class DepositController extends AbstractController
         $form = $this->createForm(DepositFormType::class, $depositValue);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+        if ($form->isSubmitted()) {
             $value = $this->accountBusinessFacade->transformInput($depositValue->getValue());
             $activeUserID = $this->getLoggedInUser()->getId();
 

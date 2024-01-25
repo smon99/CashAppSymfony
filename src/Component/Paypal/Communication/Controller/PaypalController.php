@@ -20,7 +20,7 @@ class PaypalController extends AbstractController
     {
         $this->paypal->createOrder();
 
-        return $this->render('paypal_test/index.html.twig', [
+        return $this->render('paypal/index.html.twig', [
             'controller_name' => 'Paypal Controller',
         ]);
     }
