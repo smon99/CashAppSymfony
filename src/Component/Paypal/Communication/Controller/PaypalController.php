@@ -18,7 +18,9 @@ class PaypalController extends AbstractController
     #[Route('/paypal', name: 'app_paypal')]
     public function index(): Response
     {
-        $this->paypal->createOrder();
+        if (isset($_POST['paypalValue'])) {
+            return $this->redirect($this->paypal->createOrder($_POST['paypalValue']));
+        }
 
         return $this->render('paypal/index.html.twig', [
             'controller_name' => 'Paypal Controller',

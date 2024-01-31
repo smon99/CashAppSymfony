@@ -118,17 +118,26 @@
         </div>
 
         <div class="payment-buttons">
-            <button class="button">
-                10€
-            </button>
+            <form action="{{ path('app_paypal') }}" method="post">
+                <input type="hidden" name="paypalValue" value="10">
+                <button type="submit" class="button">
+                    10€
+                </button>
+            </form>
 
-            <button class="button">
-                25€
-            </button>
+            <form action="{{ path('app_paypal') }}" method="post">
+                <input type="hidden" name="paypalValue" value="25">
+                <button type="submit" class="button">
+                    25€
+                </button>
+            </form>
 
-            <button class="button">
-                50€
-            </button>
+            <form action="{{ path('app_paypal') }}" method="post">
+                <input type="hidden" name="paypalValue" value="50">
+                <button type="submit" class="button">
+                    50€
+                </button>
+            </form>
         </div>
     </div>
 {% endblock %}

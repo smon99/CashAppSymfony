@@ -14,12 +14,10 @@ class Paypal
         true => [
             'auth' => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
             'order' => 'https://api-m.sandbox.paypal.com/v2/checkout/orders/',
-            'refund' => 'https://api-m.sandbox.paypal.com/v2/payments/captures/',
         ],
         false => [
             'auth' => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
             'order' => 'https://api-m.sandbox.paypal.com/v2/checkout/orders/',
-            'refund' => 'https://api-m.sandbox.paypal.com/v2/payments/captures/',
         ],
     ];
 
@@ -62,7 +60,7 @@ class Paypal
     /**
      * @throws TransportExceptionInterface
      */
-    public function createOrder(): string
+    public function createOrder(string $value): string
     {
         if ($this->credentials->paypalAuthToken === '') {
             $this->auth();
@@ -81,7 +79,7 @@ class Paypal
                     [
                         'amount' => [
                             'currency_code' => 'EUR',
-                            'value' => '10',
+                            'value' => $value,
                         ],
                     ],
                 ],
@@ -106,5 +104,29 @@ class Paypal
         $responseBody = $response->getContent();
         $responseBodyArray = json_decode($responseBody, true);
         return $responseBodyArray['links'][1]['href'];
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function captureOrder(string $token): string
+    {
+        if ($this->credentials->paypalAuthToken === '') {
+            $this->auth();
+        }
+
+        $response = $this->client->request('POST', $this->currentUrls['order'] . $token . '/capture', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->credentials->paypalAuthToken,
+                'PayPal-Request-Id' => $this->credentials->paypalRequestId,
+                'Content-Type' => 'application/json',
+            ],
+        ]);
+
+        $responseBody = $response->getContent();
+
+        $responseBodyArray = json_decode($responseBody, true);
+
+        return $responseBodyArray['purchase_units'][0]['payments']['captures'][0]['id'];
     }
 }
