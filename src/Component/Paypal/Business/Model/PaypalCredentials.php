@@ -9,6 +9,6 @@ class PaypalCredentials
     public string $paypalClientId = '';
     public string $paypalRequestId = '';
     public string $paypalAuthToken = '';
-    public string $returnUrl = 'http://0.0.0.0:8000/';
-    public string $cancelUrl = 'http://0.0.0.0:8000/';
+    public string $returnUrl = 'http://0.0.0.0:8000/paypal/success';
+    public string $cancelUrl = 'http://0.0.0.0:8000/paypal';
 }
