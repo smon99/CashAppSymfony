@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Paypal\Business;
+namespace App\Component\Paypal\Business\Model;
 
-use App\Component\Paypal\Business\Model\PaypalCredentials;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -109,7 +108,7 @@ class Paypal
     /**
      * @throws TransportExceptionInterface
      */
-    public function captureOrder(string $token): string
+    public function captureOrder(string $token): array
     {
         if ($this->credentials->paypalAuthToken === '') {
             $this->auth();
@@ -127,6 +126,9 @@ class Paypal
 
         $responseBodyArray = json_decode($responseBody, true);
 
-        return $responseBodyArray['purchase_units'][0]['payments']['captures'][0]['id'];
+        return [
+            "captureID" => $responseBodyArray['purchase_units'][0]['payments']['captures'][0]['id'],
+            "value" => $responseBodyArray['purchase_units'][0]['payments']['captures'][0]['amount']['value'],
+        ];
     }
 }

@@ -9,7 +9,7 @@ class TransactionValueObject
     public function __construct(
         public readonly float   $value,
         public readonly int     $userId,
-        public readonly string  $purpose = 'deposit',
+        public readonly string  $purpose = 'Deposit',
         ?\DateTime              $createdAt = null,
         public readonly int     $transactionID = 0,
         public readonly ?string $paypalOrderId = null,

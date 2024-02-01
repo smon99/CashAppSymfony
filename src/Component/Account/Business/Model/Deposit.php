@@ -36,7 +36,6 @@ class Deposit
 
         $this->accountValidation->collectErrors($value, $userEntity->getId());
 
-
         $transactionValueObjectForSender = new TransactionValueObject(value: $value * (-1), userId: $userEntity->getId(), purpose: $receiverUserDto->getUsername());
         $this->transactionEntityManager->create($transactionValueObjectForSender);
 

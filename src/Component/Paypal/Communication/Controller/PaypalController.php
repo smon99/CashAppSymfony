@@ -2,10 +2,9 @@
 
 namespace App\Component\Paypal\Communication\Controller;
 
-use App\Component\Paypal\Business\Paypal;
 use App\Component\Paypal\Business\PaypalBusinessFacade;
+use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,8 +33,15 @@ class PaypalController extends AbstractController
     {
         $token = $request->query->get('token');
         $payerId = $request->query->get('PayerID');
+        $value = $this->paypalBusinessFacade->captureOrder($token)["value"];
 
-        $this->paypalBusinessFacade->captureOrder($token);
+        $credentials = [
+            "token" => $token,
+            "payer" => $payerId,
+            "value" => $value,
+        ];
+
+        $this->paypalBusinessFacade->paypalDeposit($this->getLoggedInUser(), $credentials);
 
         return $this->render('paypal/index.html.twig', [
             'controller_name' => 'Paypal Controller',
