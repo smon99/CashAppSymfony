@@ -128,7 +128,7 @@ class Paypal
 
         return [
             "captureID" => $responseBodyArray['purchase_units'][0]['payments']['captures'][0]['id'],
-            "value" => $responseBodyArray['purchase_units'][0]['payments']['captures'][0]['amount']['value'],
+            "value" => $responseBodyArray['purchase_units'][0]['payments']['captures'][0]['seller_receivable_breakdown']['net_amount']['value'],
         ];
     }
 }
