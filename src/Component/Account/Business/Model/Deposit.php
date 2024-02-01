@@ -5,9 +5,7 @@ namespace App\Component\Account\Business\Model;
 use App\Component\Account\Business\Validation\AccountValidationInterface;
 use App\Component\Account\Persistence\TransactionEntityManagerInterface;
 use App\Component\User\Business\UserBusinessFacadeInterface;
-use App\DTO\TransactionDTO;
 use App\DTO\TransactionValueObject;
-use App\DTO\UserDTO;
 use App\Entity\TransactionReceiverValue;
 use App\Entity\User;
 
@@ -39,10 +37,10 @@ class Deposit
         $this->accountValidation->collectErrors($value, $userEntity->getId());
 
 
-        $transactionValueObjectForSender = new TransactionValueObject(value: $value * (-1), userId: $userEntity->getId(), purpose:  $receiverUserDto->getUsername() );
+        $transactionValueObjectForSender = new TransactionValueObject(value: $value * (-1), userId: $userEntity->getId(), purpose: $receiverUserDto->getUsername());
         $this->transactionEntityManager->create($transactionValueObjectForSender);
 
-        $transactionValueObjectForReceiver = new TransactionValueObject(value: $value, userId: $receiverUserDto->id, purpose:  $userEntity->getUsername() );
+        $transactionValueObjectForReceiver = new TransactionValueObject(value: $value, userId: $receiverUserDto->id, purpose: $userEntity->getUsername());
         $this->transactionEntityManager->create($transactionValueObjectForReceiver);
     }
 

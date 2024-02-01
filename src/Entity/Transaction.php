@@ -26,6 +26,12 @@ class Transaction
     #[ORM\Column(length: 100)]
     private ?string $purpose = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $paypalOrderId = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $paypalPayerId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -82,5 +88,25 @@ class Transaction
         $this->purpose = $purpose;
 
         return $this;
+    }
+
+    public function getPaypalOrderId(): ?string
+    {
+        return $this->paypalOrderId;
+    }
+
+    public function setPaypalOrderId(?string $paypalOrderId): void
+    {
+        $this->paypalOrderId = $paypalOrderId;
+    }
+
+    public function getPaypalPayerId(): ?string
+    {
+        return $this->paypalPayerId;
+    }
+
+    public function setPaypalPayerId(?string $paypalPayerId): void
+    {
+        $this->paypalPayerId = $paypalPayerId;
     }
 }

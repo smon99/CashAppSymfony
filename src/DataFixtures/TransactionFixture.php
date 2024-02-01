@@ -27,6 +27,8 @@ class TransactionFixture extends Fixture implements DependentFixtureInterface
         $transaction->setUserID($users[0]->getId());
         $twoHoursAgo = (new \DateTime())->sub(new \DateInterval('PT3H'));
         $transaction->setCreatedAt($twoHoursAgo);
+        $transaction->setPaypalOrderId(null);
+        $transaction->setPaypalPayerId(null);
 
         $manager->persist($transaction);
 
@@ -37,6 +39,8 @@ class TransactionFixture extends Fixture implements DependentFixtureInterface
         $transaction->setUserID($users[0]->getId());
         $halfHourAgo = (new \DateTime())->sub(new \DateInterval('PT30M'));
         $transaction->setCreatedAt($halfHourAgo);
+        $transaction->setPaypalOrderId(null);
+        $transaction->setPaypalPayerId(null);
 
         $manager->persist($transaction);
 
@@ -47,6 +51,8 @@ class TransactionFixture extends Fixture implements DependentFixtureInterface
         $transaction->setUserID($users[1]->getId());
         $twoHoursAgo = (new \DateTime())->sub(new \DateInterval('PT3H'));
         $transaction->setCreatedAt($twoHoursAgo);
+        $transaction->setPaypalOrderId(null);
+        $transaction->setPaypalPayerId(null);
 
         $manager->persist($transaction);
 
@@ -57,6 +63,8 @@ class TransactionFixture extends Fixture implements DependentFixtureInterface
         $transaction->setUserID($users[1]->getId());
         $halfHourAgo = (new \DateTime())->sub(new \DateInterval('PT30M'));
         $transaction->setCreatedAt($halfHourAgo);
+        $transaction->setPaypalOrderId(null);
+        $transaction->setPaypalPayerId(null);
 
         $manager->persist($transaction);
 

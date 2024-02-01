@@ -16,6 +16,8 @@ class TransactionMapper
         $accountDTO->userId = $transaction->getUserID();
         $accountDTO->createdAt = $transaction->getCreatedAt();
         $accountDTO->purpose = $transaction->getPurpose();
+        $accountDTO->paypalOrderId = $transaction->getPaypalOrderId();
+        $accountDTO->paypalPayerId = $transaction->getPaypalPayerId();
 
         return $accountDTO;
     }
@@ -27,6 +29,8 @@ class TransactionMapper
         $transaction->setUserID($accountDTO->userId);
         $transaction->setCreatedAt($accountDTO->createdAt);
         $transaction->setPurpose($accountDTO->purpose);
+        $transaction->setPaypalOrderId($accountDTO->paypalOrderId);
+        $transaction->setPaypalPayerId($accountDTO->paypalPayerId);
 
         return $transaction;
     }

@@ -3,6 +3,7 @@
 namespace App\Component\Paypal\Communication\Controller;
 
 use App\Component\Paypal\Business\Paypal;
+use App\Component\Paypal\Business\PaypalBusinessFacade;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PaypalController extends AbstractController
 {
     public function __construct(
-        private readonly Paypal $paypal,
+        private readonly PaypalBusinessFacade $paypalBusinessFacade,
     )
     {
     }
@@ -20,7 +21,7 @@ class PaypalController extends AbstractController
     public function index(): Response
     {
         if (isset($_POST['paypalValue'])) {
-            return $this->redirect($this->paypal->createOrder($_POST['paypalValue']));
+            return $this->redirect($this->paypalBusinessFacade->createOrder($_POST['paypalValue']));
         }
 
         return $this->render('paypal/index.html.twig', [
@@ -34,7 +35,7 @@ class PaypalController extends AbstractController
         $token = $request->query->get('token');
         $payerId = $request->query->get('PayerID');
 
-        $this->paypal->captureOrder($token);
+        $this->paypalBusinessFacade->captureOrder($token);
 
         return $this->render('paypal/index.html.twig', [
             'controller_name' => 'Paypal Controller',

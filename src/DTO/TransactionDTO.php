@@ -9,6 +9,8 @@ class TransactionDTO
     public int $userId = 0;
     public string $purpose = '';
     public ?\DateTime $createdAt;
+    public ?string $paypalOrderId = null;
+    public ?string $paypalPayerId = null;
 
     public function getValue(): float
     {
