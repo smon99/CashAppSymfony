@@ -30,6 +30,10 @@
                 background-color: #685bd8;
             }
 
+            .btn-settings:hover {
+                background-color: #685bd8;
+            }
+
             .btn-logout:hover {
                 background-color: #1480ff;
             }
@@ -65,6 +69,13 @@
             <button class="btn-history"
                     style="width: 100%; background-color: #5e51d8; border: none; border-radius: 4px; color: #fff; padding: 12px 0; margin-bottom: 10px; cursor: pointer;">
                 Transaktionen einsehen
+            </button>
+        </a>
+
+        <a href="{{ path('app_user_settings') }}" style="text-decoration: none; width: 100%;">
+            <button class="btn-settings"
+                    style="width: 100%; background-color: #5e51d8; border: none; border-radius: 4px; color: #fff; padding: 12px 0; margin-bottom: 10px; cursor: pointer;">
+                Profil bearbeiten
             </button>
         </a>
 

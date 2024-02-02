@@ -44,4 +44,9 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
     {
         return $this->userMapper->dtoToEntity($userDTO);
     }
+
+    public function newPassword(User $user): string
+    {
+        return 'Dein neues Passwort wurde dir per Mail gesendet!';
+    }
 }

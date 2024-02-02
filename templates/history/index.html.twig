@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Transaction History</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+
+            table {
+                background-color: #fff;
+                border-radius: 15px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                width: 90%;
+                max-width: 800px;
+                margin-bottom: 20px;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #5e51d8;
+                color: #fff;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .btn-features {
+                background-color: #5e51d8;
+                border: none;
+                border-radius: 4px;
+                color: #fff;
+                padding: 12px 0;
+                margin-bottom: 10px;
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
+            }
+
+            .btn-features:hover {
+                background-color: #685bd8;
+            }
+        </style>
+    </head>
+    <body>
+    <div style="background-color: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 30px; width: 90%; max-width: 500px; display: flex; flex-direction: column; align-items: center;">
+        <h1>{{ title }}</h1>
+
+        <a href="{{ path('app_home') }}" class="btn-features">Features</a>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Purpose</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.createdAt|date("d.m.Y") }}</td>
+                    <td>{{ transaction.createdAt|date("H:i:s") }}</td>
+                    <td>{{ transaction.purpose }}</td>
+                    <td>{{ transaction.value }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </body>
+    </html>
+{% endblock %}

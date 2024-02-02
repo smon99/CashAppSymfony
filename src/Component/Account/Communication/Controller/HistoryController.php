@@ -18,7 +18,7 @@ class HistoryController extends AbstractController
     {
         $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->getLoggedInUser()->getId());
 
-        return $this->render('history.html.twig', [
+        return $this->render('history/index.html.twig', [
             'title' => 'History Controller',
             'transactions' => $transactions,
         ]);
