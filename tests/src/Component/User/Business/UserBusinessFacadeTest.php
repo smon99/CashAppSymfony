@@ -2,6 +2,7 @@
 
 namespace App\Tests\src\Component\User\Business;
 
+use App\Component\User\Business\Model\ModifyUser;
 use App\Component\User\Business\Model\SetupUser;
 use App\Component\User\Business\UserBusinessFacade;
 use App\Component\User\Persistence\Mapper\UserMapper;
@@ -18,12 +19,14 @@ class UserBusinessFacadeTest extends TestCase
     private UserRepository $userRepository;
     private UserBusinessFacade $userBusinessFacade;
     private UserMapper $userMapper;
+    private ModifyUser $modifyUser;
 
     protected function setUp(): void
     {
         //Mocks
         $this->userEntityManager = $this->createMock(UserEntityManager::class);
         $this->userRepository = $this->createMock(UserRepository::class);
+        $this->modifyUser = $this->createMock(ModifyUser::class);
 
         //Dependency
         $this->setupUser = new SetupUser();
@@ -35,6 +38,7 @@ class UserBusinessFacadeTest extends TestCase
             $this->userEntityManager,
             $this->userMapper,
             $this->userRepository,
+            $this->modifyUser,
         );
     }
 

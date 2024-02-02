@@ -2,6 +2,7 @@
 
 namespace App\Component\User\Business;
 
+use App\Component\User\Business\Model\ModifyUser;
 use App\Component\User\Business\Model\SetupUser;
 use App\Component\User\Persistence\Mapper\UserMapper;
 use App\Component\User\Persistence\UserEntityManager;
@@ -16,6 +17,7 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
         private readonly UserEntityManager $userEntityManager,
         private readonly UserMapper        $userMapper,
         private readonly UserRepository    $userRepository,
+        private readonly ModifyUser        $modifyUser,
     )
     {
     }
@@ -45,8 +47,18 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
         return $this->userMapper->dtoToEntity($userDTO);
     }
 
-    public function newPassword(User $user): string
+    public function newUsername(User $user, string $username): void
     {
-        return 'Dein neues Passwort wurde dir per Mail gesendet!';
+        $this->modifyUser->updateUsername($user, $username);
+    }
+
+    public function newEmail(User $user, string $email): void
+    {
+        $this->modifyUser->updateEmail($user, $email);
+    }
+
+    public function newPassword(User $user, string $password): void
+    {
+        $this->modifyUser->updatePassword($user, $password);
     }
 }
