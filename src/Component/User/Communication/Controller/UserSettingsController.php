@@ -30,7 +30,7 @@ class UserSettingsController extends AbstractController
     {
         if (isset($_POST['new_username'])) {
             $this->userBusinessFacade->newUsername($this->getLoggedInUser(), $_POST['new_username']);
-            return $this->redirectToRoute('app_user_settings');
+            return $this->redirectToRoute('app_logout');
         }
         return $this->render('user_settings/username.html.twig', []);
     }
@@ -40,7 +40,7 @@ class UserSettingsController extends AbstractController
     {
         if (isset($_POST['new_email'])) {
             $this->userBusinessFacade->newEmail($this->getLoggedInUser(), $_POST['new_email']);
-            return $this->redirectToRoute('app_user_settings');
+            return $this->redirectToRoute('app_logout');
         }
         return $this->render('user_settings/email.html.twig', []);
     }
@@ -50,7 +50,7 @@ class UserSettingsController extends AbstractController
     {
         if (isset($_POST['new_password'])) {
             $this->userBusinessFacade->newPassword($this->getLoggedInUser(), $_POST['new_password']);
-            return $this->redirectToRoute('app_user_settings');
+            return $this->redirectToRoute('app_logout');
         }
         return $this->render('user_settings/password.html.twig', []);
     }
