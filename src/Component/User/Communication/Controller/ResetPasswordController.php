@@ -31,10 +31,11 @@ class ResetPasswordController extends AbstractController
     {
     }
 
+
     /**
      * Display & process form to request a password reset.
      */
-    #[Route('/reset', name: 'app_forgot_password_request')]
+    #[Route('/reset-request', name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -91,6 +92,7 @@ class ResetPasswordController extends AbstractController
 
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
+            dump($user);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
                 '%s - %s',
