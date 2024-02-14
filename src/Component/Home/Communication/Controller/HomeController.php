@@ -3,6 +3,7 @@
 namespace App\Component\Home\Communication\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,5 +18,17 @@ class HomeController extends AbstractController
     {
         $activeUser = $this->getUser()?->getUserIdentifier();
         return $this->render('feature.html.twig', []);
+    }
+
+
+    #[Route('/json', name: 'app_home_Json')]
+    public function test(): Response
+    {
+        $activeUser = $this->getUser()?->getUserIdentifier();
+        return new JsonResponse([
+            'data' => [
+                'wow' => 'kurwa'
+            ]
+        ]);
     }
 }
