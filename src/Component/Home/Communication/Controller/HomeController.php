@@ -20,15 +20,14 @@ class HomeController extends AbstractController
         return $this->render('feature.html.twig', []);
     }
 
-
     #[Route('/json', name: 'app_home_Json')]
     public function test(): Response
     {
         $activeUser = $this->getUser()?->getUserIdentifier();
         return new JsonResponse([
             'data' => [
-                'wow' => 'kurwa'
-            ]
+                'wow' => 'kurwa',
+            ],
         ]);
     }
 }
