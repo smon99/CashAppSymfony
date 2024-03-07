@@ -15,6 +15,8 @@ security:
     main:
       lazy: true
       provider: users
+      json_login:
+        check_path: api_login
       form_login:
         login_path: app_login
         check_path: app_login

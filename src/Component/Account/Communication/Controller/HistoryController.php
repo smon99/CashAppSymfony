@@ -4,8 +4,10 @@ namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
 use App\Symfony\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class HistoryController extends AbstractController
 {
@@ -14,11 +16,11 @@ class HistoryController extends AbstractController
     }
 
     #[Route('/history', name: 'history')]
-    public function action(): Response
+    public function action(): JsonResponse
     {
         $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->getLoggedInUser()->getId());
 
-        return $this->render('history/index.html.twig', [
+        return new JsonResponse([
             'title' => 'History Controller',
             'transactions' => $transactions,
         ]);

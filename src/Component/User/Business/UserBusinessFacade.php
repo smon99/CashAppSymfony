@@ -2,6 +2,7 @@
 
 namespace App\Component\User\Business;
 
+use App\Component\User\Business\Model\AuthToken;
 use App\Component\User\Business\Model\ModifyUser;
 use App\Component\User\Business\Model\SetupUser;
 use App\Component\User\Persistence\Mapper\UserMapper;
@@ -9,15 +10,18 @@ use App\Component\User\Persistence\UserEntityManager;
 use App\Component\User\Persistence\UserRepository;
 use App\DTO\UserDTO;
 use App\Entity\User;
+use App\Repository\AccessTokenRepository;
 
 class UserBusinessFacade implements UserBusinessFacadeInterface
 {
     public function __construct(
-        private readonly SetupUser         $setupUser,
-        private readonly UserEntityManager $userEntityManager,
-        private readonly UserMapper        $userMapper,
-        private readonly UserRepository    $userRepository,
-        private readonly ModifyUser        $modifyUser,
+        private readonly SetupUser             $setupUser,
+        private readonly UserEntityManager     $userEntityManager,
+        private readonly UserMapper            $userMapper,
+        private readonly UserRepository        $userRepository,
+        private readonly ModifyUser            $modifyUser,
+        private readonly AuthToken             $authToken,
+        private readonly AccessTokenRepository $accessTokenRepository,
     )
     {
     }
@@ -60,5 +64,15 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
     public function newPassword(User $user, string $password): void
     {
         $this->modifyUser->updatePassword($user, $password);
+    }
+
+    public function generateAuthToken(User $user): string
+    {
+        return $this->authToken->createAccessToken($user);
+    }
+
+    public function getUserFromToken(string $accessToken): User
+    {
+        return $this->accessTokenRepository->findUserByToken($accessToken);
     }
 }

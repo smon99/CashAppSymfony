@@ -2,6 +2,7 @@
 
 namespace App\Tests\src\Component\User\Business;
 
+use App\Component\User\Business\Model\AuthToken;
 use App\Component\User\Business\Model\ModifyUser;
 use App\Component\User\Business\Model\SetupUser;
 use App\Component\User\Business\UserBusinessFacade;
@@ -10,6 +11,7 @@ use App\Component\User\Persistence\UserEntityManager;
 use App\Component\User\Persistence\UserRepository;
 use App\DTO\UserDTO;
 use App\Entity\User;
+use App\Repository\AccessTokenRepository;
 use PHPUnit\Framework\TestCase;
 
 class UserBusinessFacadeTest extends TestCase
@@ -17,9 +19,11 @@ class UserBusinessFacadeTest extends TestCase
     private SetupUser $setupUser;
     private UserEntityManager $userEntityManager;
     private UserRepository $userRepository;
+    private AccessTokenRepository $accessTokenRepository;
     private UserBusinessFacade $userBusinessFacade;
     private UserMapper $userMapper;
     private ModifyUser $modifyUser;
+    private AuthToken $authToken;
 
     protected function setUp(): void
     {
@@ -27,10 +31,12 @@ class UserBusinessFacadeTest extends TestCase
         $this->userEntityManager = $this->createMock(UserEntityManager::class);
         $this->userRepository = $this->createMock(UserRepository::class);
         $this->modifyUser = $this->createMock(ModifyUser::class);
+        $this->accessTokenRepository = $this->createMock(AccessTokenRepository::class);
 
         //Dependency
         $this->setupUser = new SetupUser();
         $this->userMapper = new UserMapper();
+        $this->authToken = new AuthToken($this->accessTokenRepository);
 
         //Main testing-subject
         $this->userBusinessFacade = new UserBusinessFacade(
@@ -39,6 +45,7 @@ class UserBusinessFacadeTest extends TestCase
             $this->userMapper,
             $this->userRepository,
             $this->modifyUser,
+            $this->authToken,
         );
     }
 
