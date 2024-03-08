@@ -27,7 +27,7 @@ class ApiLoginController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $token = $this->userBusinessFacade->generateAuthToken($user);
+        $token = $this->userBusinessFacade->generateAuthToken($user->getUsername());
 
         return $this->json([
             'user' => $user->getUserIdentifier(),

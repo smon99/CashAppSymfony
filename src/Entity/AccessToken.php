@@ -14,8 +14,8 @@ class AccessToken
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\JoinColumn(nullable: false)]
-    private ?object $User = null;
+    #[ORM\Column(length: 255)]
+    private ?string $User = null;
 
     #[ORM\Column(length: 255)]
     private ?string $token = null;
@@ -28,12 +28,12 @@ class AccessToken
         return $this->id;
     }
 
-    public function getUser(): ?object
+    public function getUser(): ?string
     {
         return $this->User;
     }
 
-    public function setUser(object $User): static
+    public function setUser(string $User): static
     {
         $this->User = $User;
 

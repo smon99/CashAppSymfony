@@ -41,7 +41,7 @@ class AuthToken implements AccessTokenHandlerInterface
         }
     }
 
-    public function createAccessToken(User $user): string
+    public function createAccessToken(string $user): string
     {
         $time = new \DateTimeImmutable();
 

@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\AccessToken;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,7 +21,7 @@ class AccessTokenRepository extends ServiceEntityRepository
         parent::__construct($registry, AccessToken::class);
     }
 
-    public function findUserByToken(string $token): ?User
+    public function findUserByToken(string $token): ?string
     {
         return $this->createQueryBuilder('t')
             ->leftJoin('t.ownedBy', 'u')
