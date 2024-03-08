@@ -2,6 +2,7 @@
 
 namespace App\Component\User\Business\Model;
 
+use App\Component\User\Persistence\AccessTokenEntityManager;
 use App\Entity\AccessToken;
 use App\Entity\User;
 use App\Repository\AccessTokenRepository;
@@ -12,7 +13,8 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 class AuthToken implements AccessTokenHandlerInterface
 {
     public function __construct(
-        private readonly AccessTokenRepository $accessTokenRepository,
+        private readonly AccessTokenRepository    $accessTokenRepository,
+        private readonly AccessTokenEntityManager $accessTokenEntityManager,
     )
     {
     }
@@ -47,6 +49,8 @@ class AuthToken implements AccessTokenHandlerInterface
         $accessToken->setToken('wip');
         $accessToken->setExpireDate($time->modify('+1 hour'));
         $accessToken->setUser($user);
+
+        $this->accessTokenEntityManager->create($accessToken);
 
         return $accessToken->getToken();
     }
