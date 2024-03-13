@@ -17,14 +17,13 @@ use App\Repository\AccessTokenRepository;
 class UserBusinessFacade implements UserBusinessFacadeInterface
 {
     public function __construct(
-        private readonly SetupUser                $setupUser,
-        private readonly UserEntityManager        $userEntityManager,
-        private readonly UserMapper               $userMapper,
-        private readonly UserRepository           $userRepository,
-        private readonly ModifyUser               $modifyUser,
-        private readonly AuthToken                $authToken,
-        private readonly AccessTokenRepository    $accessTokenRepository,
-        private readonly AccessTokenEntityManager $accessTokenEntityManager,
+        private readonly SetupUser             $setupUser,
+        private readonly UserEntityManager     $userEntityManager,
+        private readonly UserMapper            $userMapper,
+        private readonly UserRepository        $userRepository,
+        private readonly ModifyUser            $modifyUser,
+        private readonly AuthToken             $authToken,
+        private readonly AccessTokenRepository $accessTokenRepository,
     )
     {
     }
@@ -77,5 +76,10 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
     public function getUserFromToken(string $accessToken): User
     {
         return $this->accessTokenRepository->findUserByToken($accessToken);
+    }
+
+    public function clearOutdatedTokens(): void
+    {
+        $this->authToken->deleteOutdatedTokens();
     }
 }

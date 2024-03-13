@@ -23,7 +23,6 @@ class HomeController extends AbstractController
         return new JsonResponse([
             'username' => $activeUser->getUsername(),
             'balance' => $this->accountBusinessFacade->calculateBalance($activeUser->getId()),
-            'transactions' => $this->accountBusinessFacade->transactionsPerUserID($activeUser->getId()),
         ]);
     }
 }

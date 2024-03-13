@@ -45,6 +45,17 @@ class AccessTokenRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findOutdatedTokens(): array
+    {
+        $currentDateTime = new \DateTimeImmutable();
+
+        return $this->createQueryBuilder('at')
+            ->where('at.expireDate < :currentDateTime')
+            ->setParameter('currentDateTime', $currentDateTime)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return AccessToken[] Returns an array of AccessToken objects
 //     */

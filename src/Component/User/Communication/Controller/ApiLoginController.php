@@ -28,6 +28,7 @@ class ApiLoginController extends AbstractController
         }
 
         $token = $this->userBusinessFacade->generateAuthToken($user);
+        $this->userBusinessFacade->clearOutdatedTokens();
 
         return $this->json([
             'user' => $user->getUsername(),

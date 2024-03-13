@@ -18,4 +18,10 @@ class AccessTokenEntityManager
         $this->entityManager->persist($accessToken);
         $this->entityManager->flush();
     }
+
+    public function deleteToken(AccessToken $accessToken): void
+    {
+        $this->entityManager->remove($accessToken);
+        $this->entityManager->flush();
+    }
 }
