@@ -69,7 +69,7 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
         $this->modifyUser->updatePassword($user, $password);
     }
 
-    public function generateAuthToken(string $user): string
+    public function generateAuthToken(User $user): string
     {
         return $this->authToken->createAccessToken($user);
     }
@@ -77,10 +77,5 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
     public function getUserFromToken(string $accessToken): User
     {
         return $this->accessTokenRepository->findUserByToken($accessToken);
-    }
-
-    public function saveToken(AccessToken $accessToken): void
-    {
-        $this->accessTokenEntityManager->create($accessToken);
     }
 }

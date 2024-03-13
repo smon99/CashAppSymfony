@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AccessToken;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,10 +22,10 @@ class AccessTokenRepository extends ServiceEntityRepository
         parent::__construct($registry, AccessToken::class);
     }
 
-    public function findUserByToken(string $token): ?string
+    public function findUserByToken(string $token): ?User
     {
         return $this->createQueryBuilder('t')
-            ->leftJoin('t.ownedBy', 'u')
+            ->select('t.user')
             ->andWhere('t.token = :token')
             ->setParameter('token', $token)
             ->getQuery()
@@ -36,14 +37,14 @@ class AccessTokenRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
             ->select('t')
-            ->leftJoin('t.User', 'u')
-            ->andWhere('u.id = :userId')
+            ->andWhere('t.user = :userId')
             ->setParameter('userId', $userId)
             ->orderBy('t.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
+
 //    /**
 //     * @return AccessToken[] Returns an array of AccessToken objects
 //     */

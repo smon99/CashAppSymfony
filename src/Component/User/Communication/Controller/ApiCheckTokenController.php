@@ -14,22 +14,21 @@ class ApiCheckTokenController extends AbstractController
     (
         private readonly UserBusinessFacade $userBusinessFacade
     )
-    {}
+    {
+    }
 
     #[Route('/api/check-token', name: 'api_check_token')]
     public function checkToken(Request $request): Response
     {
-        $user = null;
-        $accessToken = $request->headers->get('Authorization');
+        $user = $this->getLoggedInUser()->getUsername();
 
-        if ($accessToken !== null)
-        {
+        if ($accessToken !== null) {
             $user = $this->userBusinessFacade->getUserFromToken($accessToken);
         }
 
         return $this->json([
             'valid' => true,
-            'user' => $user
+            'username' => $user,
         ]);
     }
 }

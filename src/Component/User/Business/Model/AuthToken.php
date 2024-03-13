@@ -23,25 +23,25 @@ class AuthToken implements AccessTokenHandlerInterface
     {
         $token = $this->accessTokenRepository->findOneBy(['token' => $accessToken]);
 
-        if (!$accessToken) {
+        if (!$token) {
             throw new BadCredentialsException();
         }
 
         $this->validateToken($token);
 
-        return new UserBadge($token->getUser()->getUserIdentifyer);
+        return new UserBadge($token->getUser());
     }
 
     public function validateToken(AccessToken $accessToken): void
     {
         $time = new \DateTimeImmutable();
 
-        if ($accessToken->getExpireDate() && $accessToken->getToken() < $time) {
+        if ($accessToken->getExpireDate() < $time) {
             throw new BadCredentialsException('Token no longer valid!');
         }
     }
 
-    public function createAccessToken(string $user): string
+    public function createAccessToken(User $user): string
     {
         $time = new \DateTimeImmutable();
 
