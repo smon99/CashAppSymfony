@@ -24,13 +24,17 @@ class AccessTokenRepository extends ServiceEntityRepository
 
     public function findUserByToken(string $token): ?User
     {
-        return $this->createQueryBuilder('t')
-            ->select('t.user')
+        $accessToken = $this->createQueryBuilder('t')
             ->andWhere('t.token = :token')
             ->setParameter('token', $token)
             ->getQuery()
-            ->getOneOrNullResult()
-            ->getUser();
+            ->getOneOrNullResult();
+
+        if ($accessToken === null) {
+            return null;
+        }
+
+        return $accessToken->getUser();
     }
 
     public function findMostRecentEntityByUserId(int $userId): ?AccessToken
@@ -43,6 +47,15 @@ class AccessTokenRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function findDuplicateEntityByUserId(int $userId): array
+    {
+        return $this->createQueryBuilder('at')
+            ->where('at.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
     }
 
     public function findOutdatedTokens(): array

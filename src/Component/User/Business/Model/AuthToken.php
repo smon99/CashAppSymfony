@@ -51,6 +51,15 @@ class AuthToken implements AccessTokenHandlerInterface
         }
     }
 
+    public function deleteDuplicateTokens(int $userID): void
+    {
+        $results = $this->accessTokenRepository->findDuplicateEntityByUserId($userID);
+
+        foreach ($results as $result) {
+            $this->accessTokenEntityManager->deleteToken($result);
+        }
+    }
+
     public function createAccessToken(User $user): string
     {
         $randomBytes = random_bytes(16);

@@ -73,7 +73,7 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
         return $this->authToken->createAccessToken($user);
     }
 
-    public function getUserFromToken(string $accessToken): User
+    public function getUserFromToken(string $accessToken): ?User
     {
         return $this->accessTokenRepository->findUserByToken($accessToken);
     }
@@ -81,5 +81,10 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
     public function clearOutdatedTokens(): void
     {
         $this->authToken->deleteOutdatedTokens();
+    }
+
+    public function clearDuplicateTokens(int $userID): void
+    {
+        $this->authToken->deleteDuplicateTokens($userID);
     }
 }

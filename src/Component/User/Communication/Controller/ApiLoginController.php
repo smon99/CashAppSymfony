@@ -27,11 +27,12 @@ class ApiLoginController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
         }
 
+        $this->userBusinessFacade->clearDuplicateTokens($user->getId());
         $token = $this->userBusinessFacade->generateAuthToken($user);
         $this->userBusinessFacade->clearOutdatedTokens();
 
         return $this->json([
-            'user' => $user->getUsername(),
+            'user' => $user->getUserIdentifier(),
             'token' => $token,
         ]);
     }
