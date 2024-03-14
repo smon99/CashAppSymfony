@@ -32,14 +32,15 @@ class AuthToken implements AccessTokenHandlerInterface
         return new UserBadge($token->getUser()->getUserIdentifier());
     }
 
-    public function validateToken(AccessToken $accessToken): void
+    public function validateToken(AccessToken $accessToken): bool
     {
         $time = new \DateTimeImmutable();
 
         if ($accessToken->getExpireDate() < $time) {
             $this->accessTokenEntityManager->deleteToken($accessToken);
-            throw new BadCredentialsException('Token no longer valid!');
+            return false;
         }
+        return true;
     }
 
     public function deleteOutdatedTokens(): void

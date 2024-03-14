@@ -73,6 +73,11 @@ class UserBusinessFacade implements UserBusinessFacadeInterface
         return $this->authToken->createAccessToken($user);
     }
 
+    public function validateToken(int $userID): bool
+    {
+        return $this->authToken->validateToken($this->accessTokenRepository->findMostRecentEntityByUserId($userID));
+    }
+
     public function getUserFromToken(string $accessToken): ?User
     {
         return $this->accessTokenRepository->findUserByToken($accessToken);

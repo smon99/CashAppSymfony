@@ -21,15 +21,18 @@ class ApiCheckTokenController extends AbstractController
     public function checkToken(Request $request): Response
     {
         $user = null;
+        $valid = false;
         $token = $request->headers->get('Authorization');
 
         if ($token !== null) {
             $user = $this->userBusinessFacade->getUserFromToken($token);
+            $valid = $this->userBusinessFacade->validateToken($user->getId());
         }
 
         return $this->json([
             'username' => $user->getUsername(),
             'Authorization' => $token,
+            'valid' => $valid,
         ]);
     }
 }
