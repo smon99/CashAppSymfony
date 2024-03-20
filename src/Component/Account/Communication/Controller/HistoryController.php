@@ -3,22 +3,27 @@
 namespace App\Component\Account\Communication\Controller;
 
 use App\Component\Account\Business\AccountBusinessFacade;
+use App\Component\User\Business\UserBusinessFacade;
 use App\Symfony\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class HistoryController extends AbstractController
 {
-    public function __construct(private readonly AccountBusinessFacade $accountBusinessFacade)
+    public function __construct(
+        private readonly AccountBusinessFacade $accountBusinessFacade,
+        private readonly UserBusinessFacade    $userBusinessFacade,
+    )
     {
     }
 
     #[Route('/history', name: 'history')]
-    public function action(): JsonResponse
+    public function action(Request $request): JsonResponse
     {
-        $transactions = $this->accountBusinessFacade->transactionsPerUserID($this->getLoggedInUser()->getId());
+        $token = $request->headers->get('Authorization');
+        $activeUser = $this->userBusinessFacade->getUserFromToken($token);
+        $transactions = $this->accountBusinessFacade->transactionsPerUserID($activeUser->getId());
 
         return new JsonResponse([
             'title' => 'History Controller',
